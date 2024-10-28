@@ -1,0 +1,92 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <!-- font settings -->
+    <FontFamily x:Key="InertGas.DefaultFontFamily">Segoe UI</FontFamily>
+    <system:Double x:Key="InertGas.DefaultFontSize">13</system:Double>
+
+    <FontFamily x:Key="InertGas.FixedFontFamily">Consolas</FontFamily>
+    <system:Double x:Key="InertGas.FixedFontSize">13.333</system:Double>
+
+    <system:Double x:Key="InertGas.SmallFontSize">11</system:Double>
+
+    <system:Double x:Key="InertGas.SmallMarginSize">2.5</system:Double>
+    <system:Double x:Key="InertGas.DefaultMarginSize">5</system:Double>
+    <system:Double x:Key="InertGas.MediumMarginSize">12.5</system:Double>
+    <system:Double x:Key="InertGas.LargeMarginSize">20</system:Double>
+
+    <GridLength x:Key="InertGas.SmallMarginGridLength">2.5</GridLength>
+    <GridLength x:Key="InertGas.DefaultMarginGridLength">5</GridLength>
+    <GridLength x:Key="InertGas.MediumMarginGridLength">12.5</GridLength>
+    <GridLength x:Key="InertGas.LargeMarginGridLength">20</GridLength>
+
+    <system:Double x:Key="InertGas.DefaultButtonHeight">35</system:Double>
+
+    <system:Double x:Key="InertGas.SplashScreenLogoHeight">125</system:Double>
+
+    <Thickness x:Key="InertGas.DefaultBorderThickness">0.25</Thickness>
+
+    <Thickness
+        x:Key="InertGas.SmallMarginThickness"
+        Bottom="{StaticResource InertGas.SmallMarginSize}"
+        Left="{StaticResource InertGas.SmallMarginSize}"
+        Right="{StaticResource InertGas.SmallMarginSize}"
+        Top="{StaticResource InertGas.SmallMarginSize}" />
+
+    <Thickness
+        x:Key="InertGas.DefaultMarginThickness"
+        Bottom="{StaticResource InertGas.DefaultMarginSize}"
+        Left="{StaticResource InertGas.DefaultMarginSize}"
+        Right="{StaticResource InertGas.DefaultMarginSize}"
+        Top="{StaticResource InertGas.DefaultMarginSize}" />
+
+    <Thickness
+        x:Key="InertGas.MediumMarginThickness"
+        Bottom="{StaticResource InertGas.MediumMarginSize}"
+        Left="{StaticResource InertGas.MediumMarginSize}"
+        Right="{StaticResource InertGas.MediumMarginSize}"
+        Top="{StaticResource InertGas.MediumMarginSize}" />
+
+    <Thickness
+        x:Key="InertGas.LargeMarginThickness"
+        Bottom="{StaticResource InertGas.LargeMarginSize}"
+        Left="{StaticResource InertGas.LargeMarginSize}"
+        Right="{StaticResource InertGas.LargeMarginSize}"
+        Top="{StaticResource InertGas.LargeMarginSize}" />
+
+    <Thickness
+        x:Key="InertGas.NavBarMarginThickness"
+        Bottom="0"
+        Left="125"
+        Right="125"
+        Top="35" />
+
+    <Thickness
+        x:Key="InertGas.PanelMarginThickness"
+        Bottom="{StaticResource InertGas.DefaultMarginSize}"
+        Left="{StaticResource InertGas.DefaultMarginSize}"
+        Right="{StaticResource InertGas.MediumMarginSize}"
+        Top="{StaticResource InertGas.DefaultMarginSize}" />
+
+    <Thickness
+        x:Key="InertGas.PanelContentMarginThickness"
+        Bottom="0"
+        Left="10"
+        Right="0"
+        Top="0" />
+
+    <Thickness
+        x:Key="InertGas.StatsDisplayMarginThickness"
+        Bottom="50"
+        Left="275"
+        Right="275"
+        Top="50" />
+
+    <CornerRadius x:Key="InertGas.DefaultCornerRadius">10</CornerRadius>
+    <CornerRadius x:Key="InertGas.ButtonCornerRadius">5</CornerRadius>
+    <CornerRadius x:Key="InertGas.CloseButtonWidth">40</CornerRadius>
+    <CornerRadius x:Key="InertGas.SystemButtonHeight">35</CornerRadius>
+    <CornerRadius x:Key="InertGas.SystemButtonWidth">40</CornerRadius>
+
+</ResourceDictionary>

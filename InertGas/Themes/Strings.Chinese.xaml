@@ -1,0 +1,75 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <system:Double x:Key="InertGas.SplashScreenLogoHeight">200</system:Double>
+
+    <FontFamily x:Key="InertGas.DefaultFontFamily">Microsoft YaHei</FontFamily>
+
+    <Thickness
+        x:Key="InertGas.NavBarMarginThickness"
+        Bottom="0"
+        Left="125"
+        Right="125"
+        Top="45" />
+
+    <Thickness
+        x:Key="InertGas.StatsDisplayMarginThickness"
+        Bottom="50"
+        Left="200"
+        Right="200"
+        Top="50" />
+
+    <system:String x:Key="InertGas.Common.Cancel">取消</system:String>
+    <system:String x:Key="InertGas.Common.Close">关闭</system:String>
+    <system:String x:Key="InertGas.Common.No">否</system:String>
+    <system:String x:Key="InertGas.Common.OK">OK</system:String>
+    <system:String x:Key="InertGas.Common.Success">成功</system:String>
+    <system:String x:Key="InertGas.Common.Title">多道系统</system:String>
+    <system:String x:Key="InertGas.Common.Yes">确定</system:String>
+
+    <system:String x:Key="InertGas.Application.Amplitude">幅值</system:String>
+    <system:String x:Key="InertGas.Application.BiasCorrection">本底修正</system:String>
+    <system:String x:Key="InertGas.Application.Calculate">计算</system:String>
+    <system:String x:Key="InertGas.Application.ChangePath">更改路径</system:String>
+    <system:String x:Key="InertGas.Application.ChannelToEnergy">道数到能量</system:String>
+    <system:String x:Key="InertGas.Application.Coefficient">系数</system:String>
+    <system:String x:Key="InertGas.Application.CollectDuration">采集时间</system:String>
+    <system:String x:Key="InertGas.Application.Constant">常量</system:String>
+    <system:String x:Key="InertGas.Application.CountChannel">计数 道数</system:String>
+    <system:String x:Key="InertGas.Application.EnergyChannel">能量 道数</system:String>
+    <system:String x:Key="InertGas.Application.Error">错误</system:String>
+    <system:String x:Key="InertGas.Application.ExportPlotToPdf">输出图表为PDF</system:String>
+    <system:String x:Key="InertGas.Application.FitGaussian">高斯拟合</system:String>
+    <system:String x:Key="InertGas.Application.From">从</system:String>
+    <system:String x:Key="InertGas.Application.Functions">函数</system:String>
+    <system:String x:Key="InertGas.Application.Gain">增益值</system:String>
+    <system:String x:Key="InertGas.Application.InitialThreshold">起始阈值</system:String>
+    <system:String x:Key="InertGas.Application.MaximumAt">最大计数在</system:String>
+    <system:String x:Key="InertGas.Application.MaximumCount">最大计数值</system:String>
+    <system:String x:Key="InertGas.Application.Mean">均值</system:String>
+    <system:String x:Key="InertGas.Application.MergedBy">合并每</system:String>
+    <system:String x:Key="InertGas.Application.MergedChannel">合并道</system:String>
+    <system:String x:Key="InertGas.Application.Negative">负信号</system:String>
+    <system:String x:Key="InertGas.Application.Notice">通知</system:String>
+    <system:String x:Key="InertGas.Application.Parameter">参数</system:String>
+    <system:String x:Key="InertGas.Application.Positive">正信号</system:String>
+    <system:String x:Key="InertGas.Application.SaveFileToPathMessageFormat">文件已保存至路径:{0}</system:String>
+    <system:String x:Key="InertGas.Application.Set">设置</system:String>
+    <system:String x:Key="InertGas.Application.Sigma">标准差</system:String>
+    <system:String x:Key="InertGas.Application.SignalBaseline">信号基线</system:String>
+    <system:String x:Key="InertGas.Application.SignalSign">信号极性</system:String>
+    <system:String x:Key="InertGas.Application.StartToCollect">开始采集</system:String>
+    <system:String x:Key="InertGas.Application.StartSerialCommunication">开始通信</system:String>
+    <system:String x:Key="InertGas.Application.StopAndReset">停止并复位</system:String>
+    <system:String x:Key="InertGas.Application.StopSerialCommunication">停止通信</system:String>
+    <system:String x:Key="InertGas.Application.TimeInterval">时间门</system:String>
+    <system:String x:Key="InertGas.Application.To">到</system:String>
+    <system:String x:Key="InertGas.Application.ToLn">对数道</system:String>
+    <system:String x:Key="InertGas.Application.UpdateToPlot">更新图表</system:String>
+    <system:String x:Key="InertGas.Application.Value">值</system:String>
+    <system:String x:Key="InertGas.Application.WorkingDirectory">工作路径:</system:String>
+    <system:String x:Key="InertGas.Application.XValue">X 值</system:String>
+
+</ResourceDictionary>

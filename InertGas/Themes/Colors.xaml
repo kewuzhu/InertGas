@@ -1,0 +1,145 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="InertGas.WindowBackgroundColor">#252526</Color>
+    <Color x:Key="InertGas.AccentColor">#1ba1e2</Color>
+
+    <SolidColorBrush x:Key="InertGas.Accent">#1ba1e2</SolidColorBrush>
+    <SolidColorBrush x:Key="InertGas.DefaultForegroundColor">#d1d1d1</SolidColorBrush>
+    <SolidColorBrush x:Key="InertGas.Red">#FF0000</SolidColorBrush>
+    <SolidColorBrush x:Key="InertGas.LightRed">#FF5555</SolidColorBrush>
+    <SolidColorBrush x:Key="InertGas.DarkRed">#9B0000</SolidColorBrush>
+    <SolidColorBrush x:Key="InertGas.Green">#00FF00</SolidColorBrush>
+    <SolidColorBrush x:Key="InertGas.LightGreen">#55FF55</SolidColorBrush>
+    <SolidColorBrush x:Key="InertGas.DarkGreen">#009B00</SolidColorBrush>
+
+    <SolidColorBrush x:Key="InertGas.ButtonBackground" Color="#333333" />
+    <SolidColorBrush x:Key="InertGas.ButtonBackgroundHover" Color="#3e3e42" />
+    <SolidColorBrush x:Key="InertGas.ButtonBackgroundPressed" Color="{DynamicResource InertGas.AccentColor}" />
+    <SolidColorBrush x:Key="InertGas.ButtonBorder" Color="#333333" />
+    <SolidColorBrush x:Key="InertGas.ButtonBorderHover" Color="#3e3e42" />
+    <SolidColorBrush x:Key="InertGas.ButtonBorderPressed" Color="{DynamicResource InertGas.AccentColor}" />
+    <SolidColorBrush x:Key="InertGas.ButtonText" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.ButtonTextHover" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.ButtonTextPressed" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.ButtonTextDisabled" Color="#515151" />
+
+    <SolidColorBrush x:Key="InertGas.DataGridBackground" Color="Transparent" />
+    <SolidColorBrush x:Key="InertGas.DataGridForeground" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.DataGridCellBackground" Color="Transparent" />
+    <SolidColorBrush x:Key="InertGas.DataGridCellBackgroundHover" Color="#3e3e42" />
+    <SolidColorBrush x:Key="InertGas.DataGridCellBackgroundSelected" Color="{DynamicResource InertGas.AccentColor}" />
+    <SolidColorBrush x:Key="InertGas.DataGridCellForeground" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.DataGridCellForegroundHover" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.DataGridCellForegroundSelected" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.DataGridHeaderBackground" Color="Transparent" />
+    <SolidColorBrush x:Key="InertGas.DataGridHeaderBackgroundHover" Color="#3e3e42" />
+    <SolidColorBrush x:Key="InertGas.DataGridHeaderBackgroundPressed" Color="{DynamicResource InertGas.AccentColor}" />
+    <SolidColorBrush x:Key="InertGas.DataGridHeaderBackgroundSelected" Color="{DynamicResource InertGas.AccentColor}" />
+    <SolidColorBrush x:Key="InertGas.DataGridHeaderForeground" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.DataGridHeaderForegroundHover" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.DataGridHeaderForegroundPressed" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.DataGridHeaderForegroundSelected" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.DataGridGridLines" Color="#333333" />
+    <SolidColorBrush x:Key="InertGas.DataGridDropSeparator" Color="{DynamicResource InertGas.AccentColor}" />
+
+    <SolidColorBrush x:Key="InertGas.Hyperlink" Color="{DynamicResource InertGas.AccentColor}" />
+    <SolidColorBrush x:Key="InertGas.HyperlinkHover" Color="{DynamicResource InertGas.AccentColor}" />
+    <SolidColorBrush x:Key="InertGas.HyperlinkDisabled" Color="#717171" />
+
+    <SolidColorBrush x:Key="InertGas.InputBackground" Color="#333333" />
+    <SolidColorBrush x:Key="InertGas.InputBackgroundHover" Color="#3e3e42" />
+    <SolidColorBrush x:Key="InertGas.InputBorder" Color="#333333" />
+    <SolidColorBrush x:Key="InertGas.InputBorderHover" Color="#3e3e42" />
+    <SolidColorBrush x:Key="InertGas.InputText" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.InputTextHover" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.InputTextDisabled" Color="#717171" />
+
+    <SolidColorBrush x:Key="InertGas.ItemBackgroundHover" Color="#3e3e42" />
+    <SolidColorBrush x:Key="InertGas.ItemBackgroundSelected" Color="{DynamicResource InertGas.AccentColor}" />
+    <SolidColorBrush x:Key="InertGas.ItemBorder" Color="#3e3e42" />
+    <SolidColorBrush x:Key="InertGas.ItemText" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.ItemTextSelected" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.ItemTextHover" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.ItemTextDisabled" Color="#717171" />
+
+    <SolidColorBrush x:Key="InertGas.LinkButtonText" Color="#717171" />
+    <SolidColorBrush x:Key="InertGas.LinkButtonTextHover" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.LinkButtonTextPressed" Color="#515151" />
+    <SolidColorBrush x:Key="InertGas.LinkButtonTextDisabled" Color="#515151" />
+
+    <SolidColorBrush x:Key="InertGas.MenuText" Color="#515151" />
+    <SolidColorBrush x:Key="InertGas.MenuTextHover" Color="#919191" />
+    <SolidColorBrush x:Key="InertGas.MenuTextSelected" Color="#d1d1d1" />
+
+    <SolidColorBrush x:Key="InertGas.ModernButtonBorder" Color="#919191" />
+    <SolidColorBrush x:Key="InertGas.ModernButtonBorderHover" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.ModernButtonBorderPressed" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.ModernButtonBorderDisabled" Color="#515151" />
+    <SolidColorBrush x:Key="InertGas.ModernButtonIconBackgroundPressed" Color="{DynamicResource InertGas.AccentColor}" />
+    <SolidColorBrush x:Key="InertGas.ModernButtonIconForegroundPressed" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.ModernButtonText" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.ModernButtonTextHover" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.ModernButtonTextPressed" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.ModernButtonTextDisabled" Color="#515151" />
+
+    <SolidColorBrush x:Key="InertGas.PopupBackground" Color="#252526" />
+
+    <SolidColorBrush x:Key="InertGas.ProgressBackground" Color="#333333" />
+
+    <SolidColorBrush x:Key="InertGas.ScrollBarBackground" Color="#333333" />
+    <SolidColorBrush x:Key="InertGas.ScrollBarThumbBackground" Color="Transparent" />
+    <SolidColorBrush x:Key="InertGas.ScrollBarThumbBackgroundDragging" Color="Transparent" />
+    <SolidColorBrush x:Key="InertGas.ScrollBarThumbBackgroundHover" Color="Transparent" />
+    <SolidColorBrush x:Key="InertGas.ScrollBarThumbBorder" Color="#333333" />
+    <SolidColorBrush x:Key="InertGas.ScrollBarThumbForeground" Color="#717171" />
+    <SolidColorBrush x:Key="InertGas.ScrollBarThumbForegroundDragging" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.ScrollBarThumbForegroundHover" Color="#919191" />
+
+    <SolidColorBrush x:Key="InertGas.SeparatorBackground" Color="#3e3e42" />
+
+    <SolidColorBrush x:Key="InertGas.SliderSelectionBackground" Color="{DynamicResource InertGas.AccentColor}" />
+    <SolidColorBrush x:Key="InertGas.SliderSelectionBorder" Color="{DynamicResource InertGas.AccentColor}" />
+    <SolidColorBrush x:Key="InertGas.SliderThumbBackground" Color="#717171" />
+    <SolidColorBrush x:Key="InertGas.SliderThumbBackgroundDragging" Color="{DynamicResource InertGas.AccentColor}" />
+    <SolidColorBrush x:Key="InertGas.SliderThumbBackgroundHover" Color="#919191" />
+    <SolidColorBrush x:Key="InertGas.SliderThumbBackgroundDisabled" Color="#333333" />
+    <SolidColorBrush x:Key="InertGas.SliderThumbBorder" Color="#717171" />
+    <SolidColorBrush x:Key="InertGas.SliderThumbBorderDragging" Color="{DynamicResource InertGas.AccentColor}" />
+    <SolidColorBrush x:Key="InertGas.SliderThumbBorderHover" Color="#919191" />
+    <SolidColorBrush x:Key="InertGas.SliderThumbBorderDisabled" Color="#333333" />
+    <SolidColorBrush x:Key="InertGas.SliderTrackBackground" Color="#333333" />
+    <SolidColorBrush x:Key="InertGas.SliderTrackBorder" Color="#333333" />
+    <SolidColorBrush x:Key="InertGas.SliderTick" Color="#717171" />
+    <SolidColorBrush x:Key="InertGas.SliderTickDisabled" Color="#333333" />
+
+    <SolidColorBrush x:Key="InertGas.SubMenuText" Color="#717171" />
+    <SolidColorBrush x:Key="InertGas.SubMenuTextHover" Color="#515151" />
+    <SolidColorBrush x:Key="InertGas.SubMenuTextSelected" Color="#d1d1d1" />
+
+    <SolidColorBrush x:Key="InertGas.WindowBackground" Color="{StaticResource InertGas.WindowBackgroundColor}" />
+    <SolidColorBrush x:Key="InertGas.WindowBorder" Color="{DynamicResource InertGas.AccentColor}" Opacity=".5" />
+    <SolidColorBrush x:Key="InertGas.WindowBorderActive" Color="{DynamicResource InertGas.AccentColor}" />
+    <SolidColorBrush x:Key="InertGas.WindowHeaderGradient" Color="Transparent" />
+    <SolidColorBrush x:Key="InertGas.WindowText" Color="#c1c1c1" />
+    <SolidColorBrush x:Key="InertGas.WindowTextReadOnly" Color="#717171" />
+
+    <SolidColorBrush x:Key="InertGas.CloseButtonBackground" Color="{StaticResource InertGas.WindowBackgroundColor}"  Opacity="0" />
+    <SolidColorBrush x:Key="InertGas.CloseButtonBackgroundOnMoseOver" Color="#3e3e42" />
+    <SolidColorBrush x:Key="InertGas.CloseButtonForegroundOnMoseOver" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.CloseButtonBackgroundIsPressed" Color="#e51400" />
+    <SolidColorBrush x:Key="InertGas.CloseButtonForegroundIsPressed" Color="White" />
+
+    <SolidColorBrush x:Key="InertGas.SystemButtonBackground" Color="{StaticResource InertGas.WindowBackgroundColor}"  Opacity="0" />
+    <SolidColorBrush x:Key="InertGas.SystemButtonBackgroundOnMoseOver" Color="#3e3e42" />
+    <SolidColorBrush x:Key="InertGas.SystemButtonForegroundOnMoseOver" Color="#d1d1d1" />
+    <SolidColorBrush x:Key="InertGas.SystemButtonBackgroundIsPressed" Color="{DynamicResource InertGas.AccentColor}" />
+    <SolidColorBrush x:Key="InertGas.SystemButtonForegroundIsPressed" Color="#d1d1d1" />
+
+    <LinearGradientBrush x:Key="InertGas.GradientBackgroundBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Offset="0" Color="#333333" />
+        <GradientStop Offset="1" Color="#515151" />
+    </LinearGradientBrush>
+
+    <Rectangle x:Key="InertGas.WindowBackgroundContent" x:Shared="false" />
+</ResourceDictionary>
