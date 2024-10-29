@@ -9,7 +9,7 @@ using System.Data;
 using System.Text.Json;
 using System.Windows;
 
-namespace InertGas
+namespace InertGas.Application
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -22,8 +22,6 @@ namespace InertGas
 
             try
             {
-                base.OnStartup(e);
-
                 mainWindowViewModel_ = new MainWindowViewModel();
                 MainWindow = new MainWindow { DataContext = mainWindowViewModel_ };
 

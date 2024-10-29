@@ -4,6 +4,9 @@
     <Color x:Key="InertGas.WindowBackgroundColor">#252526</Color>
     <Color x:Key="InertGas.AccentColor">#1ba1e2</Color>
 
+    <Color x:Key="InertGas.MainMenuOnClickShadowColorInner">#001ba1e2</Color>
+    <Color x:Key="InertGas.MainMenuOnClickShadowColorOutter">#F02863A3</Color>
+
     <SolidColorBrush x:Key="InertGas.Accent">#1ba1e2</SolidColorBrush>
     <SolidColorBrush x:Key="InertGas.DefaultForegroundColor">#d1d1d1</SolidColorBrush>
     <SolidColorBrush x:Key="InertGas.Red">#FF0000</SolidColorBrush>
@@ -139,6 +142,16 @@
     <LinearGradientBrush x:Key="InertGas.GradientBackgroundBrush" StartPoint="0.5,0" EndPoint="0.5,1">
         <GradientStop Offset="0" Color="#333333" />
         <GradientStop Offset="1" Color="#515151" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="InertGas.GradientMenuButtonForegroundBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Offset="0" Color="#333333" />
+        <GradientStop Offset="1" Color="#515151" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="InertGas.GradientMenuButtonForegroundFocusBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Offset="0" Color="#2863A3" />
+        <GradientStop Offset="1" Color="#1ba1e2" />
     </LinearGradientBrush>
 
     <Rectangle x:Key="InertGas.WindowBackgroundContent" x:Shared="false" />

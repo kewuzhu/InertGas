@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:ui="clr-namespace:InertGas.Application.UI"
+        xmlns:themes="clr-namespace:InertGas.Application.Themes"
         xmlns:model="clr-namespace:InertGas.Application.Model"
         xmlns:converters="clr-namespace:InertGas.Application.Themes.Converters"
         d:DataContext="{d:DesignInstance Type=ui:MainWindowViewModel}"
@@ -42,6 +42,42 @@
     </Window.Resources>
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <themes:ImageButton
+                Grid.Column="0"
+                Content="{StaticResource InertGas.Application.MainPage}"
+                ImageSource="{StaticResource InertGas.MainPageIcon}"
+                Style="{StaticResource InertGas.MenuButton}">
+            </themes:ImageButton>
+            <themes:ImageButton
+                Grid.Column="1"
+                Content="{StaticResource InertGas.Application.ParameterSetting}"
+                ImageSource="{StaticResource InertGas.ParameterSettingIcon}"
+                Style="{StaticResource InertGas.MenuButton}">
+            </themes:ImageButton>
+            <themes:ImageButton
+                Grid.Column="2"
+                Content="{StaticResource InertGas.Application.DataManagement}"
+                ImageSource="{StaticResource InertGas.DataManagementIcon}"
+                Style="{StaticResource InertGas.MenuButton}">
+            </themes:ImageButton>
+            <themes:ImageButton
+                Grid.Column="3"
+                Content="{StaticResource InertGas.Application.UserManagement}"
+                ImageSource="{StaticResource InertGas.UserManagementIcon}"
+                Style="{StaticResource InertGas.MenuButton}">
+            </themes:ImageButton>
+        </Grid>
     </Grid>
 </Window>
