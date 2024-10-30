@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+      <TargetFramework>net6.0-windows</TargetFramework>
+      <RootNamespace>InertGas.DataAccess</RootNamespace>
+      <AssemblyName>InertGas.DataAccess</AssemblyName>
+      <ImplicitUsings>enable</ImplicitUsings>
+      <Nullable>disable</Nullable>
+      <UseWPF>true</UseWPF>
+      <Platforms>x64</Platforms>
+      <OutputPath>$(SolutionDir)bin\$(Configuration)</OutputPath>
+      <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+      <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+      <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RavenDB.Embedded" Version="6.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+  </ItemGroup>
+
+</Project>

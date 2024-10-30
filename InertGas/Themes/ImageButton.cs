@@ -13,6 +13,9 @@ namespace InertGas.Application.Themes
         public static readonly DependencyProperty ImageHeightProperty =
             DependencyProperty.Register(nameof(ImageHeight), typeof(double), typeof(ImageButton));
 
+        public static readonly DependencyProperty IsActiveProperty =
+            DependencyProperty.Register(nameof(IsActive), typeof(bool), typeof(ImageButton));
+
         public object ImageSource
         {
             get => (string)GetValue(ImageSourceProperty);
@@ -29,6 +32,12 @@ namespace InertGas.Application.Themes
         {
             get => (double)GetValue(ImageHeightProperty);
             set => SetValue(ImageHeightProperty, value);
+        }
+
+        public bool IsActive
+        {
+            get => (bool)GetValue(IsActiveProperty);
+            set => SetValue(IsActiveProperty, value);
         }
     }
 }

@@ -1,17 +1,13 @@
 {
   "Language": 1,
   "ConsoleLoggerLogLevel": 31,
-  "WorkingDirectory": "DAQSystem",
-  "SerialConfiguration": {
-    "SerialPort": "COM8",
-    "Baudrate": 2000000
+  "WorkingDirectory": "InertGas",
+  "DataRepoConfig": {
+    "ServerUrl": "http://127.0.0.1:8080",
+    "RootDirectory": "C:\\InertGas\\DICOM",
+    "DatabaseName": "user"
   },
-  "DAQConfiguration": {
-    "CollectDuration": 20000,
-    "InitialThreshold": 1000,
-    "SignalSign": 1,
-    "SignalBaseline": 1050,
-    "TimeInterval": 1000,
-    "Gain": 1340
+  "SerialConfiguration": {
+    "SerialPort": "COM8"
   }
 }

@@ -8,14 +8,19 @@
     <system:String x:Key="InertGas.Common.No">No</system:String>
     <system:String x:Key="InertGas.Common.OK">OK</system:String>
     <system:String x:Key="InertGas.Common.Success">Success</system:String>
-    <system:String x:Key="InertGas.Common.Title">InertGas</system:String>
+    <system:String x:Key="InertGas.Common.Title">InertGas Separation And Purification System</system:String>
     <system:String x:Key="InertGas.Common.Yes">Yes</system:String>
 
     <system:String x:Key="InertGas.Application.DataManagement">Data Management</system:String>
+    <system:String x:Key="InertGas.Application.DoubleCheckUserPasswordMessage">Double-check that the user/password combination is correct, and try again.</system:String>
     <system:String x:Key="InertGas.Application.Error">Error</system:String>
+    <system:String x:Key="InertGas.Application.IncorrectPassword">Incorrect Password</system:String>
+    <system:String x:Key="InertGas.Application.LogIn">Log In</system:String>
     <system:String x:Key="InertGas.Application.MainPage">Main Page</system:String>
     <system:String x:Key="InertGas.Application.Parameter">Parameter</system:String>
     <system:String x:Key="InertGas.Application.ParameterSetting">Parameter Setting</system:String>
+    <system:String x:Key="InertGas.Application.Password">Password</system:String>
+    <system:String x:Key="InertGas.Application.User">User</system:String>
     <system:String x:Key="InertGas.Application.UserManagement">User Management</system:String>
     <system:String x:Key="InertGas.Application.WorkingDirectory">Working Directory:</system:String>
     

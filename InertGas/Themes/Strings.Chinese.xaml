@@ -26,14 +26,19 @@
     <system:String x:Key="InertGas.Common.No">否</system:String>
     <system:String x:Key="InertGas.Common.OK">OK</system:String>
     <system:String x:Key="InertGas.Common.Success">成功</system:String>
-    <system:String x:Key="InertGas.Common.Title">惰性气体</system:String>
+    <system:String x:Key="InertGas.Common.Title">惰性气体分离与净化系统</system:String>
     <system:String x:Key="InertGas.Common.Yes">确定</system:String>
 
     <system:String x:Key="InertGas.Application.DataManagement">数据管理</system:String>
+    <system:String x:Key="InertGas.Application.DoubleCheckUserPasswordMessage">请再次检查您所输入的密码是否正确，且与用户名保持一致，然后再次输入。</system:String>
     <system:String x:Key="InertGas.Application.Error">错误</system:String>
+    <system:String x:Key="InertGas.Application.IncorrectPassword">密码错误</system:String>
+    <system:String x:Key="InertGas.Application.LogIn">登录</system:String>
     <system:String x:Key="InertGas.Application.MainPage">首页</system:String>
     <system:String x:Key="InertGas.Application.Parameter">参数</system:String>
     <system:String x:Key="InertGas.Application.ParameterSetting">参数设置</system:String>
+    <system:String x:Key="InertGas.Application.Password">密码</system:String>
+    <system:String x:Key="InertGas.Application.User">用户名</system:String>
     <system:String x:Key="InertGas.Application.UserManagement">用户管理</system:String>
     <system:String x:Key="InertGas.Application.WorkingDirectory">工作路径:</system:String>
 

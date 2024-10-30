@@ -1,4 +1,5 @@
-﻿using InertGas.Common.Model;
+﻿using InertGas.Common.DataAccess;
+using InertGas.Common.Model;
 
 namespace InertGas.Application.Model
 {
@@ -11,6 +12,8 @@ namespace InertGas.Application.Model
         public LogLevel? FileLoggerLogLevel { get; set; }
 
         public string WorkingDirectory { get; set; }
+
+        public DataRepositoryConfiguration DataRepoConfig { get; set; }
 
         public SerialConfiguration SerialConfiguration { get; set; }
     }

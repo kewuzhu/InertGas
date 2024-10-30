@@ -186,8 +186,9 @@
                         x:Name="border"
                         Width="{TemplateBinding Width}"
                         Height="{TemplateBinding Height}"
-                        Background="Transparent"
-                        BorderBrush="Transparent">
+                        Background="{StaticResource InertGas.GradientBackgroundDarkBrush}"
+                        BorderBrush="{StaticResource InertGas.GradientBackgroundBrush}"
+                        BorderThickness="{StaticResource InertGas.DefaultBorderThickness}">
                         <Grid>
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -253,7 +254,7 @@
                             <Setter TargetName="ButtonText" Property="FontSize" Value="{StaticResource InertGas.LargeFontSize}" />
                             <Setter TargetName="Icon" Property="Margin" Value="{DynamicResource InertGas.LargeMarginThickness}"/>
                         </Trigger>
-                        <Trigger Property="IsFocused" Value="true">
+                        <Trigger Property="IsActive" Value="true">
                             <Setter TargetName="Shadow" Property="Visibility" Value="Visible" />
                             <Setter TargetName="ButtonText" Property="Foreground" Value="{DynamicResource InertGas.GradientMenuButtonForegroundFocusBrush}"/>
                             <Setter TargetName="ButtonText" Property="FontSize" Value="{StaticResource InertGas.MenuButtonFontSize}" />

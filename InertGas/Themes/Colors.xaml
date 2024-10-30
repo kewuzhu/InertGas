@@ -8,6 +8,7 @@
     <Color x:Key="InertGas.MainMenuOnClickShadowColorOutter">#F02863A3</Color>
 
     <SolidColorBrush x:Key="InertGas.Accent">#1ba1e2</SolidColorBrush>
+    <SolidColorBrush x:Key="InertGas.DarkAccent">#0b81a2</SolidColorBrush>
     <SolidColorBrush x:Key="InertGas.DefaultForegroundColor">#d1d1d1</SolidColorBrush>
     <SolidColorBrush x:Key="InertGas.Red">#FF0000</SolidColorBrush>
     <SolidColorBrush x:Key="InertGas.LightRed">#FF5555</SolidColorBrush>
@@ -15,6 +16,8 @@
     <SolidColorBrush x:Key="InertGas.Green">#00FF00</SolidColorBrush>
     <SolidColorBrush x:Key="InertGas.LightGreen">#55FF55</SolidColorBrush>
     <SolidColorBrush x:Key="InertGas.DarkGreen">#009B00</SolidColorBrush>
+    <SolidColorBrush x:Key="InertGas.LightGray">#515151</SolidColorBrush>
+    <SolidColorBrush x:Key="InertGas.DarkGray">#333333</SolidColorBrush>
 
     <SolidColorBrush x:Key="InertGas.ButtonBackground" Color="#333333" />
     <SolidColorBrush x:Key="InertGas.ButtonBackgroundHover" Color="#3e3e42" />
@@ -144,8 +147,13 @@
         <GradientStop Offset="1" Color="#515151" />
     </LinearGradientBrush>
 
-    <LinearGradientBrush x:Key="InertGas.GradientMenuButtonForegroundBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+    <LinearGradientBrush x:Key="InertGas.GradientBackgroundDarkBrush" StartPoint="0.5,0" EndPoint="0.5,1">
         <GradientStop Offset="0" Color="#333333" />
+        <GradientStop Offset="1" Color="#111111" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="InertGas.GradientMenuButtonForegroundBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Offset="0" Color="#AAAAAA" />
         <GradientStop Offset="1" Color="#515151" />
     </LinearGradientBrush>
 
