@@ -8,7 +8,7 @@ using Raven.Client.ServerWide.Operations;
 using Raven.Client.ServerWide;
 using Raven.Embedded;
 
-namespace InertGas.DataAccess
+namespace InertGas.DataBase
 {
     public class RavenDBRepository : IDataRepository, IDisposable
     {

@@ -60,6 +60,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
             <RowDefinition />
@@ -111,7 +112,7 @@
                 Command="{Binding CloseCommand}">
             </Button>
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2">
             <Grid.Style>
                 <Style TargetType="Grid">
                     <Style.Triggers>
