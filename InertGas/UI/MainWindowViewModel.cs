@@ -20,8 +20,6 @@ namespace InertGas.Application.UI
     {
         public static ApplicationModel AppModel => ApplicationModel.Instance;
 
-        public ObservableCollection<User> Users { get; } = new();
-
         [ObservableProperty]
         private ApplicationStageViewModel currentViewModel;
 
@@ -43,6 +41,8 @@ namespace InertGas.Application.UI
         [RelayCommand]
         private void LogIn()
         {
+            SelectedUser = dataRepository_.GetUsers().ToList().FirstOrDefault(x => x.Name == UserName);
+
             if (SelectedUser == null) return;
 
             if (!SecureUtils.ValidateUserPassword(SelectedUser.Password, SecurePassword, SelectedUser.Salt))
@@ -54,6 +54,7 @@ namespace InertGas.Application.UI
             IsUserLoggedIn = true;
             SecurePassword = null;
 
+            AppModel.CurrentUser = SelectedUser;
             AppModel.CurrentApplicationStage = ApplicationStage.MainPage;
             CurrentViewModel = viewModelMap_[AppModel.CurrentApplicationStage];
             IsPageSwitchPlaying = true;
@@ -98,7 +99,7 @@ namespace InertGas.Application.UI
             viewModelMap_.Add(ApplicationStage.MainPage, new MainPageViewModel());
             viewModelMap_.Add(ApplicationStage.ParameterSetting, new ParameterSettingViewModel());
             viewModelMap_.Add(ApplicationStage.DataManagement, new DataManagementViewModel());
-            viewModelMap_.Add(ApplicationStage.UserManagement, new UserManagementViewModel());
+            viewModelMap_.Add(ApplicationStage.UserManagement, new UserManagementViewModel(dataRepository_));
 
             AppModel.ApplicationStages.Add(viewModelMap_[ApplicationStage.MainPage]);
             AppModel.ApplicationStages.Add(viewModelMap_[ApplicationStage.ParameterSetting]);
@@ -106,9 +107,9 @@ namespace InertGas.Application.UI
             AppModel.ApplicationStages.Add(viewModelMap_[ApplicationStage.UserManagement]);
 
             dataRepository_.GetUsers().ToList()
-                .ForEach(x => Users.Add(x));
+                .ForEach(x => AppModel.Users.Add(x));
 
-            SelectedUser = Users.FirstOrDefault();
+            SelectedUser = AppModel.Users.FirstOrDefault();
 
             AppModel.PropertyChanged += OnAppModelPropertyChanged;
         }
@@ -132,6 +133,9 @@ namespace InertGas.Application.UI
                             stage.IsEnabled = stageIdx <= curStageIdx;
                         }
                     }
+                    break;
+                case nameof(AppModel.CurrentUser):
+                    logger_.Warn($"Current User {AppModel.CurrentUser}.");
                     break;
             }
         }

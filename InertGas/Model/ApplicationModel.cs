@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using InertGas.Application.UI.ApplicationStages;
 using InertGas.Common.Model;
+using InertGas.Common.Utility;
 using NLog;
 using System.Collections.ObjectModel;
 
@@ -37,6 +38,10 @@ namespace InertGas.Application.Model
         }
 
         public ObservableCollection<ApplicationStageViewModel> ApplicationStages { get; } = new();
+
+        public User CurrentUser { get; set; }
+
+        public ObservableCollectionWithRangeSupport<User> Users { get; } = new();
 
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();
     }

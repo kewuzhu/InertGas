@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xaml.Behaviors;
-using System.Linq;
 using System.Reflection;
 using System.Security;
 using System.Windows;

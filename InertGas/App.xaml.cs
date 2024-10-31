@@ -100,6 +100,7 @@ namespace InertGas.Application
             var securePassword = new NetworkCredential("", "123").SecurePassword;
             var defaultUser = new User()
             {
+                Role = UserRole.Administrator,
                 Name = "Default",
                 Password = SecureUtils.HashPassword(securePassword, salt),
                 CreatedDate = DateTime.Now,

@@ -5,13 +5,13 @@
     <!-- font settings -->
     <FontFamily x:Key="InertGas.DefaultFontFamily">Segoe UI</FontFamily>
     <system:Double x:Key="InertGas.DefaultFontSize">13</system:Double>
-    <system:Double x:Key="InertGas.MenuButtonFontSize">18</system:Double>
+    <system:Double x:Key="InertGas.MenuButtonFontSize">15</system:Double>
 
     <FontFamily x:Key="InertGas.FixedFontFamily">Consolas</FontFamily>
     <system:Double x:Key="InertGas.FixedFontSize">13.333</system:Double>
 
     <system:Double x:Key="InertGas.SmallFontSize">11</system:Double>
-    <system:Double x:Key="InertGas.LargeFontSize">16</system:Double>
+    <system:Double x:Key="InertGas.LargeFontSize">14</system:Double>
 
     <system:Double x:Key="InertGas.SmallMarginSize">2.5</system:Double>
     <system:Double x:Key="InertGas.DefaultMarginSize">5</system:Double>

@@ -61,7 +61,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="9*"/>
             <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
             <RowDefinition />
         </Grid.RowDefinitions>
@@ -227,7 +227,7 @@
             </GroupBox>
         </Grid>
 
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="4">
             <Grid.Style>
                 <Style TargetType="Grid">
                     <Setter Property="Visibility" Value="Visible" />

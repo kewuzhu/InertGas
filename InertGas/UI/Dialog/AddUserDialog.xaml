@@ -1,0 +1,119 @@
+﻿<commonUi:DialogBase
+    x:Class="InertGas.Application.UI.Dialog.AddUserDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:commonUi="clr-namespace:InertGas.Common.UI;assembly=InertGas.Common"
+    xmlns:commonModel="clr-namespace:InertGas.Common.Model;assembly=InertGas.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="clr-namespace:InertGas.Application.UI"
+    xmlns:dialog="clr-namespace:InertGas.Application.UI.Dialog"
+    xmlns:converters="clr-namespace:InertGas.Application.Themes.Converters"
+    Width="300"
+    d:DataContext="{d:DesignInstance Type=dialog:AddUserViewModel}"
+    AllowsTransparency="True"
+    Background="Transparent"
+    ResizeMode="NoResize"
+    SizeToContent="Height"
+    WindowStartupLocation="CenterOwner"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Border
+        Background="{StaticResource InertGas.GradientBackgroundBrush}"
+        BorderBrush="Black"
+        BorderThickness="{StaticResource InertGas.DefaultBorderThickness}"
+        CornerRadius="{StaticResource InertGas.DefaultCornerRadius}">
+        <GroupBox 
+            Header="Add User"
+            FontSize="{StaticResource InertGas.LargeFontSize}"
+            FontWeight="Bold"
+            BorderBrush="Transparent"
+            BorderThickness="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                    <RowDefinition />
+                    <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                    <RowDefinition />
+                    <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="0"
+                        Text="{StaticResource InertGas.Application.Role}">
+                    </TextBlock>
+                    <RadioButton
+                        Grid.Column="2"
+                        Content="{StaticResource InertGas.Application.Administrator}"
+                        HorizontalAlignment="Center"
+                        GroupName="RoleSwitch"
+                        IsChecked="{Binding Path=SelectedUserRole, Mode=TwoWay, Converter={converters:UserRoleToBooleanConverter}, ConverterParameter={x:Static commonModel:UserRole.Administrator}}">
+                    </RadioButton>
+                    <RadioButton
+                        Grid.Column="4"
+                        GroupName="RoleSwitch"
+                        Content="{StaticResource InertGas.Application.Normal}"
+                        HorizontalAlignment="Center"
+                        IsChecked="{Binding Path=SelectedUserRole, Mode=TwoWay, Converter={converters:UserRoleToBooleanConverter}, ConverterParameter={x:Static commonModel:UserRole.Normal}}">
+                    </RadioButton>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="0"
+                        Text="{StaticResource InertGas.Application.User}">
+                    </TextBlock>
+                    <TextBox
+                        Grid.Column="2"
+                        Text="{Binding UserName}">
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="0"
+                        Text="{StaticResource InertGas.Application.Password}">
+                    </TextBlock>
+                    <TextBox
+                        Grid.Column="2"
+                        Text="{Binding Password}">
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Grid.Column="0"
+                        Content="{StaticResource InertGas.Common.Close}"
+                        Command="{Binding CloseCommand}">
+                    </Button>
+                    <Button
+                        Grid.Column="2"
+                        Content="{StaticResource InertGas.Application.Add}"
+                        Command="{Binding AddCommand}">
+                    </Button>
+                </Grid>
+            </Grid>
+        </GroupBox>
+    </Border>
+</commonUi:DialogBase>

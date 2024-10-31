@@ -4,6 +4,8 @@
     {
         public override string Id { get; }
 
+        public UserRole Role { get; set; }
+
         public string Name { get; set; }
 
         public string Password { get; set; }

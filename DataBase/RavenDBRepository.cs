@@ -90,7 +90,7 @@ namespace InertGas.DataBase
                 throw new ArgumentNullException(nameof(user));
 
             using var session = userStore_.OpenSession();
-            session.Delete(user);
+            session.Delete(user.Id);
             session.SaveChanges();
         }
 
