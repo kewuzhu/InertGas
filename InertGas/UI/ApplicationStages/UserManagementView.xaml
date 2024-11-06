@@ -54,7 +54,7 @@
             <themes:ImageButton
                 Grid.Column="6"
                 Content="{StaticResource InertGas.Application.Delete}"
-                ImageSource="{StaticResource InertGas.DeleteIcon}"
+                ImageSource="{StaticResource InertGas.DeleteUserIcon}"
                 Style="{StaticResource InertGas.ImageButton}"
                 Command="{Binding DeleteUserCommand}">
             </themes:ImageButton>

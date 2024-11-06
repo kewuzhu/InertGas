@@ -16,7 +16,7 @@
         Foreground="{StaticResource InertGas.DefaultForegroundColor}"
         Background="{StaticResource InertGas.WindowBackground}"
         Height="550" 
-        Width="940"
+        Width="1040"
         WindowStyle="None">
 
     <Window.Resources>
@@ -41,7 +41,7 @@
                 To="500"
                 Duration="0:0:.45" />
         </Storyboard>
-        
+
         <DataTemplate DataType="{x:Type appStages:MainPageViewModel}">
             <appStages:MainPageView />
         </DataTemplate>
@@ -54,83 +54,36 @@
         <DataTemplate DataType="{x:Type appStages:UserManagementViewModel}">
             <appStages:UserManagementView />
         </DataTemplate>
-
     </Window.Resources>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
-            <RowDefinition Height="9*"/>
-            <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid
-            Grid.Row="0">
+        <Grid>
             <Grid.Style>
                 <Style TargetType="Grid">
-                    <Setter Property="Visibility" Value="Visible" />
+                    <Setter Property="Background" Value="{StaticResource InertGas.WindowBackground}" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding IsUserLoggedIn}" Value="False">
-                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Setter Property="Background" Value="{StaticResource InertGas.Background}" />
+                            <Setter Property="Opacity" Value="0.3" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Grid.Style>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
-                <ColumnDefinition />
-                <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock
-                Grid.Column="0"
-                Text="{StaticResource InertGas.Common.Title}"
-                FontSize="{StaticResource InertGas.LargeFontSize}">
-            </TextBlock>
-            <ContentControl
-                Grid.Column="4"
-                Height="{StaticResource InertGas.LargeFontSize}"
-                Width="{StaticResource InertGas.LargeFontSize}"
-                Foreground="{StaticResource InertGas.Accent}"
-                Template="{StaticResource InertGas.UserIcon}">
-            </ContentControl>
-            <TextBlock
-                Grid.Column="5"
-                Text="{Binding SelectedUser.Name}"
-                Foreground="{StaticResource InertGas.Accent}"
-                FontSize="{StaticResource InertGas.LargeFontSize}">
-            </TextBlock>
-            <Button
-                Grid.Column="7"
-                Content="{StaticResource InertGas.Common.Close}"
-                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                Command="{Binding CloseCommand}">
-            </Button>
+            <Grid.Effect>
+                <BlurEffect Radius="20" />
+            </Grid.Effect>
         </Grid>
-        <Grid Grid.Row="2">
-            <Grid.Style>
-                <Style TargetType="Grid">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsPageSwitchPlaying}" Value="True">
-                            <DataTrigger.EnterActions>
-                                <BeginStoryboard x:Name="ShowCountChannelPlot" Storyboard="{StaticResource FadeInAnimation}"/>
-                            </DataTrigger.EnterActions>
-                            <DataTrigger.ExitActions>
-                                <RemoveStoryboard BeginStoryboardName="ShowCountChannelPlot" />
-                            </DataTrigger.ExitActions>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Grid.Style>
-            <ContentControl
-                Content="{Binding CurrentViewModel}">
-                <ContentControl.Style>
-                    <Style TargetType="ContentControl">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="9*"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid
+                Grid.Row="0"
+                Background="{StaticResource InertGas.WindowBackground}">
+                <Grid.Style>
+                    <Style TargetType="Grid">
                         <Setter Property="Visibility" Value="Visible" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsUserLoggedIn}" Value="False">
@@ -138,176 +91,267 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </ContentControl.Style>
-            </ContentControl>
-            <GroupBox
-                Width="300"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                BorderBrush="Transparent"
-                BorderThickness="0"
-                Background="{StaticResource InertGas.GradientBackgroundBrush}">
-                <GroupBox.Style>
-                    <Style TargetType="GroupBox">
+                </Grid.Style>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Column="0"
+                    Text="{StaticResource InertGas.Common.Title}"
+                    FontSize="{StaticResource InertGas.LargeFontSize}">
+                </TextBlock>
+                <ContentControl
+                    Grid.Column="4"
+                    Height="{StaticResource InertGas.LargeFontSize}"
+                    Width="{StaticResource InertGas.LargeFontSize}"
+                    Foreground="{StaticResource InertGas.ButtonText}"
+                    Template="{StaticResource InertGas.UserIcon}">
+                </ContentControl>
+                <TextBlock
+                    Grid.Column="5"
+                    Text="{Binding SelectedUser.Name}"
+                    Foreground="{StaticResource InertGas.ButtonText}"
+                    FontSize="{StaticResource InertGas.LargeFontSize}">
+                </TextBlock>
+                <themes:ImageButton
+                    Grid.Column="7"
+                    Content="{StaticResource InertGas.Common.Close}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                    Command="{Binding CloseCommand}"
+                    ImageSource="{StaticResource InertGas.CloseIcon}"
+                    Foreground="{StaticResource InertGas.Red}"
+                    Style="{StaticResource InertGas.ImageButton}">
+                </themes:ImageButton>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsPageSwitchPlaying}" Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard x:Name="ShowCountChannelPlot" Storyboard="{StaticResource FadeInAnimation}"/>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <RemoveStoryboard BeginStoryboardName="ShowCountChannelPlot" />
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <ContentControl
+                    Content="{Binding CurrentViewModel}">
+                    <ContentControl.Style>
+                        <Style TargetType="ContentControl">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsUserLoggedIn}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
+                <Grid
+                    Width="300"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsUserLoggedIn}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <Grid>
+                        <Grid.Background>
+                            <StaticResource ResourceKey="InertGas.Background" />
+                        </Grid.Background>
+                    </Grid>
+                    <StackPanel>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="{StaticResource InertGas.LargeMarginGridLength}"/>
+                                <RowDefinition />
+                                <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                                <RowDefinition />
+                                <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="5"
+                                HorizontalAlignment="Center"
+                                Text="{StaticResource InertGas.Common.Title}"
+                                FontWeight="ExtraBold"
+                                FontSize="{StaticResource InertGas.MenuButtonFontSize}">
+                            </TextBlock>
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                Text="{StaticResource InertGas.Application.User}"
+                                FontWeight="ExtraBold">
+                            </TextBlock>
+                            <TextBox
+                                Grid.Row="2"
+                                Grid.Column="3"
+                                Text="{Binding UserName}">
+                            </TextBox>
+                            <TextBlock
+                                Grid.Row="4"
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                Text="{StaticResource InertGas.Application.Password}"
+                                FontWeight="ExtraBold">
+                            </TextBlock>
+                            <PasswordBox
+                                Grid.Row="4"
+                                Grid.Column="3"
+                                PasswordChar="*"
+                                PasswordChanged="HandlePasswordChanged">
+                                <i:Interaction.Behaviors>
+                                    <behaviors:PasswordBoxBindingBehavior Password="{Binding SecurePassword}" />
+                                </i:Interaction.Behaviors>
+                                <PasswordBox.InputBindings>
+                                    <KeyBinding Key="Enter" Command="{Binding LogInCommand}" />
+                                </PasswordBox.InputBindings>
+                            </PasswordBox>
+                            <Grid
+                                Grid.Row="6"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <themes:ImageButton
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    Content="{StaticResource InertGas.Common.Close}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                    Command="{Binding CloseCommand}"
+                                    Style="{StaticResource InertGas.ImageButton}"
+                                    ImageSource="{StaticResource InertGas.CloseIcon}"
+                                    Foreground="{StaticResource InertGas.Red}">
+                                </themes:ImageButton>
+                                <themes:ImageButton
+                                    Grid.Column="3"
+                                    HorizontalAlignment="Center"
+                                    Content="{StaticResource InertGas.Application.LogIn}"
+                                    Command="{Binding LogInCommand}"
+                                    Style="{StaticResource InertGas.ImageButton}"
+                                    ImageSource="{StaticResource InertGas.LoginIcon}">
+                                </themes:ImageButton>
+                            </Grid>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="4">
+                <Grid.Style>
+                    <Style TargetType="Grid">
                         <Setter Property="Visibility" Value="Visible" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsUserLoggedIn}" Value="True">
+                            <DataTrigger Binding="{Binding IsUserLoggedIn}" Value="False">
                                 <Setter Property="Visibility" Value="Collapsed" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </GroupBox.Style>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition Height="{StaticResource InertGas.LargeMarginGridLength}"/>
-                        <RowDefinition />
-                        <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
-                        <RowDefinition />
-                        <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
-                        <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="5"
-                        HorizontalAlignment="Center"
-                        Text="{StaticResource InertGas.Common.Title}"
-                        FontWeight="ExtraBold"
-                        FontSize="{StaticResource InertGas.MenuButtonFontSize}">
-                    </TextBlock>
-                    <TextBlock
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        HorizontalAlignment="Right"
-                        Text="{StaticResource InertGas.Application.User}"
-                        FontWeight="ExtraBold">
-                    </TextBlock>
-                    <TextBox
-                        Grid.Row="2"
-                        Grid.Column="3"
-                        Text="{Binding UserName}">
-                    </TextBox>
-                    <TextBlock
-                        Grid.Row="4"
-                        Grid.Column="1"
-                        HorizontalAlignment="Right"
-                        Text="{StaticResource InertGas.Application.Password}"
-                        FontWeight="ExtraBold">
-                    </TextBlock>
-                    <PasswordBox
-                        Grid.Row="4"
-                        Grid.Column="3"
-                        PasswordChar="*"
-                        PasswordChanged="HandlePasswordChanged">
-                        <i:Interaction.Behaviors>
-                            <behaviors:PasswordBoxBindingBehavior Password="{Binding SecurePassword}" />
-                        </i:Interaction.Behaviors>
-                        <PasswordBox.InputBindings>
-                            <KeyBinding Key="Enter" Command="{Binding LogInCommand}" />
-                        </PasswordBox.InputBindings>
-                    </PasswordBox>
-                    <Button
-                        Grid.Row="6"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="5"
-                        HorizontalAlignment="Center"
-                        Width="100"
-                        Content="{StaticResource InertGas.Application.LogIn}"
-                        Command="{Binding LogInCommand}">
-                    </Button>
-                </Grid>
-            </GroupBox>
-        </Grid>
-
-        <Grid Grid.Row="4">
-            <Grid.Style>
-                <Style TargetType="Grid">
-                    <Setter Property="Visibility" Value="Visible" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsUserLoggedIn}" Value="False">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Grid.Style>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <themes:ImageButton
-                Grid.Column="0"
-                Content="{StaticResource InertGas.Application.MainPage}"
-                ImageSource="{StaticResource InertGas.MainPageIcon}"
-                Command="{Binding SwitchToMainPageCommand}">
-                <themes:ImageButton.Style>
-                    <Style BasedOn="{StaticResource InertGas.MenuButton}" TargetType="themes:ImageButton">
-                        <Setter Property="IsActive" Value="False" />
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding AppModel.CurrentApplicationStage}" Value="{x:Static model:ApplicationStage.MainPage}">
-                                <Setter Property="IsActive" Value="True" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </themes:ImageButton.Style>
-            </themes:ImageButton>
-            <themes:ImageButton
-                Grid.Column="1"
-                Content="{StaticResource InertGas.Application.ParameterSetting}"
-                ImageSource="{StaticResource InertGas.ParameterSettingIcon}"
-                Command="{Binding SwitchToParameterSettingCommand}">
-                <themes:ImageButton.Style>
-                    <Style BasedOn="{StaticResource InertGas.MenuButton}" TargetType="themes:ImageButton">
-                        <Setter Property="IsActive" Value="False" />
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding AppModel.CurrentApplicationStage}" Value="{x:Static model:ApplicationStage.ParameterSetting}">
-                                <Setter Property="IsActive" Value="True" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </themes:ImageButton.Style>
-            </themes:ImageButton>
-            <themes:ImageButton
-                Grid.Column="2"
-                Content="{StaticResource InertGas.Application.DataManagement}"
-                ImageSource="{StaticResource InertGas.DataManagementIcon}"
-                Command="{Binding SwitchToDataManagementCommand}">
-                <themes:ImageButton.Style>
-                    <Style BasedOn="{StaticResource InertGas.MenuButton}" TargetType="themes:ImageButton">
-                        <Setter Property="IsActive" Value="False" />
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding AppModel.CurrentApplicationStage}" Value="{x:Static model:ApplicationStage.DataManagement}">
-                                <Setter Property="IsActive" Value="True" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </themes:ImageButton.Style>
-            </themes:ImageButton>
-            <themes:ImageButton
-                Grid.Column="3"
-                Content="{StaticResource InertGas.Application.UserManagement}"
-                ImageSource="{StaticResource InertGas.UserManagementIcon}"
-                Command="{Binding SwitchToUserManagementCommand}">
-                <themes:ImageButton.Style>
-                    <Style BasedOn="{StaticResource InertGas.MenuButton}" TargetType="themes:ImageButton">
-                        <Setter Property="IsActive" Value="False" />
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding AppModel.CurrentApplicationStage}" Value="{x:Static model:ApplicationStage.UserManagement}">
-                                <Setter Property="IsActive" Value="True" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </themes:ImageButton.Style>
-            </themes:ImageButton>
+                </Grid.Style>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <themes:ImageButton
+                    Grid.Column="0"
+                    Content="{StaticResource InertGas.Application.MainPage}"
+                    ImageSource="{StaticResource InertGas.MainPageIcon}"
+                    Command="{Binding SwitchToMainPageCommand}">
+                    <themes:ImageButton.Style>
+                        <Style BasedOn="{StaticResource InertGas.MenuButton}" TargetType="themes:ImageButton">
+                            <Setter Property="IsActive" Value="False" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding AppModel.CurrentApplicationStage}" Value="{x:Static model:ApplicationStage.MainPage}">
+                                    <Setter Property="IsActive" Value="True" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </themes:ImageButton.Style>
+                </themes:ImageButton>
+                <themes:ImageButton
+                    Grid.Column="1"
+                    Content="{StaticResource InertGas.Application.ParameterSetting}"
+                    ImageSource="{StaticResource InertGas.ParameterSettingIcon}"
+                    Command="{Binding SwitchToParameterSettingCommand}">
+                    <themes:ImageButton.Style>
+                        <Style BasedOn="{StaticResource InertGas.MenuButton}" TargetType="themes:ImageButton">
+                            <Setter Property="IsActive" Value="False" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding AppModel.CurrentApplicationStage}" Value="{x:Static model:ApplicationStage.ParameterSetting}">
+                                    <Setter Property="IsActive" Value="True" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </themes:ImageButton.Style>
+                </themes:ImageButton>
+                <themes:ImageButton
+                    Grid.Column="2"
+                    Content="{StaticResource InertGas.Application.DataManagement}"
+                    ImageSource="{StaticResource InertGas.DataManagementIcon}"
+                    Command="{Binding SwitchToDataManagementCommand}">
+                    <themes:ImageButton.Style>
+                        <Style BasedOn="{StaticResource InertGas.MenuButton}" TargetType="themes:ImageButton">
+                            <Setter Property="IsActive" Value="False" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding AppModel.CurrentApplicationStage}" Value="{x:Static model:ApplicationStage.DataManagement}">
+                                    <Setter Property="IsActive" Value="True" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </themes:ImageButton.Style>
+                </themes:ImageButton>
+                <themes:ImageButton
+                    Grid.Column="3"
+                    Content="{StaticResource InertGas.Application.UserManagement}"
+                    ImageSource="{StaticResource InertGas.UserManagementIcon}"
+                    Command="{Binding SwitchToUserManagementCommand}">
+                    <themes:ImageButton.Style>
+                        <Style BasedOn="{StaticResource InertGas.MenuButton}" TargetType="themes:ImageButton">
+                            <Setter Property="IsActive" Value="False" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding AppModel.CurrentApplicationStage}" Value="{x:Static model:ApplicationStage.UserManagement}">
+                                    <Setter Property="IsActive" Value="True" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </themes:ImageButton.Style>
+                </themes:ImageButton>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

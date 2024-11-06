@@ -191,63 +191,66 @@
                         Background="{StaticResource InertGas.GradientBackgroundDarkBrush}"
                         BorderBrush="{StaticResource InertGas.GradientBackgroundBrush}"
                         BorderThickness="{StaticResource InertGas.DefaultBorderThickness}">
-                        <Grid>
+                        <Grid HorizontalAlignment="Center">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
-                                    <ColumnDefinition Width="2*"/>
-                                </Grid.ColumnDefinitions>
-                                <ContentControl
-                                    Name="Icon"
-                                    Grid.Column="0"
+                                <Grid 
+                                    Grid.Row="0"
                                     Grid.RowSpan="2"
-                                    Margin="{StaticResource InertGas.MediumMarginThickness}"
-                                    HorizontalAlignment="Right"
-                                    Background="{TemplateBinding Background}"
-                                    Foreground="{StaticResource InertGas.GradientMenuButtonForegroundBrush}"
-                                    Template="{TemplateBinding ImageSource}" />
-                                <TextBlock
-                                    Name="ButtonText"
-                                    Grid.Column="2"
-                                    Grid.RowSpan="2"
-                                    FontSize="{StaticResource InertGas.MenuButtonFontSize}"
-                                    FontFamily="Segoe UI"
-                                    Margin="{TemplateBinding Padding}"
-                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                    HorizontalAlignment="Left"
-                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                    Foreground="{StaticResource InertGas.GradientMenuButtonForegroundBrush}"
-                                    Text="{TemplateBinding Content}">
-                                </TextBlock>
-                                <Ellipse
-                                    Name="Shadow"
-                                    Grid.Row="1"
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="3"
-                                    Visibility="Collapsed"
                                     Width="{TemplateBinding ActualWidth}"
-                                    Height="{TemplateBinding ActualHeight}"
-                                    HorizontalAlignment="Center"
-                                    Stroke="Transparent">
-                                    <Ellipse.Fill>
-                                        <RadialGradientBrush>
-                                            <GradientStop
-                                                Offset="0"
-                                                Color="{StaticResource InertGas.MainMenuOnClickShadowColorOutter}"/>
-                                            <GradientStop 
-                                                Offset="1"
-                                                Color="{StaticResource InertGas.MainMenuOnClickShadowColorInner}" />
-                                        </RadialGradientBrush>
-                                    </Ellipse.Fill>
-                                    <Ellipse.RenderTransform>
-                                        <TranslateTransform Y="{TemplateBinding ActualHeight}" />
-                                    </Ellipse.RenderTransform>
-                                </Ellipse>
+                                    Height="{TemplateBinding ActualHeight}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <ContentControl
+                                        Name="Icon"
+                                        Grid.Column="0"
+                                        Margin="{StaticResource InertGas.MediumMarginThickness}"
+                                        HorizontalAlignment="Right"
+                                        Background="{TemplateBinding Background}"
+                                        Foreground="{StaticResource InertGas.GradientMenuButtonForegroundBrush}"
+                                        Template="{TemplateBinding ImageSource}" />
+                                    <TextBlock
+                                        Name="ButtonText"
+                                        Grid.Column="2"
+                                        FontSize="{StaticResource InertGas.MenuButtonFontSize}"
+                                        FontFamily="Segoe UI"
+                                        Margin="{TemplateBinding Padding}"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        HorizontalAlignment="Left"
+                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                        Foreground="{StaticResource InertGas.GradientMenuButtonForegroundBrush}"
+                                        Text="{TemplateBinding Content}">
+                                    </TextBlock>
+                                </Grid>
+                                <Grid 
+                                    Grid.Row="1"
+                                    Name="ShadowGrid"
+                                    Visibility="Collapsed">
+                                    <Ellipse
+                                        Width="{TemplateBinding ActualWidth}"
+                                        Height="{TemplateBinding ActualHeight}"
+                                        Stroke="Transparent">
+                                        <Ellipse.Fill>
+                                            <RadialGradientBrush>
+                                                <GradientStop
+                                                    Offset="0"
+                                                    Color="{StaticResource InertGas.MainMenuOnClickShadowColorOutter}"/>
+                                                <GradientStop 
+                                                    Offset="1"
+                                                    Color="{StaticResource InertGas.MainMenuOnClickShadowColorInner}" />
+                                            </RadialGradientBrush>
+                                        </Ellipse.Fill>
+                                        <Ellipse.RenderTransform>
+                                            <TranslateTransform Y="{TemplateBinding ActualHeight}" />
+                                        </Ellipse.RenderTransform>
+                                    </Ellipse>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Border>
@@ -257,7 +260,7 @@
                             <Setter TargetName="Icon" Property="Margin" Value="{DynamicResource InertGas.SmallMarginThickness}"/>
                         </Trigger>
                         <Trigger Property="IsActive" Value="true">
-                            <Setter TargetName="Shadow" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ShadowGrid" Property="Visibility" Value="Visible" />
                             <Setter TargetName="ButtonText" Property="Foreground" Value="{DynamicResource InertGas.GradientMenuButtonForegroundFocusBrush}"/>
                             <Setter TargetName="ButtonText" Property="FontSize" Value="{StaticResource InertGas.MenuButtonFontSize}" />
                             <Setter TargetName="Icon" Property="Foreground" Value="{DynamicResource InertGas.GradientMenuButtonForegroundFocusBrush}"/>
@@ -274,69 +277,81 @@
         TargetType="themes:ImageButton">
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Background"
-            Value="{DynamicResource InertGas.ButtonBackground}"/>
+        Value="{DynamicResource InertGas.ButtonBackground}"/>
         <Setter Property="BorderBrush"
-            Value="{DynamicResource InertGas.ButtonBorder}"/>
+        Value="{DynamicResource InertGas.ButtonBorder}"/>
         <Setter Property="BorderThickness"
-            Value="1"/>
-        <Setter Property="Foreground"
-            Value="{DynamicResource InertGas.ButtonText}"/>
+        Value="1"/>
         <Setter Property="HorizontalContentAlignment"
-            Value="Center"/>
+        Value="Center"/>
         <Setter Property="VerticalContentAlignment"
-            Value="Center"/>
+        Value="Center"/>
         <Setter Property="Padding"
-            Value="5,5,5,5"/>
+        Value="5,5,5,5"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="themes:ImageButton">
                     <Border Name="Chrome"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{StaticResource InertGas.ButtonCornerRadius}"
-                        SnapsToDevicePixels="true">
-                        <Grid Margin="{TemplateBinding Padding}">
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{StaticResource InertGas.ButtonCornerRadius}"
+                    SnapsToDevicePixels="true">
+                        <Grid 
+                        Margin="{TemplateBinding Padding}"
+                        HorizontalAlignment="Center">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="{StaticResource InertGas.SmallMarginGridLength}"/>
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <ContentControl
-                                Name="Icon"
-                                Grid.Column="0"
-                                Height="{StaticResource InertGas.LargeFontSize}"
-                                Width="{StaticResource InertGas.LargeFontSize}"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                Background="{TemplateBinding Background}"
-                                Foreground="{TemplateBinding Foreground}"
-                                Template="{TemplateBinding ImageSource}" />
-                            <ContentPresenter
-                                Grid.Column="2"
-                                Name="Presenter" 
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                HorizontalAlignment="Left"
-                                RecognizesAccessKey="True"
-                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            Name="Icon"
+                            Grid.Column="0"
+                            Width="{StaticResource InertGas.LargeFontSize}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Background="{TemplateBinding Background}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Template="{TemplateBinding ImageSource}" />
+                            <TextBlock
+                            Grid.Column="2"
+                            Text="{TemplateBinding Content}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            HorizontalAlignment="Left"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            Background="{TemplateBinding Background}">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="{Binding Path=TextColor, RelativeSource={RelativeSource AncestorType=themes:ImageButton}}" />
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="True">
+                            <Setter Property="TextColor" Value="{DynamicResource InertGas.ButtonText}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource InertGas.Yellow}"/>
+                        </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{DynamicResource InertGas.ButtonTextDisabled}"/>
+                            <Setter Property="TextColor" Value="{DynamicResource InertGas.ButtonTextDisabled}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource InertGas.DarkYellow}"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="{DynamicResource InertGas.ButtonBackgroundHover}" />
                             <Setter Property="BorderBrush" Value="{DynamicResource InertGas.ButtonBorderHover}"/>
-                            <Setter Property="Foreground" Value="{DynamicResource InertGas.ButtonTextHover}"/>
+                            <Setter Property="TextColor" Value="{DynamicResource InertGas.ButtonTextHover}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource InertGas.LightYellow}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Background" Value="{DynamicResource InertGas.ButtonBackgroundPressed}" />
                             <Setter Property="BorderBrush" Value="{DynamicResource InertGas.ButtonBorderPressed}"/>
-                            <Setter Property="Foreground" Value="{DynamicResource InertGas.ButtonTextPressed}"/>
+                            <Setter Property="TextColor" Value="{DynamicResource InertGas.ButtonTextPressed}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource InertGas.LightYellow}"/>
                         </Trigger>
                         <Trigger Property="IsFocused" Value="true">
-                            <Setter TargetName="Chrome" Property="BorderBrush" Value="{DynamicResource InertGas.Accent}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource InertGas.Accent}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

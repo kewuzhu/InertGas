@@ -43,6 +43,10 @@ namespace InertGas.Application.Model
 
         public ObservableCollectionWithRangeSupport<User> Users { get; } = new();
 
+        public CollectedData CurrentData { get; set; }
+
+        public ObservableCollectionWithRangeSupport<CollectedData> CollectedDataSet { get; } = new();
+
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();
     }
 }

@@ -5,6 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:appStages="clr-namespace:InertGas.Application.UI.ApplicationStages"
+    xmlns:themes="clr-namespace:InertGas.Application.Themes"
     d:DataContext="{d:DesignInstance Type=appStages:MainPageViewModel}"
     mc:Ignorable="d" 
     d:DesignHeight="450"
@@ -12,21 +13,138 @@
     Background="Black">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
             <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ToggleButton
-            Grid.Row="0">
-        </ToggleButton>
-        <ToggleButton
-            Grid.Row="1"
-            IsChecked="True"
-            IsEnabled="False">
-        </ToggleButton>
-        <ToggleButton
-            Grid.Row="2"
-            IsEnabled="False">
-        </ToggleButton>
+        <Grid
+            Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <GroupBox 
+                Grid.Column="0"
+                BorderBrush="Transparent"
+                BorderThickness="0"
+                Background="{StaticResource InertGas.WindowBackground}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <RowDefinition />
+                        <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalAlignment="Right"
+                        Text="{StaticResource InertGas.Application.VolumeFlowA}">
+                    </TextBlock>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Text="{Binding AppModel.CurrentData.VolumeFlowA}">
+                    </TextBlock>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="4"
+                        HorizontalAlignment="Right"
+                        Text="{StaticResource InertGas.Application.VolumeFlowB}">
+                    </TextBlock>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="6"
+                        Text="{Binding AppModel.CurrentData.VolumeFlowB}">
+                    </TextBlock>
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        HorizontalAlignment="Right"
+                        Text="{StaticResource InertGas.Application.CharcoalColumnTemperature}">
+                    </TextBlock>
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        Text="{Binding AppModel.CurrentData.CharcoalColumnTemperature}">
+                    </TextBlock>
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="4"
+                        HorizontalAlignment="Right"
+                        Text="{StaticResource InertGas.Application.Column4A5ATemperature}">
+                    </TextBlock>
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="6"
+                        Text="{Binding AppModel.CurrentData.Column4A5ATemperature}">
+                    </TextBlock>
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        HorizontalAlignment="Right"
+                        Text="{StaticResource InertGas.Application.Pressure}">
+                    </TextBlock>
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="2"
+                        Text="{Binding AppModel.CurrentData.Pressure}">
+                    </TextBlock>
+                    <themes:ImageButton
+                        Grid.Row="4"
+                        Grid.Column="8"
+                        Content="{StaticResource InertGas.Application.SaveData}"
+                        Style="{StaticResource InertGas.ImageButton}"
+                        ImageSource="{StaticResource InertGas.SaveIcon}">
+                    </themes:ImageButton>
+                    <ProgressBar
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="9"
+                        Minimum="0"
+                        Maximum="1"
+                        IsIndeterminate="True"/>
+                </Grid>
+            </GroupBox>
+        </Grid>
+        <Image
+            Grid.Row="3"
+            Stretch="Fill">
+            <Image.Source>
+                <DrawingImage>
+                    <DrawingImage.Drawing>
+                        <StaticResource ResourceKey="InertGas.Workflow"/>
+                    </DrawingImage.Drawing>
+                </DrawingImage>
+            </Image.Source>
+        </Image>
+        <GroupBox
+            Grid.Row="5"
+            Background="{StaticResource InertGas.WindowBackground}"
+            BorderBrush="Transparent"
+            BorderThickness="0">
+            <Grid>
+                <TextBlock>
+                    <Run Text="{StaticResource InertGas.Application.FiveWayValve}" />
+                    <Run Text="{StaticResource InertGas.Application.One}" />
+                </TextBlock>
+            </Grid>
+        </GroupBox>
     </Grid>
 </UserControl>

@@ -26,8 +26,8 @@
                             Height="15"
                             Margin="3"
                             HorizontalAlignment="Left"
-                            Fill="LightGray"
-                            Stroke="White"
+                            Fill="White"
+                            Stroke="LightGray"
                             StrokeThickness="2" />
                     </Border>
                     <ControlTemplate.Triggers>

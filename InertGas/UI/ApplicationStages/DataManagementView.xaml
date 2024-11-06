@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:themes="clr-namespace:InertGas.Application.Themes"
     xmlns:appStages="clr-namespace:InertGas.Application.UI.ApplicationStages"
     d:DataContext="{d:DesignInstance Type=appStages:DataManagementViewModel}"
     mc:Ignorable="d"
@@ -11,10 +12,94 @@
     d:DesignWidth="800"
     Background="Black">
     <Grid>
-        <TextBlock
-            Text="DataManagement"
-            FontSize="77">
-            
-        </TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Grid.Column="0"
+                Text="{StaticResource InertGas.Application.StartDate}"
+                HorizontalAlignment="Right"/>
+            <DatePicker
+                Grid.Column="2"
+                SelectedDate="{Binding Path=SelectedStartDate, Mode=TwoWay}" />
+            <TextBlock
+                Grid.Column="4"
+                Text="{StaticResource InertGas.Application.EndDate}"
+                HorizontalAlignment="Right"/>
+            <DatePicker
+                Grid.Column="6"
+                SelectedDate="{Binding Path=SelectedEndDate, Mode=TwoWay}" />
+            <themes:ImageButton
+                Grid.Column="8"
+                Content="{StaticResource InertGas.Application.Search}"
+                Style="{StaticResource InertGas.ImageButton}"
+                ImageSource="{StaticResource InertGas.SearchIcon}"/>
+            <themes:ImageButton
+                Grid.Column="10"
+                Content="{StaticResource InertGas.Application.Refresh}"
+                Style="{StaticResource InertGas.ImageButton}"
+                ImageSource="{StaticResource InertGas.RefreshIcon}"/>
+            <themes:ImageButton
+                Grid.Column="12"
+                Content="{StaticResource InertGas.Application.Delete}"
+                Style="{StaticResource InertGas.ImageButton}"
+                ImageSource="{StaticResource InertGas.DeleteDataIcon}"/>
+            <themes:ImageButton
+                Grid.Column="14"
+                Content="{StaticResource InertGas.Application.Export}"
+                Style="{StaticResource InertGas.ImageButton}"
+                ImageSource="{StaticResource InertGas.ExportDataIcon}"/>
+        </Grid>
+        <ListView
+            Grid.Row="4"
+            ItemsSource="{Binding AppModel.CollectedDataSet}"
+            SelectedItem="{Binding SelectedData, Mode=TwoWay}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding Id}"
+                        Header="ID"/>
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding CreatedDate}"
+                        Header="{StaticResource InertGas.Application.CreatedDate}"/>
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding VolumeFlowA}"
+                        Header="{StaticResource InertGas.Application.VolumeFlowA}" />
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding VolumeFlowB}"
+                        Header="{StaticResource InertGas.Application.VolumeFlowB}" />
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding CharcoalColumnTemperature}"
+                        Header="{StaticResource InertGas.Application.CharcoalColumnTemperature}" />
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding Column4A5ATemperature}"
+                        Header="{StaticResource InertGas.Application.Column4A5ATemperature}" />
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding Pressure}"
+                        Header="{StaticResource InertGas.Application.Pressure}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>

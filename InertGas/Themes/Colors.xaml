@@ -18,6 +18,9 @@
     <SolidColorBrush x:Key="InertGas.DarkGreen">#009B00</SolidColorBrush>
     <SolidColorBrush x:Key="InertGas.LightGray">#515151</SolidColorBrush>
     <SolidColorBrush x:Key="InertGas.DarkGray">#333333</SolidColorBrush>
+    <SolidColorBrush x:Key="InertGas.Yellow">#FFFF33</SolidColorBrush>
+    <SolidColorBrush x:Key="InertGas.LightYellow">#FFFF99</SolidColorBrush>
+    <SolidColorBrush x:Key="InertGas.DarkYellow">#CCCC00</SolidColorBrush>
 
     <SolidColorBrush x:Key="InertGas.ButtonBackground" Color="#333333" />
     <SolidColorBrush x:Key="InertGas.ButtonBackgroundHover" Color="#3e3e42" />

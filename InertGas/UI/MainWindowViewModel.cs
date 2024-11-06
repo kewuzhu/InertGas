@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
 using InertGas.Application.Model;
 using InertGas.Application.Themes;
 using InertGas.Application.UI.ApplicationStages;
@@ -9,10 +8,8 @@ using InertGas.Application.Utility;
 using InertGas.Common.DataAccess;
 using InertGas.Common.Model;
 using NLog;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Security;
-using System.Windows.Media.Media3D;
 
 namespace InertGas.Application.UI
 {
@@ -30,7 +27,7 @@ namespace InertGas.Application.UI
         private bool isUserLoggedIn;
 
         [ObservableProperty]
-        private string userName;
+        private string userName = "Default";
 
         [ObservableProperty]
         private SecureString securePassword;
@@ -41,23 +38,31 @@ namespace InertGas.Application.UI
         [RelayCommand]
         private void LogIn()
         {
-            SelectedUser = dataRepository_.GetUsers().ToList().FirstOrDefault(x => x.Name == UserName);
-
-            if (SelectedUser == null) return;
-
-            if (!SecureUtils.ValidateUserPassword(SelectedUser.Password, SecurePassword, SelectedUser.Salt))
+            try
             {
-                UserCommunication.ShowMessage(Theme.GetString(Strings.IncorrectPassword), Theme.GetString(Strings.DoubleCheckUserPasswordMessage), MessageType.Info);
-                return;
+                SelectedUser = dataRepository_.GetUsers().ToList().FirstOrDefault(x => x.Name == UserName);
+
+                if (SelectedUser == null)
+                    throw new ArgumentNullException(nameof(SelectedUser));
+
+                if (!SecureUtils.ValidateUserPassword(SelectedUser.Password, SecurePassword, SelectedUser.Salt))
+                {
+                    UserCommunication.ShowMessage(Theme.GetString(Strings.IncorrectPassword), Theme.GetString(Strings.DoubleCheckUserPasswordMessage), MessageType.Info);
+                    return;
+                }
+
+                IsUserLoggedIn = true;
+                SecurePassword = null;
+
+                AppModel.CurrentUser = SelectedUser;
+                AppModel.CurrentApplicationStage = ApplicationStage.MainPage;
+                CurrentViewModel = viewModelMap_[AppModel.CurrentApplicationStage];
+                IsPageSwitchPlaying = true;
             }
-
-            IsUserLoggedIn = true;
-            SecurePassword = null;
-
-            AppModel.CurrentUser = SelectedUser;
-            AppModel.CurrentApplicationStage = ApplicationStage.MainPage;
-            CurrentViewModel = viewModelMap_[AppModel.CurrentApplicationStage];
-            IsPageSwitchPlaying = true;
+            catch (Exception ex)
+            {
+                UserCommunication.ShowMessage($"{Theme.GetString(Strings.Error)}", $"Message:{ex.Message}\nStackTrace:{ex.StackTrace}", MessageType.Critical);
+            }
         }
 
         [RelayCommand]
