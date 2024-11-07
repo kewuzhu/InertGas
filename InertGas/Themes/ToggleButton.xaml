@@ -6,7 +6,9 @@
         <ResourceDictionary Source="Colors.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="ToggleButton">
+    <Style
+        x:Key="InertGas.CustomToggleButton"
+        TargetType="ToggleButton">
         <Setter Property="Width" Value="50" />
         <Setter Property="Height" Value="25" />
         <Setter Property="Background" Value="DarkGray" />

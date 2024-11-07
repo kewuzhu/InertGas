@@ -14,15 +14,18 @@
         public const string Administrator = "InertGas.Application.Administrator";
         public const string Buzzer = "InertGas.Application.Buzzer";
         public const string CharcoalColumnTemperature = "InertGas.Application.CharcoalColumnTemperature";
+        public const string CollectionEnd = "InertGas.Application.CollectionEnd";
+        public const string CollectionStart = "InertGas.Application.CollectionStart";
         public const string Column4A5ATemperature = "InertGas.Application.Column4A5ATemperature";
         public const string CreatedDate = "InertGas.Application.CreatedDate";
         public const string DataManagement = "InertGas.Application.DataManagement";
         public const string Delete = "InertGas.Application.Delete";
         public const string DoubleCheckUserPasswordMessage = "InertGas.Application.DoubleCheckUserPasswordMessage";
         public const string DoubleSolenoidValve = "InertGas.Application.DoubleSolenoidValve";
-        public const string ElectricallyDrivenValve = "InertGas.Application.ElectricallyDrivenValve";
+        public const string ElectricalValve = "InertGas.Application.ElectricalValve";
         public const string EndDate = "InertGas.Application.EndDate";
         public const string Error = "InertGas.Application.Error";
+        public const string ExcitationPhase = "InertGas.Application.ExcitationPhase";
         public const string Export = "InertGas.Application.Export";
         public const string Five = "InertGas.Application.Five";
         public const string FiveWayValve = "InertGas.Application.FiveWayValve";
@@ -39,6 +42,7 @@
         public const string Password = "InertGas.Application.Password";
         public const string PneumaticPump = "InertGas.Application.PneumaticPump";
         public const string Pressure = "InertGas.Application.Pressure";
+        public const string PurificationPhase = "InertGas.Application.PurificationPhase";
         public const string Refresh = "InertGas.Application.Refresh";
         public const string Role = "InertGas.Application.Role";
         public const string Salt = "InertGas.Application.Salt";

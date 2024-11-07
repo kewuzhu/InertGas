@@ -5,7 +5,211 @@
         <ResourceDictionary Source="Colors.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    
+    <ControlTemplate x:Key="InertGas.ElectricalValveIcon">
+        <Viewbox>
+            <Canvas UseLayoutRounding="False" Width="36.0" Height="50.0">
+                <Canvas.Clip>
+                    <RectangleGeometry Rect="0.0,0.0,36.0,50.0"/>
+                </Canvas.Clip>
+                <Canvas UseLayoutRounding="False">
+                    <Canvas UseLayoutRounding="False">
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="5.0" Canvas.Top="21.0" Width="26.0" Height="29.0" Fill="#ffdce1e4"/>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="0.0" Canvas.Top="20.0" Width="36.0" Height="2.0" Fill="#ffdce1e4"/>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="0.0" Canvas.Top="18.0" Width="36.0" Height="2.0" Fill="#ff505659"/>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="14.0" Canvas.Top="4.0" Width="8.0" Height="2.0" Fill="#ff4b4f51"/>
+                        <Rectangle RadiusX="1.0" RadiusY="1.0" Canvas.Left="12.0" Canvas.Top="0.0" Width="12.0" Height="4.0" Fill="#ffff0000"/>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="7.0" Canvas.Top="6.0" Width="22.0" Height="12.0" Fill="#ff717577"/>
+                    </Canvas>
+                </Canvas>
+            </Canvas>
+        </Viewbox>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="InertGas.FiveWayValveIcon">
+        <Viewbox>
+            <Canvas UseLayoutRounding="False" Width="47.0" Height="30.0">
+                <Canvas.Clip>
+                    <RectangleGeometry Rect="0.0,0.0,47.0,30.0"/>
+                </Canvas.Clip>
+                <Canvas UseLayoutRounding="False">
+                    <Canvas UseLayoutRounding="False" RenderTransform="6.123031769111886e-17,1.0,-1.0,6.123031769111886e-17,46.5,0.5">
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="2.9537037" Canvas.Top="0.0" Width="17.7222222" Height="4.46060606" Fill="#ff828282"/>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="0.0" Canvas.Top="14.2181818" Width="29.0" Height="31.7818182" Fill="#ff0069bb"/>
+                        <Canvas UseLayoutRounding="False">
+                            <Ellipse Canvas.Left="8.32407403" Canvas.Top="19.23636362" Width="9.39814814" Height="9.75757576" Fill="#ffb6b6b6"/>
+                            <Ellipse Canvas.Left="8.32407403" Canvas.Top="19.23636362" Width="9.39814814" Height="9.75757576" Fill="#ff000000"/>
+                        </Canvas>
+                        <Canvas UseLayoutRounding="False">
+                            <Ellipse Canvas.Left="8.32407403" Canvas.Top="32.06060602" Width="9.39814814" Height="9.75757576" Fill="#ffb6b6b6"/>
+                            <Ellipse Canvas.Left="8.32407403" Canvas.Top="32.06060602" Width="9.39814814" Height="9.75757576" Fill="#ff000000"/>
+                        </Canvas>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="2.9537037" Canvas.Top="4.46060606" Width="22.9250765" Height="9.75757576" Fill="#ff9e9e9e"/>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="8.05555556" Canvas.Top="0.0" Width="17.7222222" Height="4.46060606" Fill="#ff9e9e9e"/>
+                    </Canvas>
+                </Canvas>
+            </Canvas>
+        </Viewbox>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="InertGas.PneumaticPumpIcon">
+        <Viewbox>
+            <Canvas UseLayoutRounding="False" Width="30.0" Height="50.0">
+                <Canvas.Clip>
+                    <RectangleGeometry Rect="0.0,0.0,30.0,50.0"/>
+                </Canvas.Clip>
+                <Canvas UseLayoutRounding="False">
+                    <Canvas UseLayoutRounding="False">
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="7.5" Canvas.Top="24.9878735" Width="15.0" Height="8.32929116" Fill="#ff606467"/>
+                        <Rectangle RadiusX="1.66585823" RadiusY="1.66585823" Canvas.Left="5.0" Canvas.Top="33.3171646" Width="20.0" Height="16.6585823" Fill="#ffa1aaad"/>
+                        <Rectangle RadiusX="2.49878735" RadiusY="2.49878735" Canvas.Left="5.0" Canvas.Top="0.0" Width="20.0" Height="24.9878735" Fill="#ffbfc9cd"/>
+                        <Path Fill="#ffafb9bb">
+                            <Path.Data>
+                                <PathGeometry Figures="M 6.66586 33.3172 L 23.3341 33.3172 C 24.2542 33.3172 25 34.063 25 34.983 L 25 36.6731 L 25 36.6731 L 5 36.6731 L 5 34.983 C 5 34.063 5.74583 33.3172 6.66586 33.3172 Z"/>
+                            </Path.Data>
+                        </Path>
+                        <Path RenderTransform="1.0,0.0,0.0,-1.0,0.0,96.644" Fill="#ffafb9bb">
+                            <Path.Data>
+                                <PathGeometry Figures="M 6.66586 46.644 L 23.3341 46.644 C 24.2542 46.644 25 47.3899 25 48.3099 L 25 50 L 25 50 L 5 50 L 5 48.3099 C 5 47.3899 5.74583 46.644 6.66586 46.644 Z"/>
+                            </Path.Data>
+                        </Path>
+                        <Canvas UseLayoutRounding="False" RenderTransform="1.0,0.0,0.0,1.0,0.0,34.983">
+                            <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="0.0" Canvas.Top="0.0" Width="2.5" Height="13.3268659">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush StartPoint="0.5,0.0" EndPoint="0.5,1.0">
+                                        <GradientStop Color="#ff97a2a7" Offset="0.0"/>
+                                        <GradientStop Color="#ffe1e6e8" Offset="0.42021174"/>
+                                        <GradientStop Color="#ff97a2a7" Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Path>
+                                <Path.Fill>
+                                    <LinearGradientBrush StartPoint="0.5,0.0" EndPoint="0.5,1.0">
+                                        <GradientStop Color="#ffbfc9cd" Offset="0.0"/>
+                                        <GradientStop Color="#ffe1e6e8" Offset="0.42021174"/>
+                                        <GradientStop Color="#ffbfc9cd" Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </Path.Fill>
+                                <Path.Data>
+                                    <PathGeometry Figures="M 2.5 3.33172 L 6.81892 3.33172 C 7.27297 4.02921 7.5 5.13979 7.5 6.66343 C 7.5 8.18708 7.27297 9.29765 6.81892 9.99515 L 2.5 9.99515 L 2.5 3.33172 Z"/>
+                                </Path.Data>
+                            </Path>
+                        </Canvas>
+                        <Canvas UseLayoutRounding="False" RenderTransform="-1.0,0.0,0.0,1.0,30.0,34.983">
+                            <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="0.0" Canvas.Top="0.0" Width="2.5" Height="13.3268659">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush StartPoint="0.5,0.0" EndPoint="0.5,1.0">
+                                        <GradientStop Color="#ff97a2a7" Offset="0.0"/>
+                                        <GradientStop Color="#ffe1e6e8" Offset="0.42021174"/>
+                                        <GradientStop Color="#ff97a2a7" Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Path>
+                                <Path.Fill>
+                                    <LinearGradientBrush StartPoint="0.5,0.0" EndPoint="0.5,1.0">
+                                        <GradientStop Color="#ffbfc9cd" Offset="0.0"/>
+                                        <GradientStop Color="#ffe1e6e8" Offset="0.42021174"/>
+                                        <GradientStop Color="#ffbfc9cd" Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </Path.Fill>
+                                <Path.Data>
+                                    <PathGeometry Figures="M 2.5 3.33172 L 6.81892 3.33172 C 7.27297 4.02921 7.5 5.13979 7.5 6.66343 C 7.5 8.18708 7.27297 9.29765 6.81892 9.99515 L 2.5 9.99515 L 2.5 3.33172 Z"/>
+                                </Path.Data>
+                            </Path>
+                        </Canvas>
+                        <Path Fill="#ff606467">
+                            <Path.Data>
+                                <PathGeometry Figures="M 30 4.16465 L 30 19.1574 L 29.492 19.1574 L 26.6667 19.1574 L 25 16.623 L 25 6.69901 L 26.6667 4.16465 L 29.492 4.16465 Z"/>
+                            </Path.Data>
+                        </Path>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="5.0" Canvas.Top="4.9975747" Width="20.0" Height="1.66585823" Fill="#ff8e969b"/>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="8.13417016" Canvas.Top="4.9975747" Width="1.35705699" Height="16.6585823" Fill="#ff8e969b"/>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="12.8245605" Canvas.Top="4.9975747" Width="1.35705699" Height="16.6585823" Fill="#ff8e969b"/>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="17.5149508" Canvas.Top="4.9975747" Width="1.35705699" Height="16.6585823" Fill="#ff8e969b"/>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="22.2053411" Canvas.Top="4.9975747" Width="1.35705699" Height="16.6585823" Fill="#ff8e969b"/>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="5.0" Canvas.Top="19.9902988" Width="20.0" Height="1.66585823" Fill="#ff8e969b"/>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="10.0" Canvas.Top="26.6537317" Width="10.0" Height="6.66343293" Opacity="0.200000003" Fill="#ffeceff0"/>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="12.5" Canvas.Top="26.6537317" Width="5.0" Height="6.66343293" Fill="#ffdce1e4"/>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="26.6666667" Canvas.Top="4.16464558" Width="3.33333333" Height="14.9927241" Fill="#ff4c5052"/>
+                        <Canvas UseLayoutRounding="False" RenderTransform="1.0,0.0,0.0,1.0,27.0833,4.9976">
+                            <Ellipse Canvas.Left="0.0" Canvas.Top="0.0" Width="2.5" Height="2.49878734" Opacity="0.200000003" Fill="#ffd8d8d8"/>
+                            <Path Fill="#ffd8d8d8">
+                                <Path.Data>
+                                    <PathGeometry Figures="M 1.25 1.8759 C 1.59518 1.8759 1.875 1.59581 1.875 1.2503 C 1.875 0.904789 1.59518 0.624697 1.25 0.624697 C 0.904822 0.624697 0.625 0.904789 0.625 1.2503 C 0.625 1.59581 0.904822 1.8759 1.25 1.8759 Z"/>
+                                </Path.Data>
+                            </Path>
+                        </Canvas>
+                        <Canvas UseLayoutRounding="False" RenderTransform="1.0,0.0,0.0,1.0,27.0833,15.8257">
+                            <Ellipse Canvas.Left="0.0" Canvas.Top="0.0" Width="2.5" Height="2.49878734" Opacity="0.200000003" Fill="#ffd8d8d8"/>
+                            <Path Fill="#ffd8d8d8">
+                                <Path.Data>
+                                    <PathGeometry Figures="M 1.25 1.8759 C 1.59518 1.8759 1.875 1.59581 1.875 1.2503 C 1.875 0.904789 1.59518 0.624697 1.25 0.624697 C 0.904822 0.624697 0.625 0.904789 0.625 1.2503 C 0.625 1.59581 0.904822 1.8759 1.25 1.8759 Z"/>
+                                </Path.Data>
+                            </Path>
+                        </Canvas>
+                    </Canvas>
+                </Canvas>
+            </Canvas>
+        </Viewbox>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="InertGas.DoubleSolenoidValveIcon">
+        <Viewbox>
+            <Canvas UseLayoutRounding="False" Width="56.0" Height="21.0">
+                <Canvas.Clip>
+                    <RectangleGeometry Rect="0.0,0.0,56.0,21.0"/>
+                </Canvas.Clip>
+                <Canvas UseLayoutRounding="False">
+                    <Canvas UseLayoutRounding="False">
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="12.0" Canvas.Top="7.0" Width="2.0" Height="1.0" Fill="#ffff0000"/>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="41.0" Canvas.Top="7.0" Width="2.0" Height="1.0" Fill="#ffff0000"/>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="46.6481113" Canvas.Top="7.83243243" Width="9.35188867" Height="9.53513514" Fill="#ff8b8b8b"/>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="0.0" Canvas.Top="7.83243243" Width="9.35188867" Height="9.53513514" Fill="#ff8b8b8b"/>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="1.66998012" Canvas.Top="0.0" Width="7.68190855" Height="7.83243243" Fill="#ff404040"/>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="46.6481113" Canvas.Top="0.0" Width="7.68190855" Height="7.83243243" Fill="#ff404040"/>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="9.35188867" Canvas.Top="1.02162162" Width="7.12524851" Height="3.74594595">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush StartPoint="0.5,0.0" EndPoint="0.5,1.0">
+                                    <GradientStop Color="#ff626262" Offset="0.0"/>
+                                    <GradientStop Color="#ffaaaaaa" Offset="0.422514375"/>
+                                    <GradientStop Color="#ff5d5d5d" Offset="1.0"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="39.5228628" Canvas.Top="1.02162162" Width="7.12524851" Height="3.74594595">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush StartPoint="0.5,0.0" EndPoint="0.5,1.0">
+                                    <GradientStop Color="#ff626262" Offset="0.0"/>
+                                    <GradientStop Color="#ffaaaaaa" Offset="0.422514375"/>
+                                    <GradientStop Color="#ff5d5d5d" Offset="1.0"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle RadiusX="0.0" RadiusY="0.0" Canvas.Left="9.35188867" Canvas.Top="7.83243243" Width="37.2962227" Height="13.1675676" Fill="#ff404040"/>
+                    </Canvas>
+                </Canvas>
+            </Canvas>
+        </Viewbox>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="InertGas.HeatingBoxIcon">
+        <Viewbox>
+            <Canvas UseLayoutRounding="False" Width="48.0" Height="40.0">
+                <Canvas.Clip>
+                    <RectangleGeometry Rect="0.0,0.0,48.0,40.0"/>
+                </Canvas.Clip>
+                <Canvas UseLayoutRounding="False">
+                    <Path Fill="#ffff6900">
+                        <Path.Data>
+                            <PathGeometry Figures="M 40 0 C 44.4183 0 48 3.58172 48 8 L 48 32 C 48 36.4183 44.4183 40 40 40 L 8 40 C 3.58172 40 0 36.4183 0 32 L 0 8 C 0 3.58172 3.58172 0 8 0 L 40 0 Z M 40 2 L 8 2 C 4.68629 2 2 4.68629 2 8 L 2 32 C 2 35.3137 4.68629 38 8 38 L 40 38 C 43.3137 38 46 35.3137 46 32 L 46 8 C 46 4.68629 43.3137 2 40 2 Z" FillRule="Nonzero"/>
+                        </Path.Data>
+                    </Path>
+                </Canvas>
+            </Canvas>
+        </Viewbox>
+    </ControlTemplate>
+
     <ControlTemplate x:Key="InertGas.MainPageIcon">
         <Viewbox>
             <Canvas UseLayoutRounding="False" Width="96.0" Height="96.0">
@@ -408,8 +612,7 @@
         </DrawingBrush.Drawing>
     </DrawingBrush>
 
-    <DrawingGroup 
-        x:Key="InertGas.Workflow"
+    <DrawingGroup x:Key="InertGas.Workflow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:svg="http://sharpvectors.codeplex.com/runtime/">

@@ -6,6 +6,6 @@
 
         public string RootDirectory { get; set; }
 
-        public string DatabaseName { get; set; }
+        public string UserDatabaseName { get; set; }
     }
 }

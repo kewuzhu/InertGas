@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:appStages="clr-namespace:InertGas.Application.UI.ApplicationStages"
     xmlns:themes="clr-namespace:InertGas.Application.Themes"
+    xmlns:converters="clr-namespace:InertGas.Application.Themes.Converters"
     d:DataContext="{d:DesignInstance Type=appStages:MainPageViewModel}"
     mc:Ignorable="d" 
     d:DesignHeight="450"
@@ -13,12 +14,13 @@
     Background="Black">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+            <RowDefinition Height="{StaticResource InertGas.LargeMarginGridLength}"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
             <RowDefinition />
             <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="{StaticResource InertGas.LargeMarginGridLength}"/>
         </Grid.RowDefinitions>
         <Grid
             Grid.Row="1">
@@ -134,17 +136,199 @@
                 </DrawingImage>
             </Image.Source>
         </Image>
-        <GroupBox
-            Grid.Row="5"
-            Background="{StaticResource InertGas.WindowBackground}"
-            BorderBrush="Transparent"
-            BorderThickness="0">
-            <Grid>
-                <TextBlock>
-                    <Run Text="{StaticResource InertGas.Application.FiveWayValve}" />
-                    <Run Text="{StaticResource InertGas.Application.One}" />
-                </TextBlock>
-            </Grid>
-        </GroupBox>
+        <Grid Grid.Row="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <ComboBox
+                Grid.Column="1"
+                Grid.Row="0"
+                ItemsSource="{Binding WorkingPhaseList}"
+                SelectedItem="{Binding SelectedWorkingPhase}"
+                Style="{StaticResource InertGas.DataGridEditingComboBoxStyle}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock
+                            Text="{Binding Converter={converters:WorkingPhasesToStringConverter}}"
+                            FontSize="{StaticResource InertGas.LargeFontSize}"
+                            Foreground="{StaticResource InertGas.Yellow}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <GroupBox
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="3"
+                Background="{StaticResource InertGas.WindowBackground}"
+                BorderBrush="Transparent"
+                BorderThickness="0">
+                <Grid HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <RowDefinition />
+                        <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                    </Grid.ColumnDefinitions>
+                    <themes:ValveControlGroupBox
+                        x:Name="ElectricalValveOne"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        ImageSource="{StaticResource InertGas.ElectricalValveIcon}"
+                        ValveName="{StaticResource InertGas.Application.ElectricalValve}"
+                        ValveNumber="{StaticResource InertGas.Application.One}" />
+
+                    <themes:ValveControlGroupBox
+                        x:Name="ElectricalValveTwo"
+                        Grid.Row="0"
+                        Grid.Column="3"
+                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        ImageSource="{StaticResource InertGas.ElectricalValveIcon}"
+                        ValveName="{StaticResource InertGas.Application.ElectricalValve}"
+                        ValveNumber="{StaticResource InertGas.Application.Two}" />
+
+                    <themes:ValveControlGroupBox
+                        x:Name="ElectricalValveThree"
+                        Grid.Row="0"
+                        Grid.Column="5"
+                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        ImageSource="{StaticResource InertGas.ElectricalValveIcon}"
+                        ValveName="{StaticResource InertGas.Application.ElectricalValve}"
+                        ValveNumber="{StaticResource InertGas.Application.Three}" />
+
+                    <themes:ValveControlGroupBox
+                        x:Name="ElectricalValveFour"
+                        Grid.Row="0"
+                        Grid.Column="7"
+                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        ImageSource="{StaticResource InertGas.ElectricalValveIcon}"
+                        ValveName="{StaticResource InertGas.Application.ElectricalValve}"
+                        ValveNumber="{StaticResource InertGas.Application.Four}" />
+
+                    <themes:ValveControlGroupBox
+                        x:Name="ElectricalValveFive"
+                        Grid.Row="0"
+                        Grid.Column="9"
+                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        ImageSource="{StaticResource InertGas.ElectricalValveIcon}"
+                        ValveName="{StaticResource InertGas.Application.ElectricalValve}"
+                        ValveNumber="{StaticResource InertGas.Application.Five}" />
+
+                    <themes:ValveControlGroupBox
+                        x:Name="FiveWayValveOne"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        ImageSource="{StaticResource InertGas.FiveWayValveIcon}"
+                        ValveName="{StaticResource InertGas.Application.FiveWayValve}"
+                        ValveNumber="{StaticResource InertGas.Application.One}" />
+                    
+                    <themes:ValveControlGroupBox
+                        x:Name="FiveWayValveTwo"
+                        Grid.Row="2"
+                        Grid.Column="3"
+                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        ImageSource="{StaticResource InertGas.FiveWayValveIcon}"
+                        ValveName="{StaticResource InertGas.Application.FiveWayValve}"
+                        ValveNumber="{StaticResource InertGas.Application.Two}" />
+                    
+                    <themes:ValveControlGroupBox
+                        x:Name="FiveWayValveThree"
+                        Grid.Row="2"
+                        Grid.Column="5"
+                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        ImageSource="{StaticResource InertGas.FiveWayValveIcon}"
+                        ValveName="{StaticResource InertGas.Application.FiveWayValve}"
+                        ValveNumber="{StaticResource InertGas.Application.Three}" />
+                    
+                    <themes:ValveControlGroupBox
+                        x:Name="FiveWayValveFour"
+                        Grid.Row="2"
+                        Grid.Column="7"
+                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        ImageSource="{StaticResource InertGas.FiveWayValveIcon}"
+                        ValveName="{StaticResource InertGas.Application.FiveWayValve}"
+                        ValveNumber="{StaticResource InertGas.Application.Four}" />
+
+                    <themes:ValveControlGroupBox
+                        x:Name="PneumaticPumpOne"
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        ImageSource="{StaticResource InertGas.PneumaticPumpIcon}"
+                        ValveName="{StaticResource InertGas.Application.PneumaticPump}"
+                        ValveNumber="{StaticResource InertGas.Application.One}" />
+
+                    <themes:ValveControlGroupBox
+                        x:Name="PneumaticPumpTwo"
+                        Grid.Row="4"
+                        Grid.Column="3"
+                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        ImageSource="{StaticResource InertGas.PneumaticPumpIcon}"
+                        ValveName="{StaticResource InertGas.Application.PneumaticPump}"
+                        ValveNumber="{StaticResource InertGas.Application.Two}" />
+
+                    <themes:ValveControlGroupBox
+                        x:Name="DoubleSolenoidValveOne"
+                        Grid.Row="4"
+                        Grid.Column="5"
+                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        ImageSource="{StaticResource InertGas.DoubleSolenoidValveIcon}"
+                        ValveName="{StaticResource InertGas.Application.DoubleSolenoidValve}"
+                        ValveNumber="{StaticResource InertGas.Application.One}" />
+
+                    <themes:ValveControlGroupBox
+                        x:Name="DoubleSolenoidValveTwo"
+                        Grid.Row="4"
+                        Grid.Column="7"
+                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        ImageSource="{StaticResource InertGas.DoubleSolenoidValveIcon}"
+                        ValveName="{StaticResource InertGas.Application.DoubleSolenoidValve}"
+                        ValveNumber="{StaticResource InertGas.Application.Two}" />
+
+                    <themes:ValveControlGroupBox
+                        x:Name="HeatingBoxOne"
+                        Grid.Row="4"
+                        Grid.Column="9"
+                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        ImageSource="{StaticResource InertGas.HeatingBoxIcon}"
+                        ValveName="{StaticResource InertGas.Application.HeatingBox}"
+                        ValveNumber="{StaticResource InertGas.Application.One}" />
+
+                    <themes:ValveControlGroupBox
+                        x:Name="HeatingBoxTwo"
+                        Grid.Row="4"
+                        Grid.Column="11"
+                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        ImageSource="{StaticResource InertGas.HeatingBoxIcon}"
+                        ValveName="{StaticResource InertGas.Application.HeatingBox}"
+                        ValveNumber="{StaticResource InertGas.Application.Two}" />
+                </Grid>
+            </GroupBox>
+        </Grid>
+        
     </Grid>
 </UserControl>

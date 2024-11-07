@@ -5,9 +5,38 @@
   "DataRepoConfig": {
     "ServerUrl": "http://127.0.0.1:8080",
     "RootDirectory": "C:\\InertGas\\DICOM",
-    "DatabaseName": "user"
+    "UserDatabaseName": "User"
   },
-  "SerialConfiguration": {
-    "SerialPort": "COM8"
+  "HeatingBoxConfigs": [
+    {
+      "SerialConfiguration": {
+        "Id": "CharcoalColumnTemperature",
+        "SerialPort": "COM10"
+      }
+    },
+    {
+      "SerialConfiguration": {
+        "Id": "Column4A5ATemperature",
+        "SerialPort": "COM14"
+      }
+    }
+  ],
+  "FlowMeterConfigs": [
+    {
+      "Id": "A",
+      "SerialConfiguration": {
+        "SerialPort": "COM10"
+      }
+    },
+    {
+      "Id": "B",
+      "SerialConfiguration": {
+        "SerialPort": "COM14"
+      }
+    }
+  ],
+  "PLCConfig": {
+    "IpAddress": "192.168.1.100",
+    "Port": 502
   }
 }

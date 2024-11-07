@@ -15,9 +15,8 @@
         Title="{StaticResource InertGas.Common.Title}"
         Foreground="{StaticResource InertGas.DefaultForegroundColor}"
         Background="{StaticResource InertGas.WindowBackground}"
-        Height="550" 
-        Width="1040"
-        WindowStyle="None">
+        Height="740" 
+        Width="1250">
 
     <Window.Resources>
         <Storyboard x:Key="FadeInAnimation" Completed="OnAnimationCompleted">
@@ -158,12 +157,14 @@
                         </Style>
                     </ContentControl.Style>
                 </ContentControl>
-                <Grid
-                    Width="300"
+                <GroupBox
+                    BorderThickness="0"
+                    BorderBrush="Transparent"
+                    Width="400"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-                    <Grid.Style>
-                        <Style TargetType="Grid">
+                    <GroupBox.Style>
+                        <Style TargetType="GroupBox">
                             <Setter Property="Visibility" Value="Visible" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsUserLoggedIn}" Value="True">
@@ -171,106 +172,109 @@
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-                    </Grid.Style>
+                    </GroupBox.Style>
                     <Grid>
-                        <Grid.Background>
-                            <StaticResource ResourceKey="InertGas.Background" />
-                        </Grid.Background>
-                    </Grid>
-                    <StackPanel>
                         <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition Height="{StaticResource InertGas.LargeMarginGridLength}"/>
-                                <RowDefinition />
-                                <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
-                                <RowDefinition />
-                                <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
-                                <ColumnDefinition Width="3*"/>
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="5"
-                                HorizontalAlignment="Center"
-                                Text="{StaticResource InertGas.Common.Title}"
-                                FontWeight="ExtraBold"
-                                FontSize="{StaticResource InertGas.MenuButtonFontSize}">
-                            </TextBlock>
-                            <TextBlock
-                                Grid.Row="2"
-                                Grid.Column="1"
-                                HorizontalAlignment="Right"
-                                Text="{StaticResource InertGas.Application.User}"
-                                FontWeight="ExtraBold">
-                            </TextBlock>
-                            <TextBox
-                                Grid.Row="2"
-                                Grid.Column="3"
-                                Text="{Binding UserName}">
-                            </TextBox>
-                            <TextBlock
-                                Grid.Row="4"
-                                Grid.Column="1"
-                                HorizontalAlignment="Right"
-                                Text="{StaticResource InertGas.Application.Password}"
-                                FontWeight="ExtraBold">
-                            </TextBlock>
-                            <PasswordBox
-                                Grid.Row="4"
-                                Grid.Column="3"
-                                PasswordChar="*"
-                                PasswordChanged="HandlePasswordChanged">
-                                <i:Interaction.Behaviors>
-                                    <behaviors:PasswordBoxBindingBehavior Password="{Binding SecurePassword}" />
-                                </i:Interaction.Behaviors>
-                                <PasswordBox.InputBindings>
-                                    <KeyBinding Key="Enter" Command="{Binding LogInCommand}" />
-                                </PasswordBox.InputBindings>
-                            </PasswordBox>
-                            <Grid
-                                Grid.Row="6"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="5">
+                            <Grid.Background>
+                                <StaticResource ResourceKey="InertGas.Background" />
+                            </Grid.Background>
+                        </Grid>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition Height="{StaticResource InertGas.LargeMarginGridLength}"/>
+                                    <RowDefinition />
+                                    <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                                    <RowDefinition />
+                                    <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                                    <ColumnDefinition Width="3*"/>
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <themes:ImageButton
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="5"
+                                    HorizontalAlignment="Center"
+                                    Text="{StaticResource InertGas.Common.Title}"
+                                    FontWeight="ExtraBold"
+                                    FontSize="{StaticResource InertGas.MenuButtonFontSize}">
+                                </TextBlock>
+                                <TextBlock
+                                    Grid.Row="2"
                                     Grid.Column="1"
-                                    HorizontalAlignment="Center"
-                                    Content="{StaticResource InertGas.Common.Close}"
-                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                                    Command="{Binding CloseCommand}"
-                                    Style="{StaticResource InertGas.ImageButton}"
-                                    ImageSource="{StaticResource InertGas.CloseIcon}"
-                                    Foreground="{StaticResource InertGas.Red}">
-                                </themes:ImageButton>
-                                <themes:ImageButton
+                                    HorizontalAlignment="Right"
+                                    Text="{StaticResource InertGas.Application.User}"
+                                    FontWeight="ExtraBold">
+                                </TextBlock>
+                                <TextBox
+                                    Grid.Row="2"
                                     Grid.Column="3"
-                                    HorizontalAlignment="Center"
-                                    Content="{StaticResource InertGas.Application.LogIn}"
-                                    Command="{Binding LogInCommand}"
-                                    Style="{StaticResource InertGas.ImageButton}"
-                                    ImageSource="{StaticResource InertGas.LoginIcon}">
-                                </themes:ImageButton>
+                                    Text="{Binding UserName}">
+                                </TextBox>
+                                <TextBlock
+                                    Grid.Row="4"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Right"
+                                    Text="{StaticResource InertGas.Application.Password}"
+                                    FontWeight="ExtraBold">
+                                </TextBlock>
+                                <PasswordBox
+                                    Grid.Row="4"
+                                    Grid.Column="3"
+                                    PasswordChar="*"
+                                    PasswordChanged="HandlePasswordChanged">
+                                    <i:Interaction.Behaviors>
+                                        <behaviors:PasswordBoxBindingBehavior Password="{Binding SecurePassword}" />
+                                    </i:Interaction.Behaviors>
+                                    <PasswordBox.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding LogInCommand}" />
+                                    </PasswordBox.InputBindings>
+                                </PasswordBox>
+                                <Grid
+                                    Grid.Row="6"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <themes:ImageButton
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Center"
+                                        Content="{StaticResource InertGas.Common.Close}"
+                                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                        Command="{Binding CloseCommand}"
+                                        Style="{StaticResource InertGas.ImageButton}"
+                                        ImageSource="{StaticResource InertGas.CloseIcon}"
+                                        Foreground="{StaticResource InertGas.Red}">
+                                    </themes:ImageButton>
+                                    <themes:ImageButton
+                                        Grid.Column="3"
+                                        HorizontalAlignment="Center"
+                                        Content="{StaticResource InertGas.Application.LogIn}"
+                                        Command="{Binding LogInCommand}"
+                                        Style="{StaticResource InertGas.ImageButton}"
+                                        ImageSource="{StaticResource InertGas.LoginIcon}">
+                                    </themes:ImageButton>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </StackPanel>
-                </Grid>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
             </Grid>
 
-            <Grid Grid.Row="4">
+            <Grid 
+                Grid.Row="4">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Setter Property="Visibility" Value="Visible" />

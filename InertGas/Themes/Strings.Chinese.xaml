@@ -33,15 +33,18 @@
     <system:String x:Key="InertGas.Application.Administrator">管理员</system:String>
     <system:String x:Key="InertGas.Application.Buzzer">蜂鸣器</system:String>
     <system:String x:Key="InertGas.Application.CharcoalColumnTemperature">活性碳柱温度(℃)</system:String>
+    <system:String x:Key="InertGas.Application.CollectionEnd">采样结束</system:String>
+    <system:String x:Key="InertGas.Application.CollectionStart">采样开始</system:String>
     <system:String x:Key="InertGas.Application.Column4A5ATemperature">4A 5A柱温度(℃)</system:String>
     <system:String x:Key="InertGas.Application.CreatedDate">创建时间</system:String>
     <system:String x:Key="InertGas.Application.DataManagement">数据管理</system:String>
     <system:String x:Key="InertGas.Application.Delete">删除</system:String>
     <system:String x:Key="InertGas.Application.DoubleCheckUserPasswordMessage">请再次检查您所输入的密码是否正确，且与用户名保持一致，然后再次输入。</system:String>
     <system:String x:Key="InertGas.Application.DoubleSolenoidValve">双控阀5</system:String>
-    <system:String x:Key="InertGas.Application.ElectricallyDrivenValve">电磁阀</system:String>
+    <system:String x:Key="InertGas.Application.ElectricalValve">电磁阀</system:String>
     <system:String x:Key="InertGas.Application.EndDate">结束日期</system:String>
     <system:String x:Key="InertGas.Application.Error">错误</system:String>
+    <system:String x:Key="InertGas.Application.ExcitationPhase">活化阶段</system:String>
     <system:String x:Key="InertGas.Application.Export">导出</system:String>
     <system:String x:Key="InertGas.Application.Five">五</system:String>
     <system:String x:Key="InertGas.Application.FiveWayValve">五通阀</system:String>
@@ -58,6 +61,7 @@
     <system:String x:Key="InertGas.Application.Password">密码</system:String>
     <system:String x:Key="InertGas.Application.PneumaticPump">压缩泵</system:String>
     <system:String x:Key="InertGas.Application.Pressure">压力(KPa)</system:String>
+    <system:String x:Key="InertGas.Application.PurificationPhase">纯化阶段</system:String>
     <system:String x:Key="InertGas.Application.Refresh">刷新</system:String>
     <system:String x:Key="InertGas.Application.Role">角色</system:String>
     <system:String x:Key="InertGas.Application.Salt">盐值</system:String>

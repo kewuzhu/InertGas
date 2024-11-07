@@ -29,7 +29,7 @@ namespace InertGas.DataBase
             userStore_ = (new DocumentStore
             {
                 Urls = new[] { config.ServerUrl },
-                Database = config.DatabaseName
+                Database = config.UserDatabaseName
             }).Initialize();
 
             EnsureDatabaseExists(userStore_);

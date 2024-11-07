@@ -2,8 +2,12 @@
 using InertGas.Application.UI.ApplicationStages;
 using InertGas.Common.Model;
 using InertGas.Common.Utility;
+using InertGas.HeatingBox;
 using NLog;
 using System.Collections.ObjectModel;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 
 namespace InertGas.Application.Model
 {

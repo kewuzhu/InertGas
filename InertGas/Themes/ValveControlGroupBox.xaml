@@ -1,0 +1,110 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:themes="clr-namespace:InertGas.Application.Themes">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Colors.xaml" />
+        <ResourceDictionary Source="Constants.xaml" />
+        <ResourceDictionary Source="ToggleButton.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style
+        x:Key="InertGas.ValveControlGroupBox"
+        TargetType="themes:ValveControlGroupBox">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Background"
+            Value="Transparent"/>
+        <Setter Property="BorderBrush"
+            Value="Transparent"/>
+        <Setter Property="BorderThickness"
+            Value="0"/>
+        <Setter Property="HorizontalContentAlignment"
+            Value="Center"/>
+        <Setter Property="VerticalContentAlignment"
+            Value="Center"/>
+        <Setter Property="Padding"
+            Value="5,5,5,5"/>
+        <Setter Property="FontSize"
+            Value="{StaticResource InertGas.DefaultFontSize}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="themes:ValveControlGroupBox">
+                    <Border 
+                        Name="Chrome"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{StaticResource InertGas.ButtonCornerRadius}"
+                        SnapsToDevicePixels="true">
+                        <Grid 
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="{StaticResource InertGas.SmallMarginGridLength}"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="{StaticResource InertGas.SmallMarginGridLength}"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ContentControl
+                                Name="Icon"
+                                Grid.Column="0"
+                                Width="{StaticResource InertGas.LargeFontSize}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Background="{TemplateBinding Background}"
+                                Foreground="{TemplateBinding Foreground}"
+                                Template="{TemplateBinding ImageSource}" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Text="{TemplateBinding ValveName}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                HorizontalAlignment="Left"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                Background="{TemplateBinding Background}">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="{Binding Path=TextColor, RelativeSource={RelativeSource AncestorType=themes:ValveControlGroupBox}}" />
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock
+                                Grid.Column="3"
+                                Text="{TemplateBinding ValveNumber}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                HorizontalAlignment="Left"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                Background="{TemplateBinding Background}">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="{Binding Path=TextColor, RelativeSource={RelativeSource AncestorType=themes:ValveControlGroupBox}}" />
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <ToggleButton
+                                Grid.Column="5"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                HorizontalAlignment="Center"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                Style="{DynamicResource InertGas.CustomToggleButton}">
+                            </ToggleButton>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="True">
+                            <Setter Property="TextColor" Value="{DynamicResource InertGas.ButtonText}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource InertGas.Yellow}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="TextColor" Value="{DynamicResource InertGas.ButtonTextDisabled}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource InertGas.DarkYellow}"/>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

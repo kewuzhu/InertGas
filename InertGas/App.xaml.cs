@@ -1,21 +1,20 @@
 ﻿using InertGas.Application.Model;
 using InertGas.Application.Themes;
-using InertGas.Application.UI.Dialog;
 using InertGas.Application.UI;
+using InertGas.Application.UI.Dialog;
 using InertGas.Application.Utility;
+using InertGas.Common.DataAccess;
+using InertGas.Common.Model;
 using InertGas.Common.Utility;
-using System.Configuration;
-using System.Data;
-using System.Text.Json;
-using System.Windows;
+using InertGas.DataBase;
+using InertGas.HeatingBox;
 using NLog;
 using System.Diagnostics;
 using System.IO;
-using InertGas.Common.DataAccess;
 using System.Net;
 using System.Security.Cryptography;
-using InertGas.DataBase;
-using InertGas.Common.Model;
+using System.Text.Json;
+using System.Windows;
 
 namespace InertGas.Application
 {
@@ -50,7 +49,7 @@ namespace InertGas.Application
 
                 InitializeDefaultUser();
 
-                mainWindowViewModel_ = new MainWindowViewModel(dataRepository_);
+                mainWindowViewModel_ = new MainWindowViewModel(appConfig, dataRepository_);
                 MainWindow = new MainWindow { DataContext = mainWindowViewModel_ };
 
                 MainWindow.Show();
@@ -121,7 +120,7 @@ namespace InertGas.Application
                 shuttingDown_ = true;
                 logger_.Info("Shutting down...");
 
-                mainWindowViewModel_.CleanUp();
+                mainWindowViewModel_.CleanUpAsync();
                 Current.Shutdown(exitCode);
             }
             catch (Exception e)
@@ -145,5 +144,6 @@ namespace InertGas.Application
         private string appLogTargetName_;
         private MainWindowViewModel mainWindowViewModel_;
         private bool shuttingDown_;
+        private HeatingBoxControl heatingBox_;
     }
 }

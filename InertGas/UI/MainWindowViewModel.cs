@@ -7,7 +7,9 @@ using InertGas.Application.UI.Dialog;
 using InertGas.Application.Utility;
 using InertGas.Common.DataAccess;
 using InertGas.Common.Model;
+using InertGas.HeatingBox;
 using NLog;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Security;
 
@@ -36,7 +38,7 @@ namespace InertGas.Application.UI
         private bool isPageSwitchPlaying;
 
         [RelayCommand]
-        private void LogIn()
+        private async Task LogIn()
         {
             try
             {
@@ -58,6 +60,8 @@ namespace InertGas.Application.UI
                 AppModel.CurrentApplicationStage = ApplicationStage.MainPage;
                 CurrentViewModel = viewModelMap_[AppModel.CurrentApplicationStage];
                 IsPageSwitchPlaying = true;
+
+                await InitializeHardwares();
             }
             catch (Exception ex)
             {
@@ -68,7 +72,7 @@ namespace InertGas.Application.UI
         [RelayCommand]
         private void Close(object obj)
         {
-            CleanUp();
+            CleanUpAsync();
             var window = obj as System.Windows.Window;
             window?.Close();
         }
@@ -97,8 +101,45 @@ namespace InertGas.Application.UI
             AppModel.CurrentApplicationStage = ApplicationStage.UserManagement;
         }
 
-        public MainWindowViewModel(IDataRepository dataRepository)
+        private async Task InitializeHardwares()
         {
+            try
+            {
+                foreach (var heatingBoxConfig in appConfig_.HeatingBoxConfigs)
+                {
+                    var heatingBox = new HeatingBoxControl();
+                    await heatingBox.Initialize(heatingBoxConfig);
+                    heatingBox.TemperatureDataReceived += OnTemperatureDataReceived;
+                    heatingBoxControls_.Add(heatingBox);
+                    StartGetTemperatureTimer();
+                }
+            }
+            catch (Exception ex)
+            {
+                UserCommunication.ShowMessage($"{Theme.GetString(Strings.Error)}", $"Message:{ex.Message}\nStackTrace:{ex.StackTrace}", MessageType.Critical);
+            }
+        }
+
+        private async Task UnInitializeHardwares()
+        {
+            try
+            {
+                foreach (var heatingBox in heatingBoxControls_)
+                {
+                    heatingBox.TemperatureDataReceived -= OnTemperatureDataReceived;
+                    StopGetTemperatureTimer();
+                    await heatingBox.Uninitialize();
+                }
+            }
+            catch (Exception ex)
+            {
+                UserCommunication.ShowMessage($"{Theme.GetString(Strings.Error)}", $"Message:{ex.Message}\nStackTrace:{ex.StackTrace}", MessageType.Critical);
+            }
+        }
+
+        public MainWindowViewModel(ApplicationConfiguration appConfig, IDataRepository dataRepository)
+        {
+            appConfig_ = appConfig ?? throw new ArgumentNullException(nameof(appConfig));
             dataRepository_ = dataRepository ?? throw new ArgumentNullException(nameof(dataRepository));
 
             viewModelMap_.Add(ApplicationStage.MainPage, new MainPageViewModel());
@@ -117,6 +158,8 @@ namespace InertGas.Application.UI
             SelectedUser = AppModel.Users.FirstOrDefault();
 
             AppModel.PropertyChanged += OnAppModelPropertyChanged;
+
+            logger_.Info($"{nameof(AppModel.CurrentData.CharcoalColumnTemperature)}");
         }
 
         private void OnAppModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -145,19 +188,63 @@ namespace InertGas.Application.UI
             }
         }
 
-        public void CleanUp()
+        public async Task CleanUpAsync()
         {
             if (isCleaningUp) return;
 
             isCleaningUp = true;
             logger_.Info("Cleaning up...");
+            await UnInitializeHardwares();
             dataRepository_.Dispose();
+        }
+
+        public void StartGetTemperatureTimer()
+        {
+            if (heatingBoxControls_.Count == 0 || !heatingBoxControls_.Any(x => x.IsInitialized))
+                return;
+
+            temperatureReadingTimer_ = new(66) { Enabled = true };
+            temperatureReadingTimer_.Elapsed += OnTemperatureReadingTimerElapsed;
+            logger_.Info($"{nameof(temperatureReadingTimer_)} started.");
+        }
+
+        public void StopGetTemperatureTimer()
+        {
+            if (temperatureReadingTimer_ != null)
+            {
+                temperatureReadingTimer_.Elapsed -= OnTemperatureReadingTimerElapsed;
+                temperatureReadingTimer_.Stop();
+                temperatureReadingTimer_.Dispose();
+                temperatureReadingTimer_ = null;
+                logger_.Info($"{nameof(temperatureReadingTimer_)} stopped.");
+            }
+        }
+
+        private async void OnTemperatureReadingTimerElapsed(object state, System.Timers.ElapsedEventArgs e)
+        {
+            foreach (var item in heatingBoxControls_)
+            {
+                await item.WriteCommand(CommandTypes.ReadTemperature);
+            }
+        }
+
+        public void OnTemperatureDataReceived(object? sender, int e)
+        {
+            var heatingBox = sender as HeatingBoxControl;
+
+            if(heatingBox.Id == nameof(AppModel.CurrentData.CharcoalColumnTemperature))
+                AppModel.CurrentData.CharcoalColumnTemperature = e;
+            else
+                AppModel.CurrentData.Column4A5ATemperature = e;
         }
 
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();
         private readonly Dictionary<ApplicationStage, ApplicationStageViewModel> viewModelMap_ = new();
+        private readonly ApplicationConfiguration appConfig_;
         private readonly IDataRepository dataRepository_;
+        private readonly List<HeatingBoxControl> heatingBoxControls_ = new();
 
+        private System.Timers.Timer temperatureReadingTimer_;
         private bool isCleaningUp;
     }
 }
