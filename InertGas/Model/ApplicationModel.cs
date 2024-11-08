@@ -47,7 +47,8 @@ namespace InertGas.Application.Model
 
         public ObservableCollectionWithRangeSupport<User> Users { get; } = new();
 
-        public CollectedData CurrentData { get; set; }
+        [ObservableProperty]
+        private CurrentData currentData = new();
 
         public ObservableCollectionWithRangeSupport<CollectedData> CollectedDataSet { get; } = new();
 

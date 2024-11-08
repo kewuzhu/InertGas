@@ -36,20 +36,22 @@ namespace InertGas.Application
             {
                 InitializeLogging();
 
-                var appConfig = JsonSerializer.Deserialize<ApplicationConfiguration>(File.ReadAllText(APP_CONFIG_FILE_PATH));
-                appConfig.WorkingDirectory = Path.Combine(ROOT_DIRECTORY, appConfig.WorkingDirectory);
+                appConfig_ = JsonSerializer.Deserialize<ApplicationConfiguration>(File.ReadAllText(APP_CONFIG_FILE_PATH));
+                appConfig_.WorkingDirectory = Path.Combine(ROOT_DIRECTORY, appConfig_.WorkingDirectory);
 
-                LogUtils.InitializeExtendedLogging(appConfig.FileLoggerLogLevel, appLogTargetName_, appConfig.ConsoleLoggerLogLevel);
+                LogUtils.InitializeExtendedLogging(appConfig_.FileLoggerLogLevel, appLogTargetName_, appConfig_.ConsoleLoggerLogLevel);
 
-                Theme.AddStringsDictionary(appConfig.Language);
+                Theme.AddStringsDictionary(appConfig_.Language);
 
-                var repoInitTask = InitializeDataRepository(appConfig.DataRepoConfig);
+                var repoInitTask = InitializeDataRepository(appConfig_.DataRepoConfig);
 
                 await Task.WhenAll(repoInitTask);
 
                 InitializeDefaultUser();
 
-                mainWindowViewModel_ = new MainWindowViewModel(appConfig, dataRepository_);
+                await InitializeHardwares();
+
+                mainWindowViewModel_ = new MainWindowViewModel(appConfig_, dataRepository_);
                 MainWindow = new MainWindow { DataContext = mainWindowViewModel_ };
 
                 MainWindow.Show();
@@ -119,7 +121,7 @@ namespace InertGas.Application
             {
                 shuttingDown_ = true;
                 logger_.Info("Shutting down...");
-
+                await UnInitializeHardwares();
                 mainWindowViewModel_.CleanUpAsync();
                 Current.Shutdown(exitCode);
             }
@@ -136,9 +138,89 @@ namespace InertGas.Application
             Process.GetCurrentProcess().Kill();
         }
 
+        private async Task InitializeHardwares()
+        {
+            try
+            {
+                foreach (var heatingBoxConfig in appConfig_.HeatingBoxConfigs)
+                {
+                    var heatingBox = new HeatingBoxControl();
+                    await heatingBox.Initialize(heatingBoxConfig);
+                    heatingBox.TemperatureDataReceived += OnTemperatureDataReceived;
+                    appModel_.HeatingBoxControls.Add(heatingBox);
+                    StartGetTemperatureTimer();
+                }
+            }
+            catch (Exception ex)
+            {
+                UserCommunication.ShowMessage($"{Theme.GetString(Strings.Error)}", $"Message:{ex.Message}\nStackTrace:{ex.StackTrace}", MessageType.Critical);
+            }
+        }
+
+        private async Task UnInitializeHardwares()
+        {
+            try
+            {
+                foreach (var heatingBox in appModel_.HeatingBoxControls)
+                {
+                    heatingBox.TemperatureDataReceived -= OnTemperatureDataReceived;
+                    StopGetTemperatureTimer();
+                    await heatingBox.Uninitialize();
+                }
+            }
+            catch (Exception ex)
+            {
+                UserCommunication.ShowMessage($"{Theme.GetString(Strings.Error)}", $"Message:{ex.Message}\nStackTrace:{ex.StackTrace}", MessageType.Critical);
+            }
+        }
+
+        public void StartGetTemperatureTimer()
+        {
+            if (appModel_.HeatingBoxControls.Count == 0 || !appModel_.HeatingBoxControls.Any(x => x.IsInitialized))
+                return;
+
+            temperatureReadingTimer_ = new(500) { Enabled = true };
+            temperatureReadingTimer_.Elapsed += OnTemperatureReadingTimerElapsed;
+            logger_.Info($"{nameof(temperatureReadingTimer_)} started.");
+        }
+
+        public void StopGetTemperatureTimer()
+        {
+            if (temperatureReadingTimer_ != null)
+            {
+                temperatureReadingTimer_.Elapsed -= OnTemperatureReadingTimerElapsed;
+                temperatureReadingTimer_.Stop();
+                temperatureReadingTimer_.Dispose();
+                temperatureReadingTimer_ = null;
+                logger_.Info($"{nameof(temperatureReadingTimer_)} stopped.");
+            }
+        }
+
+        private async void OnTemperatureReadingTimerElapsed(object state, System.Timers.ElapsedEventArgs e)
+        {
+            foreach (var item in appModel_.HeatingBoxControls)
+            {
+                await item.WriteCommand(CommandTypes.ReadTemperature);
+            }
+        }
+
+        public void OnTemperatureDataReceived(object? sender, int e)
+        {
+            var heatingBox = sender as HeatingBoxControl;
+
+            logger_.Info($"heatingboxid:{heatingBox.Id} temperatrue:{e}");
+
+            if (heatingBox.Id == nameof(appModel_.CurrentData.CharcoalColumnTemperature))
+                appModel_.CurrentData.CharcoalColumnTemperature = e;
+            else
+                appModel_.CurrentData.Column4A5ATemperature = e;
+        }
+
         private static readonly ApplicationModel appModel_ = ApplicationModel.Instance;
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();
 
+        private ApplicationConfiguration appConfig_;
+        private System.Timers.Timer temperatureReadingTimer_;
         private IDataRepository dataRepository_;
         private string logDirectory_;
         private string appLogTargetName_;

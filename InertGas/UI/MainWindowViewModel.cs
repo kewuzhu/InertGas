@@ -60,8 +60,6 @@ namespace InertGas.Application.UI
                 AppModel.CurrentApplicationStage = ApplicationStage.MainPage;
                 CurrentViewModel = viewModelMap_[AppModel.CurrentApplicationStage];
                 IsPageSwitchPlaying = true;
-
-                await InitializeHardwares();
             }
             catch (Exception ex)
             {
@@ -99,42 +97,6 @@ namespace InertGas.Application.UI
         private void SwitchToUserManagement()
         {
             AppModel.CurrentApplicationStage = ApplicationStage.UserManagement;
-        }
-
-        private async Task InitializeHardwares()
-        {
-            try
-            {
-                foreach (var heatingBoxConfig in appConfig_.HeatingBoxConfigs)
-                {
-                    var heatingBox = new HeatingBoxControl();
-                    await heatingBox.Initialize(heatingBoxConfig);
-                    heatingBox.TemperatureDataReceived += OnTemperatureDataReceived;
-                    AppModel.HeatingBoxControls.Add(heatingBox);
-                    StartGetTemperatureTimer();
-                }
-            }
-            catch (Exception ex)
-            {
-                UserCommunication.ShowMessage($"{Theme.GetString(Strings.Error)}", $"Message:{ex.Message}\nStackTrace:{ex.StackTrace}", MessageType.Critical);
-            }
-        }
-
-        private async Task UnInitializeHardwares()
-        {
-            try
-            {
-                foreach (var heatingBox in AppModel.HeatingBoxControls)
-                {
-                    heatingBox.TemperatureDataReceived -= OnTemperatureDataReceived;
-                    StopGetTemperatureTimer();
-                    await heatingBox.Uninitialize();
-                }
-            }
-            catch (Exception ex)
-            {
-                UserCommunication.ShowMessage($"{Theme.GetString(Strings.Error)}", $"Message:{ex.Message}\nStackTrace:{ex.StackTrace}", MessageType.Critical);
-            }
         }
 
         public MainWindowViewModel(ApplicationConfiguration appConfig, IDataRepository dataRepository)
@@ -192,56 +154,17 @@ namespace InertGas.Application.UI
 
             isCleaningUp = true;
             logger_.Info("Cleaning up...");
-            await UnInitializeHardwares();
             dataRepository_.Dispose();
         }
 
-        public void StartGetTemperatureTimer()
-        {
-            if (AppModel.HeatingBoxControls.Count == 0 || !AppModel.HeatingBoxControls.Any(x => x.IsInitialized))
-                return;
-
-            temperatureReadingTimer_ = new(500) { Enabled = true };
-            temperatureReadingTimer_.Elapsed += OnTemperatureReadingTimerElapsed;
-            logger_.Info($"{nameof(temperatureReadingTimer_)} started.");
-        }
-
-        public void StopGetTemperatureTimer()
-        {
-            if (temperatureReadingTimer_ != null)
-            {
-                temperatureReadingTimer_.Elapsed -= OnTemperatureReadingTimerElapsed;
-                temperatureReadingTimer_.Stop();
-                temperatureReadingTimer_.Dispose();
-                temperatureReadingTimer_ = null;
-                logger_.Info($"{nameof(temperatureReadingTimer_)} stopped.");
-            }
-        }
-
-        private async void OnTemperatureReadingTimerElapsed(object state, System.Timers.ElapsedEventArgs e)
-        {
-            foreach (var item in AppModel.HeatingBoxControls)
-            {
-                await item.WriteCommand(CommandTypes.ReadTemperature);
-            }
-        }
-
-        public void OnTemperatureDataReceived(object? sender, int e)
-        {
-            var heatingBox = sender as HeatingBoxControl;
-
-            if(heatingBox.Id == nameof(AppModel.CurrentData.CharcoalColumnTemperature))
-                AppModel.CurrentData.CharcoalColumnTemperature = e;
-            else
-                AppModel.CurrentData.Column4A5ATemperature = e;
-        }
+        
 
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();
         private readonly Dictionary<ApplicationStage, ApplicationStageViewModel> viewModelMap_ = new();
         private readonly ApplicationConfiguration appConfig_;
         private readonly IDataRepository dataRepository_;
 
-        private System.Timers.Timer temperatureReadingTimer_;
+        
         private bool isCleaningUp;
     }
 }

@@ -18,6 +18,12 @@ namespace InertGas.Application.UI.ApplicationStages
         [ObservableProperty]
         private WorkingPhases selectedWorkingPhase;
 
+        [ObservableProperty]
+        private int charcoalColumnTemperature;
+
+        [ObservableProperty]
+        private int column4A5ATemperature;
+
         public MainPageViewModel() : base(ApplicationStage.MainPage)
         {
             Title = Theme.GetString(Strings.MainPage);
