@@ -51,6 +51,8 @@ namespace InertGas.Application.Model
 
         public ObservableCollectionWithRangeSupport<CollectedData> CollectedDataSet { get; } = new();
 
+        public readonly List<HeatingBoxControl> HeatingBoxControls = new();
+
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();
     }
 }

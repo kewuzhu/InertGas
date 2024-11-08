@@ -272,6 +272,8 @@ namespace InertGas.HeatingBox
                     readBuffer_.AddRange(buffer);
                 }
 
+                logger_.Info($"{string.Join(",", BitConverter.ToString(readBuffer_.ToArray()).Replace("-"," "))}");
+
                 var isReadingTemperature = readBuffer_.Take(3).SequenceEqual(ReadTemperatureReplyCommandHeader.Take(3));
 
                 if (isReadingTemperature)

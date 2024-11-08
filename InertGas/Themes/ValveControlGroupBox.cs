@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using InertGas.Application.Model;
+using System.Windows;
 
 namespace InertGas.Application.Themes
 {
@@ -15,6 +16,9 @@ namespace InertGas.Application.Themes
 
         public static readonly DependencyProperty TextColorProperty =
             DependencyProperty.Register(nameof(TextColor), typeof(System.Windows.Media.Brush), typeof(ValveControlGroupBox));
+
+        public static readonly DependencyProperty ValveControlProperty =
+                DependencyProperty.Register(nameof(ValveControl), typeof(ValveControl), typeof(ValveControlGroupBox));
 
         public object ImageSource
         {
@@ -38,6 +42,12 @@ namespace InertGas.Application.Themes
         {
             get => (System.Windows.Media.Brush)GetValue(TextColorProperty);
             set => SetValue(TextColorProperty, value);
+        }
+
+        public ValveControl ValveControl
+        {
+            get => (ValveControl)GetValue(ValveControlProperty);
+            set => SetValue(ValveControlProperty, value);
         }
     }
 }

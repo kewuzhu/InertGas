@@ -110,7 +110,7 @@ namespace InertGas.Application.UI
                     var heatingBox = new HeatingBoxControl();
                     await heatingBox.Initialize(heatingBoxConfig);
                     heatingBox.TemperatureDataReceived += OnTemperatureDataReceived;
-                    heatingBoxControls_.Add(heatingBox);
+                    AppModel.HeatingBoxControls.Add(heatingBox);
                     StartGetTemperatureTimer();
                 }
             }
@@ -124,7 +124,7 @@ namespace InertGas.Application.UI
         {
             try
             {
-                foreach (var heatingBox in heatingBoxControls_)
+                foreach (var heatingBox in AppModel.HeatingBoxControls)
                 {
                     heatingBox.TemperatureDataReceived -= OnTemperatureDataReceived;
                     StopGetTemperatureTimer();
@@ -158,8 +158,6 @@ namespace InertGas.Application.UI
             SelectedUser = AppModel.Users.FirstOrDefault();
 
             AppModel.PropertyChanged += OnAppModelPropertyChanged;
-
-            logger_.Info($"{nameof(AppModel.CurrentData.CharcoalColumnTemperature)}");
         }
 
         private void OnAppModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -200,10 +198,10 @@ namespace InertGas.Application.UI
 
         public void StartGetTemperatureTimer()
         {
-            if (heatingBoxControls_.Count == 0 || !heatingBoxControls_.Any(x => x.IsInitialized))
+            if (AppModel.HeatingBoxControls.Count == 0 || !AppModel.HeatingBoxControls.Any(x => x.IsInitialized))
                 return;
 
-            temperatureReadingTimer_ = new(66) { Enabled = true };
+            temperatureReadingTimer_ = new(500) { Enabled = true };
             temperatureReadingTimer_.Elapsed += OnTemperatureReadingTimerElapsed;
             logger_.Info($"{nameof(temperatureReadingTimer_)} started.");
         }
@@ -222,7 +220,7 @@ namespace InertGas.Application.UI
 
         private async void OnTemperatureReadingTimerElapsed(object state, System.Timers.ElapsedEventArgs e)
         {
-            foreach (var item in heatingBoxControls_)
+            foreach (var item in AppModel.HeatingBoxControls)
             {
                 await item.WriteCommand(CommandTypes.ReadTemperature);
             }
@@ -242,7 +240,6 @@ namespace InertGas.Application.UI
         private readonly Dictionary<ApplicationStage, ApplicationStageViewModel> viewModelMap_ = new();
         private readonly ApplicationConfiguration appConfig_;
         private readonly IDataRepository dataRepository_;
-        private readonly List<HeatingBoxControl> heatingBoxControls_ = new();
 
         private System.Timers.Timer temperatureReadingTimer_;
         private bool isCleaningUp;
