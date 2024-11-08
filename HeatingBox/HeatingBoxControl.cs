@@ -159,10 +159,7 @@ namespace InertGas.HeatingBox
 
                 lock (readBuffer_)
                 {
-                    if (cmd == CommandTypes.ReadTemperature)
-                        temperaturedataReceived_.WaitOne(EVENT_WAIT_TIME);
-                    else
-                        replyReceived_.WaitOne(EVENT_WAIT_TIME);
+                    replyReceived_.WaitOne(EVENT_WAIT_TIME);
 
                     response = new List<byte>(readBuffer_);
                     readBuffer_.Clear();
@@ -176,8 +173,8 @@ namespace InertGas.HeatingBox
         {
             return cmd switch
             {
-                CommandTypes.StartHeating => response.ToArray() == SuccessMsg,
-                CommandTypes.StopHeating => response.ToArray() == ConcatCommandWithCRC(StopHeatingCommand),
+                CommandTypes.StartHeating => response.ToArray().SequenceEqual(SuccessMsg),
+                CommandTypes.StopHeating => response.ToArray().SequenceEqual(ConcatCommandWithCRC(StopHeatingCommand)),
                 CommandTypes.ReadTemperature => ParseBytesToInt(response.ToArray()),
                 _ => false,
             };
@@ -235,15 +232,18 @@ namespace InertGas.HeatingBox
 
         private bool ParseBytesToInt(byte[] bytes)
         {
-            var crcReceived = bytes.TakeLast(2);
+            var crcReceived = bytes.TakeLast(2).ToArray();
             var replyWithoutCRC = bytes.SkipLast(2).ToArray();
 
             ushort crc16 = CalculateCRC16(replyWithoutCRC);
 
             byte[] crcBytes = BitConverter.GetBytes(crc16).ToArray();
 
-            if (crcReceived != crcBytes)
+            if (!crcReceived.SequenceEqual(crcBytes))
+            {
+                logger_.Info("CRC verification failed");
                 return false;
+            }
 
             var temperatureBytes = replyWithoutCRC.Skip(3).ToArray();
 
@@ -272,21 +272,15 @@ namespace InertGas.HeatingBox
                     readBuffer_.AddRange(buffer);
                 }
 
-                logger_.Info($"{string.Join(",", BitConverter.ToString(readBuffer_.ToArray()).Replace("-"," "))}");
+                logger_.Info($"{string.Join(",", BitConverter.ToString(readBuffer_.ToArray()).Replace("-", " "))}");
 
-                var isReadingTemperature = readBuffer_.Take(3).SequenceEqual(ReadTemperatureReplyCommandHeader.Take(3));
-
-                if (isReadingTemperature)
-                    temperaturedataReceived_.Set();
-                else
-                    replyReceived_.Set();
+                replyReceived_.Set();
             }
         }
 
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();
         private readonly List<byte> readBuffer_ = new();
         private readonly AutoResetEvent replyReceived_ = new(false);
-        private readonly AutoResetEvent temperaturedataReceived_ = new(false);
         private static readonly SemaphoreSlim commandLock_ = new(1);
 
         private SerialPort serialPort_;
