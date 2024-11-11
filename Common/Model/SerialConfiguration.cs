@@ -2,6 +2,6 @@
 {
     public class SerialConfiguration
     {
-        public String SerialPort { get; set; }
+        public string SerialPort { get; set; }
     }
 }

@@ -1,14 +1,26 @@
 using InertGas.Common.Model;
+using InertGas.Common.Utility;
 using NLog;
 using System.IO.Ports;
+using System.Text;
 
 namespace InertGas.FlowMeter
 {
-    public class FlowMeterControl
+    public class FlowMeterControl : SyncContextAwareObject, ISystemHardware
     {
+        public EventHandler<string> VolumeFlow;
+
+        public EventHandler<string> TotalFlow;
+
+        private const int EVENT_WAIT_TIME = 200;
+
+        private const string READ_FLOW_METER_COMMAND = "A";
+
+        private readonly string CommandTail = ((char)0x0D).ToString();
+
         public bool IsInitialized { get; private set; }
 
-        public string Id { get; set; }
+        public string Id { get; private set; }
 
         public async Task Initialize(FlowMeterConfiguration flowMeterConfig)
         {
@@ -64,6 +76,62 @@ namespace InertGas.FlowMeter
                     readBuffer_.AddRange(buffer);
                 }
                 replyReceived_.Set();
+            }
+        }
+
+        public async Task<bool> WriteCommand()
+        {
+            logger_.Info($"Flow meter command writing.");
+            try 
+            {
+                await commandLock_.WaitAsync();
+
+                serialPort_.Write(READ_FLOW_METER_COMMAND + CommandTail);
+                return await GetResponse();
+            }
+            finally
+            {
+                commandLock_.Release();
+            }
+        }
+
+        private async Task<bool> GetResponse()
+        {
+            return await Task.Run(() =>
+            {
+                var response = new List<byte>();
+
+                lock (readBuffer_)
+                {
+                    replyReceived_.WaitOne(EVENT_WAIT_TIME);
+
+                    response = new List<byte>(readBuffer_);
+                    readBuffer_.Clear();
+                }
+
+                return IsResponseValid(response);
+            });
+        }
+
+        private bool IsResponseValid(List<byte> response)
+        {
+            string data = Encoding.UTF8.GetString(response.ToArray());
+            List<string> dataList = new List<string>(data.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
+
+            if (dataList.Count >= 5)
+            {
+                string volumeFlow = dataList[3];
+                string totalFlow = dataList[6];
+
+                logger_.Info($"Extracted value: VolumeFlow {volumeFlow} L/MIN, TotalFlow {totalFlow} L/MIN");
+                VolumeFlow?.Invoke(this, totalFlow);
+                TotalFlow?.Invoke(this, volumeFlow);
+                return true;
+            }
+            else
+            {
+                logger_.Info("Data format is not as expected");
+                return false;
             }
         }
 

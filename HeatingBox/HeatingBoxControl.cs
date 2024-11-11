@@ -1,18 +1,19 @@
 using InertGas.Common.Model;
+using InertGas.Common.Utility;
 using NLog;
-using System;
-using System.Globalization;
 using System.IO.Ports;
 
 namespace InertGas.HeatingBox
 {
-    public class HeatingBoxControl
+    public class HeatingBoxControl : SyncContextAwareObject, ISystemHardware
     {
         public event EventHandler<int> TemperatureDataReceived;
 
-        private const int EVENT_WAIT_TIME = 200;
+        private const int EVENT_WAIT_TIME = 200; //ms
+        private const int READ_TEMPERATRUE_TIMER_INTERVAL = 500; //ms
+        private const int SET_TEMPERATURE_TO_300_DELAY = 20; //min
 
-        private static readonly byte[] StartHeatingCommandHeader = new byte[]
+        private static readonly byte[] SetTemperatureThresholdCommandHeader = new byte[]
             {
                 0x01, 0x10,
                 0x21, 0x03,
@@ -25,6 +26,13 @@ namespace InertGas.HeatingBox
                 0x21, 0x03,
                 0x00, 0x01,
                 0xFB, 0xF5
+            };
+
+        private static readonly byte[] StartingHeatingCommand = new byte[]
+            {
+                0x01, 0x06,
+                0x00, 0x00,
+                0x01, 0x00
             };
 
         private static readonly byte[] StopHeatingCommand = new byte[]
@@ -49,7 +57,7 @@ namespace InertGas.HeatingBox
 
         public bool IsInitialized { get; private set; }
 
-        public string Id { get; set; }
+        public string Id { get; private set; }
 
         public async Task Initialize(HeatingBoxConfiguration heatingBoxConfig)
         {
@@ -93,33 +101,46 @@ namespace InertGas.HeatingBox
             });
         }
 
-        public async Task WriteCommand(CommandTypes cmd, int parameter = 0)
+        public async Task<bool> WriteCommand(CommandTypes cmd, int parameter = 0)
         {
-            logger_.Info($"Command writing: CommandType:{cmd} Value:{parameter}");
+            logger_.Info($"Heating box command writing: CommandType:{cmd} Value:{parameter}");
             try
             {
                 await commandLock_.WaitAsync();
+
+                var isCommandSuccessful = false;
                 switch (cmd)
                 {
                     case CommandTypes.ReadTemperature:
-                        if (await WriteReadTemperatureCommand(cmd))
-                            logger_.Info($"{cmd} successfully.");
-                        else
-                            logger_.Warn($"{cmd} failed.");
+                        isCommandSuccessful = await WriteReadTemperatureCommand(cmd);
+                        break;
+                    case CommandTypes.SetTemperatureThreshold:
+                        isCommandSuccessful = await WriteSetTemperatrueThresholdCommand(cmd, parameter);
                         break;
                     case CommandTypes.StopHeating:
-                        if (await WriteStopHeatingCommand(cmd))
-                            logger_.Info($"{cmd} successfully.");
-                        else
-                            logger_.Warn($"{cmd} failed.");
+                        isCommandSuccessful = await WriteStopHeatingCommand(cmd);
                         break;
                     case CommandTypes.StartHeating:
-                        if (await WriteStartHeatingCommand(cmd, parameter))
-                            logger_.Info($"{cmd} successfully.");
-                        else
-                            logger_.Warn($"{cmd} failed.");
+                        isCommandSuccessful = await WriteStartHeatingCommand(cmd);
+                        break;
+                    default:
+                        isCommandSuccessful = false;
                         break;
                 }
+                if (isCommandSuccessful)
+                {
+                    logger_.Info($"{cmd} successfully.");
+                    if (cmd is CommandTypes.StopHeating)
+                    {
+                        isTemperatureThresholdTo200Set_ = false;
+                        isTemperatureThresholdTo300Set_ = false;
+                    }
+                }
+                else
+                {
+                    logger_.Warn($"{cmd} failed.");
+                }
+                return isCommandSuccessful;
             }
             finally
             {
@@ -135,7 +156,7 @@ namespace InertGas.HeatingBox
             return await GetResponse(cmd);
         }
 
-        private async Task<bool> WriteStartHeatingCommand(CommandTypes cmd, int parameter)
+        private async Task<bool> WriteSetTemperatrueThresholdCommand(CommandTypes cmd, int parameter)
         {
             var command = BuildCommand(parameter);
             serialPort_.Write(command, 0, command.Length);
@@ -146,6 +167,14 @@ namespace InertGas.HeatingBox
         private async Task<bool> WriteStopHeatingCommand(CommandTypes cmd)
         {
             var command = ConcatCommandWithCRC(StopHeatingCommand);
+            serialPort_.Write(command, 0, command.Length);
+            logger_.Info($"{cmd} is sent.");
+            return await GetResponse(cmd);
+        }
+
+        private async Task<bool> WriteStartHeatingCommand(CommandTypes cmd)
+        {
+            var command = ConcatCommandWithCRC(StartingHeatingCommand);
             serialPort_.Write(command, 0, command.Length);
             logger_.Info($"{cmd} is sent.");
             return await GetResponse(cmd);
@@ -173,9 +202,10 @@ namespace InertGas.HeatingBox
         {
             return cmd switch
             {
-                CommandTypes.StartHeating => response.ToArray().SequenceEqual(SuccessMsg),
+                CommandTypes.SetTemperatureThreshold => response.ToArray().SequenceEqual(SuccessMsg),
                 CommandTypes.StopHeating => response.ToArray().SequenceEqual(ConcatCommandWithCRC(StopHeatingCommand)),
                 CommandTypes.ReadTemperature => ParseBytesToInt(response.ToArray()),
+                CommandTypes.StartHeating => response.ToArray().SequenceEqual(ConcatCommandWithCRC(StopHeatingCommand)),
                 _ => false,
             };
         }
@@ -185,7 +215,7 @@ namespace InertGas.HeatingBox
             byte[] data = BitConverter.GetBytes((short)parameter).Reverse().ToArray();
             byte dataLength = (byte)data.Length;
 
-            byte[] commandWithoutCRC = StartHeatingCommandHeader
+            byte[] commandWithoutCRC = SetTemperatureThresholdCommandHeader
                 .Concat(new[] { dataLength })
                 .Concat(data)
                 .ToArray();
@@ -272,10 +302,63 @@ namespace InertGas.HeatingBox
                     readBuffer_.AddRange(buffer);
                 }
 
-                logger_.Info($"{string.Join(",", BitConverter.ToString(readBuffer_.ToArray()).Replace("-", " "))}");
-
                 replyReceived_.Set();
             }
+        }
+
+        public void StartGetTemperatureTimer()
+        {
+            if (!IsInitialized)
+                return;
+
+            temperatureReadingTimer_ = new(READ_TEMPERATRUE_TIMER_INTERVAL) { Enabled = true };
+            temperatureReadingTimer_.Elapsed += OnTemperatureReadingTimerElapsed;
+            logger_.Info($"{nameof(temperatureReadingTimer_)} started.");
+        }
+
+        public void StopGetTemperatureTimer()
+        {
+            if (temperatureReadingTimer_ != null)
+            {
+                temperatureReadingTimer_.Elapsed -= OnTemperatureReadingTimerElapsed;
+                temperatureReadingTimer_.Stop();
+                temperatureReadingTimer_.Dispose();
+                temperatureReadingTimer_ = null;
+                logger_.Info($"{nameof(temperatureReadingTimer_)} stopped.");
+            }
+        }
+
+        private async void OnTemperatureReadingTimerElapsed(object state, System.Timers.ElapsedEventArgs e)
+        {
+            await WriteCommand(CommandTypes.ReadTemperature);
+        }
+
+        public async Task SetTemperatureTo200()
+        {
+            logger_.Info("Temperature threshold will be reset to 200.");
+            while (!await WriteCommand(CommandTypes.SetTemperatureThreshold, 200))
+            {
+                await Task.Delay(100);
+                logger_.Info("Set temperature threshold failed. Trying again.");
+            }
+            isTemperatureThresholdTo200Set_ = true;
+            logger_.Info("Temperature threshold is reset to 200.");
+        }
+
+        public async Task SetTemperatureTo300AfterDelay()
+        {
+            if (isTemperatureThresholdTo300Set_ || !isTemperatureThresholdTo200Set_)
+                return;
+
+            logger_.Info("Temperature threshold will be reset to 300 in 20min.");
+            await Task.Delay(SET_TEMPERATURE_TO_300_DELAY * 60 * 1000);
+            while (!await WriteCommand(CommandTypes.SetTemperatureThreshold, 300))
+            {
+                await Task.Delay(100);
+                logger_.Info("Set temperature threshold failed. Trying again.");
+            }
+            isTemperatureThresholdTo300Set_ = true;
+            logger_.Info("Temperature threshold is reset to 300.");
         }
 
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();
@@ -283,7 +366,10 @@ namespace InertGas.HeatingBox
         private readonly AutoResetEvent replyReceived_ = new(false);
         private static readonly SemaphoreSlim commandLock_ = new(1);
 
+        private System.Timers.Timer temperatureReadingTimer_;
         private SerialPort serialPort_;
         private string comPort_;
+        private bool isTemperatureThresholdTo200Set_;
+        private bool isTemperatureThresholdTo300Set_;
     }
 }

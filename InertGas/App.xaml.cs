@@ -142,13 +142,13 @@ namespace InertGas.Application
         {
             try
             {
-                foreach (var heatingBoxConfig in appConfig_.HeatingBoxConfigs)
+                for (int i = 0; i < appConfig_.SystemHardwareConfigs.HeatingBoxConfigs.Count; i++) 
                 {
                     var heatingBox = new HeatingBoxControl();
-                    await heatingBox.Initialize(heatingBoxConfig);
+                    await heatingBox.Initialize(appConfig_.SystemHardwareConfigs.HeatingBoxConfigs[i]);
                     heatingBox.TemperatureDataReceived += OnTemperatureDataReceived;
-                    appModel_.HeatingBoxControls.Add(heatingBox);
-                    StartGetTemperatureTimer();
+                    appModel_.ValveControls.FirstOrDefault(x => x.ValveType == ValveTypes.HeatingBox && x.Number == i).Hardware = heatingBox;
+                    heatingBox.StartGetTemperatureTimer();
                 }
             }
             catch (Exception ex)
@@ -161,46 +161,21 @@ namespace InertGas.Application
         {
             try
             {
-                foreach (var heatingBox in appModel_.HeatingBoxControls)
+                var heatingBoxes = appModel_.ValveControls
+                    .Where(x => x.ValveType == ValveTypes.HeatingBox)
+                    .Select(x => x.Hardware as HeatingBoxControl)
+                    .ToList();
+
+                foreach (var heatingBox in heatingBoxes)
                 {
                     heatingBox.TemperatureDataReceived -= OnTemperatureDataReceived;
-                    StopGetTemperatureTimer();
+                    heatingBox.StopGetTemperatureTimer();
                     await heatingBox.Uninitialize();
                 }
             }
             catch (Exception ex)
             {
                 UserCommunication.ShowMessage($"{Theme.GetString(Strings.Error)}", $"Message:{ex.Message}\nStackTrace:{ex.StackTrace}", MessageType.Critical);
-            }
-        }
-
-        public void StartGetTemperatureTimer()
-        {
-            if (appModel_.HeatingBoxControls.Count == 0 || !appModel_.HeatingBoxControls.Any(x => x.IsInitialized))
-                return;
-
-            temperatureReadingTimer_ = new(500) { Enabled = true };
-            temperatureReadingTimer_.Elapsed += OnTemperatureReadingTimerElapsed;
-            logger_.Info($"{nameof(temperatureReadingTimer_)} started.");
-        }
-
-        public void StopGetTemperatureTimer()
-        {
-            if (temperatureReadingTimer_ != null)
-            {
-                temperatureReadingTimer_.Elapsed -= OnTemperatureReadingTimerElapsed;
-                temperatureReadingTimer_.Stop();
-                temperatureReadingTimer_.Dispose();
-                temperatureReadingTimer_ = null;
-                logger_.Info($"{nameof(temperatureReadingTimer_)} stopped.");
-            }
-        }
-
-        private async void OnTemperatureReadingTimerElapsed(object state, System.Timers.ElapsedEventArgs e)
-        {
-            foreach (var item in appModel_.HeatingBoxControls)
-            {
-                await item.WriteCommand(CommandTypes.ReadTemperature);
             }
         }
 
@@ -220,7 +195,6 @@ namespace InertGas.Application
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();
 
         private ApplicationConfiguration appConfig_;
-        private System.Timers.Timer temperatureReadingTimer_;
         private IDataRepository dataRepository_;
         private string logDirectory_;
         private string appLogTargetName_;

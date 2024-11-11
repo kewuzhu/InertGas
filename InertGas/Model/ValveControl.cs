@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using InertGas.Common.Model;
 
 namespace InertGas.Application.Model
 {
@@ -15,5 +16,8 @@ namespace InertGas.Application.Model
 
         [ObservableProperty]
         private bool isOn;
+
+        [ObservableProperty]
+        private ISystemHardware hardware;
     }
 }

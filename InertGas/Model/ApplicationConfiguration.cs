@@ -15,10 +15,6 @@ namespace InertGas.Application.Model
 
         public DataRepositoryConfiguration DataRepoConfig { get; set; }
 
-        public List<HeatingBoxConfiguration> HeatingBoxConfigs { get; set; }
-
-        public List<HeatingBoxConfiguration> FlowMeterConfigs { get; set; }
-
-        public PLCConfiguration PLCConfig { get; set; }
+        public SystemHardwareConfiguration SystemHardwareConfigs { get; set; }
     }
 }

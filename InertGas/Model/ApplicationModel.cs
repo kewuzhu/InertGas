@@ -2,12 +2,8 @@
 using InertGas.Application.UI.ApplicationStages;
 using InertGas.Common.Model;
 using InertGas.Common.Utility;
-using InertGas.HeatingBox;
 using NLog;
 using System.Collections.ObjectModel;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Net.NetworkInformation;
-using System.Net.Sockets;
 
 namespace InertGas.Application.Model
 {
@@ -20,8 +16,6 @@ namespace InertGas.Application.Model
         public static ApplicationModel Instance => lazy.Value;
 
         public DateTime StartUpTime { get; } = DateTime.Now;
-
-        public Language Language { get; set; }
 
         private ApplicationStage currentApplicationStage_;
         public ApplicationStage CurrentApplicationStage
@@ -52,7 +46,10 @@ namespace InertGas.Application.Model
 
         public ObservableCollectionWithRangeSupport<CollectedData> CollectedDataSet { get; } = new();
 
-        public readonly List<HeatingBoxControl> HeatingBoxControls = new();
+        public List<ValveControl> ValveControls { get; } = new() {
+            new ValveControl() { ValveType = ValveTypes.HeatingBox, Number = 0, IsEnabled = true, IsOn = false},
+            new ValveControl() { ValveType = ValveTypes.HeatingBox, Number = 1, IsEnabled = true, IsOn = false}
+        };
 
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();
     }

@@ -1,4 +1,4 @@
-﻿namespace InertGas.Application.Model
+﻿namespace InertGas.Common.Model
 {
     public enum ValveTypes
     {
@@ -6,6 +6,7 @@
         FiveWayValve,
         DoubleSolenoidValve,
         PneumaticPump,
-        HeatingBox
+        FlowMeter,
+        HeatingBox,
     }
 }
