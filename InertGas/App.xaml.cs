@@ -7,7 +7,9 @@ using InertGas.Common.DataAccess;
 using InertGas.Common.Model;
 using InertGas.Common.Utility;
 using InertGas.DataBase;
+using InertGas.FlowMeter;
 using InertGas.HeatingBox;
+using InertGas.Plc;
 using NLog;
 using System;
 using System.Diagnostics;
@@ -50,7 +52,9 @@ namespace InertGas.Application
 
                 InitializeDefaultUser();
 
-                await InitializeHardwares();
+                appModel_.CollectedDataSet.AddRange(dataRepository_.GetData());
+
+                //await InitializeHardwares();
 
                 mainWindowViewModel_ = new MainWindowViewModel(appConfig_, dataRepository_);
                 MainWindow = new MainWindow { DataContext = mainWindowViewModel_ };
@@ -143,6 +147,20 @@ namespace InertGas.Application
         {
             try
             {
+                var valveControl = new ValveControl();
+
+                for (int i = 0; i < appConfig_.SystemHardwareConfigs.FlowMeterConfigs.Count; i++)
+                {
+                    var flowMeterConfig = appConfig_.SystemHardwareConfigs.FlowMeterConfigs[i];
+                    logger_.Info($"Initialize Flow Meter {i}, Name:{flowMeterConfig.Id}, ComPort:{flowMeterConfig.SerialConfiguration.SerialPort}");
+                    var flowMeter = new FlowMeterControl();
+                    await flowMeter.Initialize(flowMeterConfig);
+                    flowMeter.VolumeFlowReceived += OnFlowMeterDataReceived;
+                    valveControl = new ValveControl() { ValveType = HardwareTypes.FlowMeter, Number = i, Hardware = flowMeter, IsEnabled = true, IsOn = false };
+                    appModel_.ValveControls.Add(valveControl);
+                    flowMeter.StartGetFlowDataTimer();
+                }
+
                 for (int i = 0; i < appConfig_.SystemHardwareConfigs.HeatingBoxConfigs.Count; i++)
                 {
                     var heatingBoxConfig = appConfig_.SystemHardwareConfigs.HeatingBoxConfigs[i];
@@ -150,10 +168,19 @@ namespace InertGas.Application
                     var heatingBox = new HeatingBoxControl();
                     await heatingBox.Initialize(heatingBoxConfig);
                     heatingBox.TemperatureDataReceived += OnTemperatureDataReceived;
-                    var valveControl = new ValveControl() { ValveType = ValveTypes.HeatingBox, Number = i, Hardware = heatingBox, IsEnabled = true, IsOn = false };
+                    valveControl = new ValveControl() { ValveType = HardwareTypes.HeatingBox, Number = i, Hardware = heatingBox, IsEnabled = true, IsOn = false };
                     appModel_.ValveControls.Add(valveControl);
                     heatingBox.StartGetTemperatureTimer();
                 }
+
+                var plcConfig = appConfig_.SystemHardwareConfigs.PLCConfig;
+                logger_.Info($"Initialize PLC, IpAddress:{plcConfig.IpAddress}, Port:{plcConfig.Port}");
+                var plcControl = new PlcControl();
+                plcControl.Initialize(plcConfig);
+                plcControl.PressureDataReceived += OnPressureDataReceived;
+                valveControl = new ValveControl() { ValveType = HardwareTypes.Plc, Number = 0, Hardware = plcControl, IsEnabled = true, IsOn = false };
+                appModel_.ValveControls.Add(valveControl);
+                plcControl.StartGetPressureTimer();
             }
             catch (Exception ex)
             {
@@ -166,7 +193,7 @@ namespace InertGas.Application
             try
             {
                 var heatingBoxes = appModel_.ValveControls
-                    .Where(x => x.ValveType == ValveTypes.HeatingBox)
+                    .Where(x => x.ValveType == HardwareTypes.HeatingBox)
                     .Select(x => x.Hardware as HeatingBoxControl)
                     .ToList();
 
@@ -187,12 +214,36 @@ namespace InertGas.Application
         {
             var heatingBox = sender as HeatingBoxControl;
 
-            logger_.Info($"heatingboxid:{heatingBox.Id} temperatrue:{e}");
+            logger_.Info($"Heating box id:{heatingBox.Id} temperatrue:{e}");
 
             if (heatingBox.Id == nameof(appModel_.CurrentData.CharcoalColumnTemperature))
                 appModel_.CurrentData.CharcoalColumnTemperature = e;
             else
                 appModel_.CurrentData.Column4A5ATemperature = e;
+        }
+
+        private void OnFlowMeterDataReceived(object? sender, List<string> e)
+        {
+            var flowMeter = sender as FlowMeterControl;
+
+            logger_.Info($"Flowmeter id:{flowMeter.Id} flow data:{string.Join(",", e)}");
+
+            if (flowMeter.Id == nameof(appModel_.CurrentData.VolumeFlowA))
+                appModel_.CurrentData.VolumeFlowA = e.First();
+            else
+            {
+                appModel_.CurrentData.VolumeFlowB = e.First();
+                appModel_.CurrentData.TotalFlowB = e.Last();
+            }
+        }
+
+        private void OnPressureDataReceived(object? sender, string e)
+        {
+            var plcControl = sender as PlcControl;
+
+            logger_.Info($"Pressure:{e}");
+
+            appModel_.CurrentData.Pressure = e;
         }
 
         private static readonly ApplicationModel appModel_ = ApplicationModel.Instance;

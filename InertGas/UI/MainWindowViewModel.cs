@@ -104,9 +104,9 @@ namespace InertGas.Application.UI
             appConfig_ = appConfig ?? throw new ArgumentNullException(nameof(appConfig));
             dataRepository_ = dataRepository ?? throw new ArgumentNullException(nameof(dataRepository));
 
-            viewModelMap_.Add(ApplicationStage.MainPage, new MainPageViewModel());
+            viewModelMap_.Add(ApplicationStage.MainPage, new MainPageViewModel(dataRepository_));
             viewModelMap_.Add(ApplicationStage.ParameterSetting, new ParameterSettingViewModel());
-            viewModelMap_.Add(ApplicationStage.DataManagement, new DataManagementViewModel());
+            viewModelMap_.Add(ApplicationStage.DataManagement, new DataManagementViewModel(dataRepository_));
             viewModelMap_.Add(ApplicationStage.UserManagement, new UserManagementViewModel(dataRepository_));
 
             AppModel.ApplicationStages.Add(viewModelMap_[ApplicationStage.MainPage]);
@@ -164,7 +164,6 @@ namespace InertGas.Application.UI
         private readonly ApplicationConfiguration appConfig_;
         private readonly IDataRepository dataRepository_;
 
-        
         private bool isCleaningUp;
     }
 }

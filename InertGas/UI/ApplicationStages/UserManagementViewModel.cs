@@ -60,9 +60,9 @@ namespace InertGas.Application.UI.ApplicationStages
                     throw new InvalidOperationException($"Unable to delete the current user");
 
                 dataRepository_.DeleteUser(SelectedUser);
+                logger_.Info($"User ID:{SelectedUser.Id} deleted");
                 AppModel.Users.Remove(SelectedUser);
                 SelectedUser = AppModel.Users.FirstOrDefault();
-                logger_.Info($"User ID:{SelectedUser.Id} deleted");
             }
             catch (Exception ex)
             {
@@ -78,7 +78,7 @@ namespace InertGas.Application.UI.ApplicationStages
                 if (UserNameOnSearch == null || UserNameOnSearch == string.Empty)
                     throw new ArgumentNullException(nameof(UserNameOnSearch));
 
-                var users = dataRepository_.SearchPatientByName(UserNameOnSearch).ToList();
+                var users = dataRepository_.SearchUserByName(UserNameOnSearch).ToList();
 
                 if (users.Count == 0)
                     throw new InvalidOperationException($"No such user");

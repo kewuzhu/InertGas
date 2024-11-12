@@ -6,7 +6,8 @@ namespace InertGas.Plc
 {
     public class PlcControl : SyncContextAwareObject, ISystemHardware
     {
-        private const int HEARTBEAT_INTERVAL = 5000;
+        private const int HEARTBEAT_INTERVAL = 5000; //ms
+        private const int READ_TEMPERATRUE_TIMER_INTERVAL = 500; //ms
 
         public EventHandler<string> PressureDataReceived;
 
@@ -90,8 +91,36 @@ namespace InertGas.Plc
             }
         }
 
+        public void StartGetPressureTimer()
+        {
+            if (!IsInitialized)
+                return;
+
+            pressureReadingTimer_ = new(READ_TEMPERATRUE_TIMER_INTERVAL) { Enabled = true };
+            pressureReadingTimer_.Elapsed += OnPressureReadingTimerElapsed;
+            logger_.Info($"{nameof(pressureReadingTimer_)} started.");
+        }
+
+        public void StopGetPressureTimer()
+        {
+            if (pressureReadingTimer_ != null)
+            {
+                pressureReadingTimer_.Elapsed -= OnPressureReadingTimerElapsed;
+                pressureReadingTimer_.Stop();
+                pressureReadingTimer_.Dispose();
+                pressureReadingTimer_ = null;
+                logger_.Info($"{nameof(pressureReadingTimer_)} stopped.");
+            }
+        }
+
+        private async void OnPressureReadingTimerElapsed(object state, System.Timers.ElapsedEventArgs e)
+        {
+            ReadPlcPressure();
+        }
+
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();
 
+        private System.Timers.Timer pressureReadingTimer_;
         private ModbusManager modbusManager_;
     }
 }

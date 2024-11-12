@@ -3,6 +3,7 @@ using InertGas.Common.Utility;
 using NLog;
 using NModbus;
 using System.Net.Sockets;
+using System.Timers;
 
 namespace InertGas.Plc
 {
@@ -18,6 +19,7 @@ namespace InertGas.Plc
             }
             if (heartbeatTimer_ != null)
             {
+                heartbeatTimer_.Elapsed -= OnHeartbeatTimerElapsed;
                 heartbeatTimer_.Stop();
                 heartbeatTimer_.Dispose();
                 heartbeatTimer_ = null;
@@ -72,7 +74,7 @@ namespace InertGas.Plc
         {
             try
             {
-                master_.WriteMultipleCoils(1, address, new[] { isOn });
+                master_.WriteMultipleCoils((byte)count, address, new[] { isOn });
                 return true;
             }
             catch (Exception ex)
@@ -85,22 +87,24 @@ namespace InertGas.Plc
         public bool Heartbeat(int heartTime)
         {
             heartbeatTimer_ = new();
-            heartbeatTimer_.Elapsed += (sender, e) =>
-            {
-                try
-                {
-                    if (master_ != null)
-                    {
-                        ushort[] tab_reg = master_.ReadHoldingRegisters(1, 0, 1);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    logger_.Warn($"Heat beat sending failed：{ex.Message}");
-                }
-            };
+            heartbeatTimer_.Elapsed += OnHeartbeatTimerElapsed;
             heartbeatTimer_.Start();
             return heartbeatTimer_.Enabled;
+        }
+
+        private void OnHeartbeatTimerElapsed(object? sender, ElapsedEventArgs e)
+        {
+            try
+            {
+                if (master_ != null)
+                {
+                    ushort[] tab_reg = master_.ReadHoldingRegisters(1, 0, 1);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger_.Warn($"Heat beat sending failed：{ex.Message}");
+            }
         }
 
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();
@@ -108,7 +112,5 @@ namespace InertGas.Plc
         private TcpClient client_;
         private IModbusMaster master_;
         private System.Timers.Timer heartbeatTimer_;
-
-
     }
 }

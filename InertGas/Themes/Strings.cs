@@ -47,9 +47,11 @@
         public const string Role = "InertGas.Application.Role";
         public const string Salt = "InertGas.Application.Salt";
         public const string SaveData = "InertGas.Application.SaveData";
+        public const string Saving = "InertGas.Application.Saving";
         public const string Search = "InertGas.Application.Search";
         public const string StartDate = "InertGas.Application.StartDate";
         public const string Three = "InertGas.Application.Three";
+        public const string TotalFlowB = "InertGas.Application.TotalFlowB";
         public const string Two = "InertGas.Application.Two";
         public const string User = "InertGas.Application.User";
         public const string UserManagement = "InertGas.Application.UserManagement";

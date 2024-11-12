@@ -54,22 +54,26 @@
                 Grid.Column="8"
                 Content="{StaticResource InertGas.Application.Search}"
                 Style="{StaticResource InertGas.ImageButton}"
-                ImageSource="{StaticResource InertGas.SearchIcon}"/>
+                ImageSource="{StaticResource InertGas.SearchIcon}"
+                Command="{Binding SearchDataCommand}"/>
             <themes:ImageButton
                 Grid.Column="10"
                 Content="{StaticResource InertGas.Application.Refresh}"
                 Style="{StaticResource InertGas.ImageButton}"
-                ImageSource="{StaticResource InertGas.RefreshIcon}"/>
+                ImageSource="{StaticResource InertGas.RefreshIcon}"
+                Command="{Binding RefreshDataCommand}"/>
             <themes:ImageButton
                 Grid.Column="12"
                 Content="{StaticResource InertGas.Application.Delete}"
                 Style="{StaticResource InertGas.ImageButton}"
-                ImageSource="{StaticResource InertGas.DeleteDataIcon}"/>
+                ImageSource="{StaticResource InertGas.DeleteDataIcon}"
+                Command="{Binding DeleteDataCommand}"/>
             <themes:ImageButton
                 Grid.Column="14"
                 Content="{StaticResource InertGas.Application.Export}"
                 Style="{StaticResource InertGas.ImageButton}"
-                ImageSource="{StaticResource InertGas.ExportDataIcon}"/>
+                ImageSource="{StaticResource InertGas.ExportDataIcon}"
+                Command="{Binding ExportDataCommand}"/>
         </Grid>
         <ListView
             Grid.Row="4"
@@ -89,6 +93,9 @@
                     <GridViewColumn
                         DisplayMemberBinding="{Binding VolumeFlowB}"
                         Header="{StaticResource InertGas.Application.VolumeFlowB}" />
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding TotalFlowB}"
+                        Header="{StaticResource InertGas.Application.TotalFlowB}" />
                     <GridViewColumn
                         DisplayMemberBinding="{Binding CharcoalColumnTemperature}"
                         Header="{StaticResource InertGas.Application.CharcoalColumnTemperature}" />

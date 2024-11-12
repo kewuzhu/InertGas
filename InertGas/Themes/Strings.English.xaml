@@ -47,10 +47,12 @@
     <system:String x:Key="InertGas.Application.Refresh">Refresh</system:String>
     <system:String x:Key="InertGas.Application.Role">Role</system:String>
     <system:String x:Key="InertGas.Application.Salt">Salt</system:String>
-    <system:String x:Key="InertGas.Application.SaveData">SaveData</system:String>
+    <system:String x:Key="InertGas.Application.SaveData">Save Data</system:String>
+    <system:String x:Key="InertGas.Application.Saving">Saving</system:String>
     <system:String x:Key="InertGas.Application.Search">Search</system:String>
     <system:String x:Key="InertGas.Application.StartDate">Start Date</system:String>
     <system:String x:Key="InertGas.Application.Three">3</system:String>
+    <system:String x:Key="InertGas.Application.TotalFlowB">Total Flow B(L/Min)</system:String>
     <system:String x:Key="InertGas.Application.Two">2</system:String>
     <system:String x:Key="InertGas.Application.User">User</system:String>
     <system:String x:Key="InertGas.Application.UserManagement">User Management</system:String>

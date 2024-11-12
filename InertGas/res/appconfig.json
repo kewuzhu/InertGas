@@ -5,7 +5,8 @@
   "DataRepoConfig": {
     "ServerUrl": "http://127.0.0.1:8080",
     "RootDirectory": "C:\\InertGas\\DICOM",
-    "UserDatabaseName": "User"
+    "UserDatabaseName": "User",
+    "DataDatabaseName": "Data"
   },
   "SystemHardwareConfigs": {
     "HeatingBoxConfigs": [
@@ -24,13 +25,13 @@
     ],
     "FlowMeterConfigs": [
       {
-        "Id": "A",
+        "Id": "VolumeFlowA",
         "SerialConfiguration": {
           "SerialPort": "COM15"
         }
       },
       {
-        "Id": "B",
+        "Id": "VolumeFlowB",
         "SerialConfiguration": {
           "SerialPort": "COM8"
         }

@@ -6,7 +6,7 @@ namespace InertGas.Application.Model
     public partial class ValveControl : ObservableObject
     {
         [ObservableProperty]
-        private ValveTypes valveType;
+        private HardwareTypes valveType;
 
         [ObservableProperty]
         private int number;

@@ -44,6 +44,8 @@
                         <ColumnDefinition />
                         <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -74,6 +76,17 @@
                         Grid.Row="0"
                         Grid.Column="6"
                         Text="{Binding AppModel.CurrentData.VolumeFlowB}">
+                    </TextBlock>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="8"
+                        HorizontalAlignment="Right"
+                        Text="{StaticResource InertGas.Application.TotalFlowB}">
+                    </TextBlock>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="10"
+                        Text="{Binding AppModel.CurrentData.TotalFlowB}">
                     </TextBlock>
                     <TextBlock
                         Grid.Row="2"
@@ -110,18 +123,27 @@
                     </TextBlock>
                     <themes:ImageButton
                         Grid.Row="4"
-                        Grid.Column="8"
-                        Content="{StaticResource InertGas.Application.SaveData}"
-                        Style="{StaticResource InertGas.ImageButton}"
-                        ImageSource="{StaticResource InertGas.SaveIcon}">
+                        Grid.Column="10"
+                        ImageSource="{StaticResource InertGas.SaveIcon}"
+                        Command="{Binding ToggleSaveDataCommand}">
+                        <themes:ImageButton.Style>
+                            <Style BasedOn="{StaticResource InertGas.ImageButton}" TargetType="themes:ImageButton" >
+                                <Setter Property="Content" Value="{StaticResource InertGas.Application.SaveData}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSavingData}" Value="true">
+                                        <Setter Property="Content" Value="{StaticResource InertGas.Application.Saving}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </themes:ImageButton.Style>
                     </themes:ImageButton>
                     <ProgressBar
                         Grid.Row="5"
                         Grid.Column="0"
-                        Grid.ColumnSpan="9"
+                        Grid.ColumnSpan="11"
                         Minimum="0"
                         Maximum="1"
-                        IsIndeterminate="True"/>
+                        IsIndeterminate="{Binding IsSavingData}"/>
                 </Grid>
             </GroupBox>
         </Grid>
@@ -313,7 +335,7 @@
                         x:Name="HeatingBoxOne"
                         Grid.Row="4"
                         Grid.Column="9"
-                        ValveControl="{Binding AppModel.ValveControls[0]}"
+                        ValveControl="{Binding AppModel.ValveControls[2]}"
                         Style="{StaticResource InertGas.ValveControlGroupBox}"
                         ImageSource="{StaticResource InertGas.HeatingBoxIcon}"
                         ValveName="{StaticResource InertGas.Application.HeatingBox}"
@@ -323,7 +345,7 @@
                         x:Name="HeatingBoxTwo"
                         Grid.Row="4"
                         Grid.Column="11"
-                        ValveControl="{Binding AppModel.ValveControls[1]}"
+                        ValveControl="{Binding AppModel.ValveControls[3]}"
                         Style="{StaticResource InertGas.ValveControlGroupBox}"
                         ImageSource="{StaticResource InertGas.HeatingBoxIcon}"
                         ValveName="{StaticResource InertGas.Application.HeatingBox}"

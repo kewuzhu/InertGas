@@ -103,7 +103,6 @@ namespace InertGas.HeatingBox
 
         public async Task<bool> WriteCommand(CommandTypes cmd, int parameter = 0)
         {
-            logger_.Info($"Heating box command writing: CommandType:{cmd} Value:{parameter}");
             try
             {
                 await commandLock_.WaitAsync();

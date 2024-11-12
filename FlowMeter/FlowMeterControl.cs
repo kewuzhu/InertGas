@@ -8,12 +8,10 @@ namespace InertGas.FlowMeter
 {
     public class FlowMeterControl : SyncContextAwareObject, ISystemHardware
     {
-        public EventHandler<string> VolumeFlow;
+        public EventHandler<List<string>> VolumeFlowReceived;
 
-        public EventHandler<string> TotalFlow;
-
-        private const int EVENT_WAIT_TIME = 200;
-
+        private const int EVENT_WAIT_TIME = 200; //ms
+        private const int READ_FLOW_DATA_TIMER_INTERVAL = 500; //ms
         private const string READ_FLOW_METER_COMMAND = "A";
 
         private readonly string CommandTail = ((char)0x0D).ToString();
@@ -82,7 +80,7 @@ namespace InertGas.FlowMeter
         public async Task<bool> WriteCommand()
         {
             logger_.Info($"Flow meter command writing.");
-            try 
+            try
             {
                 await commandLock_.WaitAsync();
 
@@ -124,8 +122,7 @@ namespace InertGas.FlowMeter
                 string totalFlow = dataList[6];
 
                 logger_.Info($"Extracted value: VolumeFlow {volumeFlow} L/MIN, TotalFlow {totalFlow} L/MIN");
-                VolumeFlow?.Invoke(this, totalFlow);
-                TotalFlow?.Invoke(this, volumeFlow);
+                VolumeFlowReceived?.Invoke(this, new List<string>() { volumeFlow, totalFlow });
                 return true;
             }
             else
@@ -135,11 +132,39 @@ namespace InertGas.FlowMeter
             }
         }
 
+        public void StartGetFlowDataTimer()
+        {
+            if (!IsInitialized)
+                return;
+
+            flowDataReadingTimer_ = new(READ_FLOW_DATA_TIMER_INTERVAL) { Enabled = true };
+            flowDataReadingTimer_.Elapsed += OnFlowDataReadingTimerElapsed;
+            logger_.Info($"{nameof(flowDataReadingTimer_)} started.");
+        }
+
+        public void StopGetFlowDataTimer()
+        {
+            if (flowDataReadingTimer_ != null)
+            {
+                flowDataReadingTimer_.Elapsed -= OnFlowDataReadingTimerElapsed;
+                flowDataReadingTimer_.Stop();
+                flowDataReadingTimer_.Dispose();
+                flowDataReadingTimer_ = null;
+                logger_.Info($"{nameof(flowDataReadingTimer_)} stopped.");
+            }
+        }
+
+        private async void OnFlowDataReadingTimerElapsed(object state, System.Timers.ElapsedEventArgs e)
+        {
+            await WriteCommand();
+        }
+
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();
         private readonly List<byte> readBuffer_ = new();
         private readonly AutoResetEvent replyReceived_ = new(false);
         private static readonly SemaphoreSlim commandLock_ = new(1);
 
+        private System.Timers.Timer flowDataReadingTimer_;
         private SerialPort serialPort_;
         private string comPort_;
     }

@@ -7,5 +7,7 @@
         public string RootDirectory { get; set; }
 
         public string UserDatabaseName { get; set; }
+
+        public string DataDatabaseName { get; set; }
     }
 }

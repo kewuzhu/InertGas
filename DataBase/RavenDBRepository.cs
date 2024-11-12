@@ -33,6 +33,14 @@ namespace InertGas.DataBase
             }).Initialize();
 
             EnsureDatabaseExists(userStore_);
+
+            dataStore_ = (new DocumentStore
+            {
+                Urls = new[] { config.ServerUrl },
+                Database = config.DataDatabaseName
+            }).Initialize();
+
+            EnsureDatabaseExists(dataStore_);
         }
 
         private void Dispose(bool disposing)
@@ -63,6 +71,7 @@ namespace InertGas.DataBase
         private void DisposeManaged()
         {
             userStore_.Dispose();
+            dataStore_.Dispose();
         }
 
         private void DisposeUnmanaged() { }
@@ -94,7 +103,7 @@ namespace InertGas.DataBase
             session.SaveChanges();
         }
 
-        public IEnumerable<User> SearchPatientByName(string searchText)
+        public IEnumerable<User> SearchUserByName(string searchText)
         {
             if (searchText == "")
                 return GetUsers();
@@ -102,6 +111,44 @@ namespace InertGas.DataBase
             using var session = userStore_.OpenSession();
             return session.Query<User>()
                 .Search(x => x.Name, searchText).ToList();
+        }
+
+        public IEnumerable<CollectedData> GetData()
+        {
+            using var session = dataStore_.OpenSession();
+            return session.Query<CollectedData>().ToList();
+        }
+
+        public CollectedData UpsertData(CollectedData collectedData)
+        {
+            if (collectedData == null)
+                throw new ArgumentNullException(nameof(collectedData));
+
+            using var session = dataStore_.OpenSession();
+            session.Store(collectedData);
+            session.SaveChanges();
+            return session.Load<CollectedData>(collectedData.Id);
+        }
+
+        public void DeleteData(CollectedData collectedData)
+        {
+            if (collectedData == null)
+                throw new ArgumentNullException(nameof(collectedData));
+
+            using var session = dataStore_.OpenSession();
+            session.Delete(collectedData.Id);
+            session.SaveChanges();
+        }
+
+        public IEnumerable<CollectedData> SearchDataByDate(DateTime fromDate, DateTime toDate)
+        {
+            if (toDate < fromDate)
+                return GetData();
+
+            using var session = dataStore_.OpenSession();
+            return session.Query<CollectedData>()
+                .Where(x => x.CreatedDate >= fromDate && x.CreatedDate <= toDate)
+                .ToList();
         }
 
         private static void EnsureDatabaseExists(IDocumentStore store, string database = null, bool createDatabaseIfNotExists = true)
@@ -132,6 +179,7 @@ namespace InertGas.DataBase
         }
 
         private IDocumentStore userStore_;
+        private IDocumentStore dataStore_;
     }
 
 }

@@ -5,18 +5,21 @@ namespace InertGas.Common.Model
     public partial class CurrentData : ObservableObject
     {
         [ObservableProperty]
-        private double volumeFlowA;
+        private string volumeFlowA;
 
         [ObservableProperty]
-        public double volumeFlowB;
+        private string volumeFlowB;
 
         [ObservableProperty]
-        public double charcoalColumnTemperature;
+        private string totalFlowB;
 
         [ObservableProperty]
-        public double column4A5ATemperature;
+        private double charcoalColumnTemperature;
 
         [ObservableProperty]
-        public double pressure;
+        private double column4A5ATemperature;
+
+        [ObservableProperty]
+        private string pressure;
     }
 }

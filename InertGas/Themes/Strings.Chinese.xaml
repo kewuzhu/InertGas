@@ -66,9 +66,11 @@
     <system:String x:Key="InertGas.Application.Role">角色</system:String>
     <system:String x:Key="InertGas.Application.Salt">盐值</system:String>
     <system:String x:Key="InertGas.Application.SaveData">保存数据</system:String>
+    <system:String x:Key="InertGas.Application.Saving">保存中...</system:String>
     <system:String x:Key="InertGas.Application.Search">搜索</system:String>
     <system:String x:Key="InertGas.Application.StartDate">开始日期</system:String>
     <system:String x:Key="InertGas.Application.Three">三</system:String>
+    <system:String x:Key="InertGas.Application.TotalFlowB">总流量B(L/Min)</system:String>
     <system:String x:Key="InertGas.Application.Two">二</system:String>
     <system:String x:Key="InertGas.Application.User">用户</system:String>
     <system:String x:Key="InertGas.Application.UserManagement">用户管理</system:String>
