@@ -10,14 +10,14 @@
   "SystemHardwareConfigs": {
     "HeatingBoxConfigs": [
       {
+        "Id": "CharcoalColumnTemperature",
         "SerialConfiguration": {
-          "Id": "CharcoalColumnTemperature",
           "SerialPort": "COM10"
         }
       },
       {
+        "Id": "Column4A5ATemperature",
         "SerialConfiguration": {
-          "Id": "Column4A5ATemperature",
           "SerialPort": "COM14"
         }
       }
@@ -26,13 +26,13 @@
       {
         "Id": "A",
         "SerialConfiguration": {
-          "SerialPort": "COM10"
+          "SerialPort": "COM15"
         }
       },
       {
         "Id": "B",
         "SerialConfiguration": {
-          "SerialPort": "COM14"
+          "SerialPort": "COM8"
         }
       }
     ],

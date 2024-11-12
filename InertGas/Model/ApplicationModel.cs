@@ -46,10 +46,7 @@ namespace InertGas.Application.Model
 
         public ObservableCollectionWithRangeSupport<CollectedData> CollectedDataSet { get; } = new();
 
-        public List<ValveControl> ValveControls { get; } = new() {
-            new ValveControl() { ValveType = ValveTypes.HeatingBox, Number = 0, IsEnabled = true, IsOn = false},
-            new ValveControl() { ValveType = ValveTypes.HeatingBox, Number = 1, IsEnabled = true, IsOn = false}
-        };
+        public List<ValveControl> ValveControls { get; } = new();
 
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();
     }

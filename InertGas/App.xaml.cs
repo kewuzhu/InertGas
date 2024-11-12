@@ -9,6 +9,7 @@ using InertGas.Common.Utility;
 using InertGas.DataBase;
 using InertGas.HeatingBox;
 using NLog;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -60,7 +61,7 @@ namespace InertGas.Application
             {
                 UserCommunication.ShowMessage($"{Theme.GetString(Strings.Error)}", $"Message:{ex.Message}\nStackTrace:{ex.StackTrace}", MessageType.Critical);
             }
-            
+
         }
 
         private void InitializeLogging()
@@ -142,12 +143,15 @@ namespace InertGas.Application
         {
             try
             {
-                for (int i = 0; i < appConfig_.SystemHardwareConfigs.HeatingBoxConfigs.Count; i++) 
+                for (int i = 0; i < appConfig_.SystemHardwareConfigs.HeatingBoxConfigs.Count; i++)
                 {
+                    var heatingBoxConfig = appConfig_.SystemHardwareConfigs.HeatingBoxConfigs[i];
+                    logger_.Info($"Initialize heating box {i}, Name:{heatingBoxConfig.Id}, ComPort:{heatingBoxConfig.SerialConfiguration.SerialPort}");
                     var heatingBox = new HeatingBoxControl();
-                    await heatingBox.Initialize(appConfig_.SystemHardwareConfigs.HeatingBoxConfigs[i]);
+                    await heatingBox.Initialize(heatingBoxConfig);
                     heatingBox.TemperatureDataReceived += OnTemperatureDataReceived;
-                    appModel_.ValveControls.FirstOrDefault(x => x.ValveType == ValveTypes.HeatingBox && x.Number == i).Hardware = heatingBox;
+                    var valveControl = new ValveControl() { ValveType = ValveTypes.HeatingBox, Number = i, Hardware = heatingBox, IsEnabled = true, IsOn = false };
+                    appModel_.ValveControls.Add(valveControl);
                     heatingBox.StartGetTemperatureTimer();
                 }
             }
