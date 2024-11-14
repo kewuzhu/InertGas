@@ -81,18 +81,17 @@ namespace InertGas.Application.UI.ApplicationStages
                             {
                                 while (!await heatingBox.WriteCommand(HeatingBox.CommandTypes.StartHeating))
                                 {
-                                    await Task.Delay(100);
-                                    logger_.Info("Start heating failed. Trying again.");
+                                    await Task.Delay(500);
+                                    logger_.Warn("Start heating failed. Trying again.");
                                 };
-                                logger_.Info("Start heating succeeded.");
                             }
-                            else
+                            else if (!valveControl.IsOn)
                             {
                                 while (!await heatingBox.WriteCommand(HeatingBox.CommandTypes.StopHeating))
                                 {
-                                    await Task.Delay(100);
+                                    await Task.Delay(500);
+                                    logger_.Warn("Stop heating failed. Trying again.");
                                 }
-                                logger_.Info("Stop heating succeeded.");
                             }
                             break;
                     }
