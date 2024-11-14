@@ -37,4 +37,10 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="res\appconfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -7,9 +7,7 @@ using InertGas.Application.UI.Dialog;
 using InertGas.Application.Utility;
 using InertGas.Common.DataAccess;
 using InertGas.Common.Model;
-using InertGas.HeatingBox;
 using NLog;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Security;
 
@@ -156,8 +154,6 @@ namespace InertGas.Application.UI
             logger_.Info("Cleaning up...");
             dataRepository_.Dispose();
         }
-
-        
 
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();
         private readonly Dictionary<ApplicationStage, ApplicationStageViewModel> viewModelMap_ = new();
