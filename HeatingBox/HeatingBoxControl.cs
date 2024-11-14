@@ -20,7 +20,7 @@ namespace InertGas.HeatingBox
                 0x00, 0x01
             };
 
-        private static readonly byte[] SuccessMsg = new byte[]
+        private static readonly byte[] SetTemperatureSuccessMsg = new byte[]
             {
                 0x01, 0x10,
                 0x21, 0x03,
@@ -28,7 +28,7 @@ namespace InertGas.HeatingBox
                 0xFB, 0xF5
             };
 
-        private static readonly byte[] StartingHeatingCommand = new byte[]
+        private static readonly byte[] StartHeatingCommand = new byte[]
             {
                 0x01, 0x06,
                 0x00, 0x00,
@@ -129,11 +129,6 @@ namespace InertGas.HeatingBox
                 if (isCommandSuccessful)
                 {
                     logger_.Info($"{cmd} successfully.");
-                    if (cmd is CommandTypes.StopHeating)
-                    {
-                        isTemperatureThresholdTo200Set_ = false;
-                        isTemperatureThresholdTo300Set_ = false;
-                    }
                 }
                 else
                 {
@@ -173,7 +168,7 @@ namespace InertGas.HeatingBox
 
         private async Task<bool> WriteStartHeatingCommand(CommandTypes cmd)
         {
-            var command = ConcatCommandWithCRC(StartingHeatingCommand);
+            var command = ConcatCommandWithCRC(StartHeatingCommand);
             serialPort_.Write(command, 0, command.Length);
             logger_.Info($"{cmd} is sent.");
             return await GetResponse(cmd);
@@ -201,10 +196,10 @@ namespace InertGas.HeatingBox
         {
             return cmd switch
             {
-                CommandTypes.SetTemperatureThreshold => response.ToArray().SequenceEqual(SuccessMsg),
-                CommandTypes.StopHeating => response.ToArray().SequenceEqual(ConcatCommandWithCRC(StopHeatingCommand)),
+                CommandTypes.StartHeating => IsStartHeatingSuccessful(response),
+                CommandTypes.SetTemperatureThreshold => IsTwoArraySame(response.ToArray(), SetTemperatureSuccessMsg),
+                CommandTypes.StopHeating => IsStopHeatingSuccessful(response),
                 CommandTypes.ReadTemperature => ParseBytesToInt(response.ToArray()),
-                CommandTypes.StartHeating => response.ToArray().SequenceEqual(ConcatCommandWithCRC(StopHeatingCommand)),
                 _ => false,
             };
         }
@@ -259,8 +254,50 @@ namespace InertGas.HeatingBox
             return crc;
         }
 
+        private bool IsStartHeatingSuccessful(List<byte> response)
+        {
+            var theoretical = ConcatCommandWithCRC(StartHeatingCommand);
+            var actual = response.ToArray();
+
+            return IsTwoArraySame(actual, theoretical);
+        }
+
+        private bool IsStopHeatingSuccessful(List<byte> response)
+        {
+            var theoretical = ConcatCommandWithCRC(StopHeatingCommand);
+            var actual = response.ToArray();
+
+            return IsTwoArraySame(actual, theoretical);
+        }
+
+        private bool IsTwoArraySame(byte[] actual, byte[] theoretical)
+        {
+            if (actual.Length != theoretical.Length)
+                return false;
+
+            for (int i = 0; i < theoretical.Length; i++)
+            {
+                if (actual[i] != theoretical[i])
+                    return false;
+            }
+
+            return true;
+        }
+
         private bool ParseBytesToInt(byte[] bytes)
         {
+            if (bytes.Length < ReadTemperatureReplyCommandHeader.Length)
+                return false;
+
+            for (int i = 0; i < ReadTemperatureReplyCommandHeader.Length; i++)
+            {
+                if (bytes[i] != ReadTemperatureReplyCommandHeader[i])
+                {
+                    logger_.Info($"Not a valid temperature readout");
+                    return false;
+                }
+            }
+
             var crcReceived = bytes.TakeLast(2).ToArray();
             var replyWithoutCRC = bytes.SkipLast(2).ToArray();
 
@@ -270,7 +307,7 @@ namespace InertGas.HeatingBox
 
             if (!crcReceived.SequenceEqual(crcBytes))
             {
-                logger_.Info("CRC verification failed");
+                logger_.Info("Temperature readout CRC verification failed");
                 return false;
             }
 
@@ -340,7 +377,5 @@ namespace InertGas.HeatingBox
         private System.Timers.Timer temperatureReadingTimer_;
         private SerialPort serialPort_;
         private string comPort_;
-        private bool isTemperatureThresholdTo200Set_;
-        private bool isTemperatureThresholdTo300Set_;
     }
 }
