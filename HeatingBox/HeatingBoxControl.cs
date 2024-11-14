@@ -163,7 +163,7 @@ namespace InertGas.HeatingBox
         private async Task<bool> WriteStopHeatingCommand(CommandTypes cmd)
         {
             if (!isHeating_)
-                return false;
+                return true;
 
             var command = ConcatCommandWithCRC(StopHeatingCommand);
             serialPort_.Write(command, 0, command.Length);
@@ -340,12 +340,7 @@ namespace InertGas.HeatingBox
                 int bytesToRead = serialPort_.BytesToRead;
                 byte[] buffer = new byte[bytesToRead];
                 serialPort_.Read(buffer, 0, bytesToRead);
-
-                if (buffer.Length != 0)
-                {
-                    readBuffer_.AddRange(buffer);
-                }
-
+                readBuffer_.AddRange(buffer);
                 replyReceived_.Set();
             }
         }
