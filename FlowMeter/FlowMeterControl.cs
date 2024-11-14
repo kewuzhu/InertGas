@@ -118,11 +118,12 @@ namespace InertGas.FlowMeter
 
             if (dataList.Count >= 5)
             {
+                string pressure = dataList[1];
                 string volumeFlow = dataList[3];
                 string totalFlow = dataList[6];
 
-                logger_.Info($"Extracted value: VolumeFlow {volumeFlow} L/MIN, TotalFlow {totalFlow} L/MIN");
-                VolumeFlowReceived?.Invoke(this, new List<string>() { volumeFlow, totalFlow });
+                logger_.Info($"Extracted value: Pressure{pressure} VolumeFlow {volumeFlow}, TotalFlow {totalFlow}");
+                VolumeFlowReceived?.Invoke(this, new List<string>() { pressure, volumeFlow, totalFlow });
                 return true;
             }
             else

@@ -41,7 +41,8 @@
         public const string ParameterSetting = "InertGas.Application.ParameterSetting";
         public const string Password = "InertGas.Application.Password";
         public const string PneumaticPump = "InertGas.Application.PneumaticPump";
-        public const string Pressure = "InertGas.Application.Pressure";
+        public const string PressureA = "InertGas.Application.PressureA";
+        public const string PressureB = "InertGas.Application.PressureB";
         public const string PurificationPhase = "InertGas.Application.PurificationPhase";
         public const string Refresh = "InertGas.Application.Refresh";
         public const string Role = "InertGas.Application.Role";
@@ -49,6 +50,7 @@
         public const string SaveData = "InertGas.Application.SaveData";
         public const string Saving = "InertGas.Application.Saving";
         public const string Search = "InertGas.Application.Search";
+        public const string SetTemperatureThreshold = "InertGas.Application.SetTemperatureThreshold";
         public const string StartDate = "InertGas.Application.StartDate";
         public const string Three = "InertGas.Application.Three";
         public const string TotalFlowB = "InertGas.Application.TotalFlowB";

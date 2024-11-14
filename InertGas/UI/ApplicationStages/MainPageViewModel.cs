@@ -44,7 +44,7 @@ namespace InertGas.Application.UI.ApplicationStages
 
             dataRepository_ = dataRepository ?? throw new ArgumentNullException(nameof(dataRepository));
 
-            AppModel.ValveControls.ToList().ForEach(valveControl =>
+            AppModel.ValveControls.ForEach(valveControl =>
             {
                 valveControl.PropertyChanged += OnValveControlPropertyChangedAsync;
             });
@@ -57,13 +57,10 @@ namespace InertGas.Application.UI.ApplicationStages
             switch (e.PropertyName)
             {
                 case (nameof(CurrentData.CharcoalColumnTemperature)):
+                    logger_.Info($"Current {e.PropertyName} : {AppModel.CurrentData.CharcoalColumnTemperature}");
+                    break;
                 case (nameof(CurrentData.Column4A5ATemperature)):
-                    if (AppModel.CurrentData.Column4A5ATemperature >= 200 || AppModel.CurrentData.Column4A5ATemperature >= 200)
-                    {
-                        var heatingBox = AppModel.ValveControls.FirstOrDefault(x => x.Hardware.Id == e.PropertyName).Hardware as HeatingBoxControl;
-                        heatingBox.SetTemperatureTo300AfterDelay();
-                        return;
-                    }
+                    logger_.Info($"Current {e.PropertyName} : {AppModel.CurrentData.Column4A5ATemperature}");
                     break;
 
             }
@@ -87,8 +84,7 @@ namespace InertGas.Application.UI.ApplicationStages
                                     await Task.Delay(100);
                                     logger_.Info("Start heating failed. Trying again.");
                                 };
-                                await heatingBox.SetTemperatureTo200();
-                                logger_.Info("Start heating and set temperature threshold succeeded.");
+                                logger_.Info("Start heating succeeded.");
                             }
                             else
                             {
@@ -134,7 +130,8 @@ namespace InertGas.Application.UI.ApplicationStages
                 VolumeFlowB = AppModel.CurrentData.VolumeFlowB,
                 CharcoalColumnTemperature = AppModel.CurrentData.CharcoalColumnTemperature,
                 Column4A5ATemperature = AppModel.CurrentData.Column4A5ATemperature,
-                Pressure = AppModel.CurrentData.Pressure
+                PressureA = AppModel.CurrentData.PressureA,
+                PressureB = AppModel.CurrentData.PressureB
             };
 
             dataRepository_.UpsertData(collectedData);

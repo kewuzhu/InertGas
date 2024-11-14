@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:themes="clr-namespace:InertGas.Application.Themes"
     xmlns:appStages="clr-namespace:InertGas.Application.UI.ApplicationStages"
     d:DataContext="{d:DesignInstance Type=appStages:ParameterSettingViewModel}"
     mc:Ignorable="d" 
@@ -11,63 +12,62 @@
     d:DesignWidth="800"
     Background="Black">
     <Grid
-        Width="350"
+        Width="450"
         HorizontalAlignment="Center"
         VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
             <ColumnDefinition />
+            <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock
             Grid.Row="0"
             Grid.Column="0"
-            HorizontalAlignment="Center"
-            Text="Gas flow">
-        </TextBlock>
-        <TextBlock
-            Grid.Row="2"
-            Grid.Column="0"
-            HorizontalAlignment="Center"
-            Text="Charcoal Column Temperature">
-        </TextBlock>
-        <TextBlock
-            Grid.Row="4"
-            Grid.Column="0"
-            HorizontalAlignment="Center"
-            Text="4A temperature">
-        </TextBlock>
-        <TextBlock
-            Grid.Row="6"
-            Grid.Column="0"
-            HorizontalAlignment="Center"
-            Text="5A temperature">
+            HorizontalAlignment="Center">
+            <Run Text="{StaticResource InertGas.Application.CharcoalColumnTemperature}" />
+            <Run Text="{StaticResource InertGas.Application.SetTemperatureThreshold}" />
         </TextBlock>
         <TextBox
             Grid.Row="0"
-            Grid.Column="2">
+            Grid.Column="2"
+            Text="{Binding CharcoalColumnTemperatureThreshold}">
         </TextBox>
+        <themes:ImageButton
+            Grid.Row="0"
+            Grid.Column="4"
+            Style="{StaticResource InertGas.ImageButton}"
+            Content="{StaticResource InertGas.Common.OK}"
+            Command="{Binding SetCharcoalColumnTemperatureThresholdCommand}"
+            ImageSource="{StaticResource InertGas.OkayIcon}">
+        </themes:ImageButton>
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="0"
+            HorizontalAlignment="Center">
+            <Run Text="{StaticResource InertGas.Application.Column4A5ATemperature}" />
+            <Run Text="{StaticResource InertGas.Application.SetTemperatureThreshold}" />
+        </TextBlock>
         <TextBox
             Grid.Row="2"
-            Grid.Column="2">
+            Grid.Column="2"
+            Text="{Binding Column4A5ATemperatureThreshold}">
         </TextBox>
-        <TextBox
-            Grid.Row="4"
-            Grid.Column="2">
-        </TextBox>
-        <TextBox
-            Grid.Row="6"
-            Grid.Column="2">
-        </TextBox>
+        <themes:ImageButton
+            Grid.Row="2"
+            Grid.Column="4"
+            Style="{StaticResource InertGas.ImageButton}"
+            Content="{StaticResource InertGas.Common.OK}"
+            Command="{Binding SetColumn4A5ATemperatureThresholdCommand}"
+            ImageSource="{StaticResource InertGas.OkayIcon}">
+        </themes:ImageButton>
     </Grid>
 </UserControl>

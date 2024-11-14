@@ -20,6 +20,9 @@ namespace InertGas.Common.Model
         private double column4A5ATemperature;
 
         [ObservableProperty]
-        private string pressure;
+        private string pressureA;
+
+        [ObservableProperty]
+        private string pressureB;
     }
 }

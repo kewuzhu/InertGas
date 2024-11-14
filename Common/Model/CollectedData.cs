@@ -16,6 +16,8 @@
 
         public double Column4A5ATemperature { get; set; }
 
-        public string Pressure { get; set; }
+        public string PressureA { get; set; }
+
+        public string PressureB { get; set; }
     }
 }

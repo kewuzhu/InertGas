@@ -77,11 +77,11 @@ namespace InertGas.Application.UI.ApplicationStages
         [RelayCommand]
         private static void ExportData()
         {
-            var csv = "Id,CreatedDate,VolumeFlowA,VolumeFlowB,TotalFlowB,CharcoalColumnTemperature,Column4A5ATemperature,Pressure\n";
+            var csv = "Id,CreatedDate,VolumeFlowA(ml/Min),VolumeFlowB(ml/Min),TotalFlowB(m³/s),CharcoalColumnTemperature℃,Column4A5ATemperature℃,PressureA(barA),PressureB(barA)\n";
 
             AppModel.CollectedDataSet.ToList().ForEach(x =>
             {
-                csv += $"{x.Id},{x.CreatedDate},{x.VolumeFlowA},{x.VolumeFlowB},{x.TotalFlowB},{x.CharcoalColumnTemperature},{x.Column4A5ATemperature},{x.Pressure}\n";
+                csv += $"{x.Id},{x.CreatedDate},{x.VolumeFlowA},{x.VolumeFlowB},{x.TotalFlowB},{x.CharcoalColumnTemperature},{x.Column4A5ATemperature},{x.PressureA},{x.PressureB}\n";
             });
 
             CreateWorkingDirectoryIfNotExists();

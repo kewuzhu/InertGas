@@ -332,34 +332,6 @@ namespace InertGas.HeatingBox
             await WriteCommand(CommandTypes.ReadTemperature);
         }
 
-        public async Task SetTemperatureTo200()
-        {
-            logger_.Info("Temperature threshold will be reset to 200.");
-            while (!await WriteCommand(CommandTypes.SetTemperatureThreshold, 200))
-            {
-                await Task.Delay(100);
-                logger_.Info("Set temperature threshold failed. Trying again.");
-            }
-            isTemperatureThresholdTo200Set_ = true;
-            logger_.Info("Temperature threshold is reset to 200.");
-        }
-
-        public async Task SetTemperatureTo300AfterDelay()
-        {
-            if (isTemperatureThresholdTo300Set_ || !isTemperatureThresholdTo200Set_)
-                return;
-
-            logger_.Info("Temperature threshold will be reset to 300 in 20min.");
-            await Task.Delay(SET_TEMPERATURE_TO_300_DELAY * 60 * 1000);
-            while (!await WriteCommand(CommandTypes.SetTemperatureThreshold, 300))
-            {
-                await Task.Delay(100);
-                logger_.Info("Set temperature threshold failed. Trying again.");
-            }
-            isTemperatureThresholdTo300Set_ = true;
-            logger_.Info("Temperature threshold is reset to 300.");
-        }
-
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();
         private readonly List<byte> readBuffer_ = new();
         private readonly AutoResetEvent replyReceived_ = new(false);

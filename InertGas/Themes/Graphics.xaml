@@ -462,6 +462,23 @@
         </Viewbox>
     </ControlTemplate>
 
+    <ControlTemplate x:Key="InertGas.OkayIcon">
+        <Viewbox>
+            <Canvas UseLayoutRounding="False" Width="122.73" Height="122.88">
+                <Canvas.Clip>
+                    <RectangleGeometry Rect="0.0,0.0,122.73,122.88"/>
+                </Canvas.Clip>
+                <Canvas UseLayoutRounding="False">
+                    <Path Fill="{TemplateBinding Foreground}">
+                        <Path.Data>
+                            <PathGeometry Figures="M 61.44 0 c 33.933 0 61.441 27.507 61.441 61.439 c 0 33.933 -27.508 61.44 -61.441 61.44 C 27.508 122.88 0 95.372 0 61.439 C 0 27.507 27.508 0 61.44 0 L 61.44 0 z M 34.106 67.678 l -0.015 -0.014 c -0.785 -0.718 -1.207 -1.685 -1.256 -2.669 c -0.049 -0.982 0.275 -1.985 0.984 -2.777 c 0.01 -0.011 0.019 -0.021 0.029 -0.031 c 0.717 -0.784 1.684 -1.207 2.668 -1.256 c 0.989 -0.049 1.998 0.28 2.792 0.998 l 12.956 11.748 l 31.089 -32.559 v 0 c 0.74 -0.776 1.723 -1.18 2.719 -1.204 c 0.992 -0.025 1.994 0.329 2.771 1.067 v 0.001 c 0.777 0.739 1.18 1.724 1.205 2.718 c 0.025 0.993 -0.33 1.997 -1.068 2.773 L 55.279 81.769 c -0.023 0.024 -0.048 0.047 -0.073 0.067 c -0.715 0.715 -1.649 1.095 -2.598 1.13 c -0.974 0.037 -1.963 -0.293 -2.744 -1 L 34.118 67.688 L 34.106 67.678 L 34.106 67.678 L 34.106 67.678 z"/>
+                        </Path.Data>
+                    </Path>
+                </Canvas>
+            </Canvas>
+        </Viewbox>
+    </ControlTemplate>
+
     <ControlTemplate x:Key="InertGas.CalendarIcon">
         <Viewbox>
             <Canvas UseLayoutRounding="False" Width="36" Height="36">

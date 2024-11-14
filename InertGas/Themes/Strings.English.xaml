@@ -42,7 +42,8 @@
     <system:String x:Key="InertGas.Application.ParameterSetting">Parameter Setting</system:String>
     <system:String x:Key="InertGas.Application.Password">Password</system:String>
     <system:String x:Key="InertGas.Application.PneumaticPump">PneumaticPump</system:String>
-    <system:String x:Key="InertGas.Application.Pressure">Pressure</system:String>
+    <system:String x:Key="InertGas.Application.PressureA">PressureA(barA)</system:String>
+    <system:String x:Key="InertGas.Application.PressureB">PressureB(barA)</system:String>
     <system:String x:Key="InertGas.Application.PurificationPhase">Purification Phase</system:String>
     <system:String x:Key="InertGas.Application.Refresh">Refresh</system:String>
     <system:String x:Key="InertGas.Application.Role">Role</system:String>
@@ -50,14 +51,15 @@
     <system:String x:Key="InertGas.Application.SaveData">Save Data</system:String>
     <system:String x:Key="InertGas.Application.Saving">Saving</system:String>
     <system:String x:Key="InertGas.Application.Search">Search</system:String>
+    <system:String x:Key="InertGas.Application.SetTemperatureThreshold">Set Temperature Threshold</system:String>
     <system:String x:Key="InertGas.Application.StartDate">Start Date</system:String>
     <system:String x:Key="InertGas.Application.Three">3</system:String>
-    <system:String x:Key="InertGas.Application.TotalFlowB">Total Flow B(L/Min)</system:String>
+    <system:String x:Key="InertGas.Application.TotalFlowB">Total Flow B(m³/s)</system:String>
     <system:String x:Key="InertGas.Application.Two">2</system:String>
     <system:String x:Key="InertGas.Application.User">User</system:String>
     <system:String x:Key="InertGas.Application.UserManagement">User Management</system:String>
-    <system:String x:Key="InertGas.Application.VolumeFlowA">Volume Flow A(L/Min)</system:String>
-    <system:String x:Key="InertGas.Application.VolumeFlowB">Volume Flow B(L/Min)</system:String>
+    <system:String x:Key="InertGas.Application.VolumeFlowA">Volume Flow A(ml/Min)</system:String>
+    <system:String x:Key="InertGas.Application.VolumeFlowB">Volume Flow B(ml/Min)</system:String>
     <system:String x:Key="InertGas.Application.WorkingDirectory">Working Directory:</system:String>
     
 </ResourceDictionary>

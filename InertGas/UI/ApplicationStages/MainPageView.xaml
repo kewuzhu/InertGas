@@ -46,6 +46,8 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
                         <ColumnDefinition />
+                        <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -114,16 +116,27 @@
                         Grid.Row="4"
                         Grid.Column="0"
                         HorizontalAlignment="Right"
-                        Text="{StaticResource InertGas.Application.Pressure}">
+                        Text="{StaticResource InertGas.Application.PressureA}">
                     </TextBlock>
                     <TextBlock
                         Grid.Row="4"
                         Grid.Column="2"
-                        Text="{Binding AppModel.CurrentData.Pressure}">
+                        Text="{Binding AppModel.CurrentData.PressureA}">
+                    </TextBlock>
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="4"
+                        HorizontalAlignment="Right"
+                        Text="{StaticResource InertGas.Application.PressureB}">
+                    </TextBlock>
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="6"
+                        Text="{Binding AppModel.CurrentData.PressureB}">
                     </TextBlock>
                     <themes:ImageButton
                         Grid.Row="4"
-                        Grid.Column="10"
+                        Grid.Column="12"
                         ImageSource="{StaticResource InertGas.SaveIcon}"
                         Command="{Binding ToggleSaveDataCommand}">
                         <themes:ImageButton.Style>

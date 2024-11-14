@@ -228,11 +228,15 @@ namespace InertGas.Application
 
             logger_.Info($"Flowmeter id:{flowMeter.Id} flow data:{string.Join(",", e)}");
 
-            if (flowMeter.Id == nameof(appModel_.CurrentData.VolumeFlowA))
-                appModel_.CurrentData.VolumeFlowA = e.First();
+            if (flowMeter.Id == nameof(appModel_.CurrentData.VolumeFlowA)) 
+            {
+                appModel_.CurrentData.PressureA = e.First();
+                appModel_.CurrentData.VolumeFlowA = e.Skip(1).First();
+            }
             else
             {
-                appModel_.CurrentData.VolumeFlowB = e.First();
+                appModel_.CurrentData.PressureB = e.First();
+                appModel_.CurrentData.VolumeFlowB = e.Skip(1).First();
                 appModel_.CurrentData.TotalFlowB = e.Last();
             }
         }
@@ -242,8 +246,6 @@ namespace InertGas.Application
             var plcControl = sender as PlcControl;
 
             logger_.Info($"Pressure:{e}");
-
-            appModel_.CurrentData.Pressure = e;
         }
 
         private static readonly ApplicationModel appModel_ = ApplicationModel.Instance;
