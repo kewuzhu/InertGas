@@ -22,7 +22,7 @@ namespace InertGas.Application.UI.ApplicationStages
 
             while (!await heatingBox.WriteCommand(HeatingBox.CommandTypes.SetTemperatureThreshold, CharcoalColumnTemperatureThreshold))
             {
-                await Task.Delay(100);
+                await Task.Delay(500);
                 logger_.Info("Set CharcoalColumnTemperature threshold failed. Trying again.");
             };
             logger_.Info("Set CharcoalColumnTemperature threshold succeeded.");
@@ -35,7 +35,7 @@ namespace InertGas.Application.UI.ApplicationStages
 
             while (!await heatingBox.WriteCommand(HeatingBox.CommandTypes.SetTemperatureThreshold, Column4A5ATemperatureThreshold))
             {
-                await Task.Delay(100);
+                await Task.Delay(500);
                 logger_.Info("Set Column4A5ATemperature threshold failed. Trying again.");
             };
             logger_.Info("Set Column4A5ATemperature threshold succeeded.");
