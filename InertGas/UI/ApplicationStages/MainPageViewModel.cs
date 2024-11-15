@@ -38,6 +38,34 @@ namespace InertGas.Application.UI.ApplicationStages
                 StopDataSavingTimer();
         }
 
+        [RelayCommand]
+        private void ReadStart()
+        {
+            var heater = AppModel.ValveControls[3].Hardware as HeatingBoxControl;
+            heater.StartGetTemperatureTimer();
+        }
+
+        [RelayCommand]
+        private void ReadStop()
+        {
+            var heater = AppModel.ValveControls[3].Hardware as HeatingBoxControl;
+            heater.StopGetTemperatureTimer();
+        }
+
+        [RelayCommand]
+        private async Task HeatStart() 
+        {
+            var heater = AppModel.ValveControls[3].Hardware as HeatingBoxControl;
+            await heater.WriteCommand(CommandTypes.StartHeating);
+        }
+
+        [RelayCommand]
+        private async Task HeatStop() 
+        {
+            var heater = AppModel.ValveControls[3].Hardware as HeatingBoxControl;
+            await heater.WriteCommand(CommandTypes.StartHeating);
+        }
+
         public MainPageViewModel(IDataRepository dataRepository) : base(ApplicationStage.MainPage)
         {
             Title = Theme.GetString(Strings.MainPage);

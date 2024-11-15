@@ -1,7 +1,7 @@
 using InertGas.Common.Model;
 using InertGas.Common.Utility;
 using NLog;
-using System.IO.Ports;
+using RJCP.IO.Ports;
 
 namespace InertGas.HeatingBox
 {
@@ -79,7 +79,7 @@ namespace InertGas.HeatingBox
         private async Task EnableSerialPort(HeatingBoxConfiguration serialconfig)
         {
             comPort_ = serialconfig.SerialConfiguration.SerialPort;
-            serialPort_ = new SerialPort(comPort_, 9600, Parity.None, 8, StopBits.One);
+            serialPort_ = new SerialPortStream(comPort_, 9600, 8, Parity.None, StopBits.One);
 
             await Task.Run(() =>
             {
@@ -378,7 +378,7 @@ namespace InertGas.HeatingBox
         private static readonly SemaphoreSlim commandLock_ = new(1);
 
         private System.Timers.Timer temperatureReadingTimer_;
-        private SerialPort serialPort_;
+        private SerialPortStream serialPort_;
         private string comPort_;
         private bool isHeating_;
     }

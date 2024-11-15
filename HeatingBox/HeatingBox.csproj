@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="NLog.Extensions.Logging" Version="5.3.14" />
-    <PackageReference Include="System.IO.Ports" Version="8.0.0" />
+    <PackageReference Include="SerialPortStream" Version="2.4.2" />
   </ItemGroup>
 
   <ItemGroup>

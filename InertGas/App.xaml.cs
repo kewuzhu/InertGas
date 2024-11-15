@@ -54,7 +54,7 @@ namespace InertGas.Application
 
                 appModel_.CollectedDataSet.AddRange(dataRepository_.GetData());
 
-                //await InitializeHardwares();
+                await InitializeHardwares();
 
                 mainWindowViewModel_ = new MainWindowViewModel(appConfig_, dataRepository_);
                 MainWindow = new MainWindow { DataContext = mainWindowViewModel_ };
@@ -170,7 +170,7 @@ namespace InertGas.Application
                     heatingBox.TemperatureDataReceived += OnTemperatureDataReceived;
                     valveControl = new ValveControl() { ValveType = HardwareTypes.HeatingBox, Number = i, Hardware = heatingBox, IsEnabled = true, IsOn = false };
                     appModel_.ValveControls.Add(valveControl);
-                    heatingBox.StartGetTemperatureTimer();
+                    //heatingBox.StartGetTemperatureTimer();
                 }
 
                 var plcConfig = appConfig_.SystemHardwareConfigs.PLCConfig;

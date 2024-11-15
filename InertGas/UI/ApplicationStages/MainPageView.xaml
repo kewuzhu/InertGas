@@ -57,6 +57,35 @@
                         <RowDefinition />
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
+                    <Button
+                        Grid.Row="2"
+                        Grid.Column="8"
+                        Content="ReadStart">
+                    </Button>
+                    <Button
+                        Grid.Row="2"
+                        Grid.Column="10"
+                        Content="ReadStop"
+                        Command="{Binding ReadStartCommand}">
+                    </Button>
+                    <Button
+                        Grid.Row="2"
+                        Grid.Column="10"
+                        Content="ReadStop"
+                        Command="{Binding ReadStopCommand}">
+                    </Button>
+                    <Button
+                        Grid.Row="4"
+                        Grid.Column="8"
+                        Content="HeatStart"
+                        Command="{Binding HeatStartCommand}">
+                    </Button>
+                    <Button
+                        Grid.Row="4"
+                        Grid.Column="10"
+                        Content="HeatStop"
+                        Command="{Binding HeatStopCommand}">
+                    </Button>
                     <TextBlock
                         Grid.Row="0"
                         Grid.Column="0"
