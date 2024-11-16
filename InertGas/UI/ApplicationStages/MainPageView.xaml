@@ -57,35 +57,6 @@
                         <RowDefinition />
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Button
-                        Grid.Row="2"
-                        Grid.Column="8"
-                        Content="ReadStart">
-                    </Button>
-                    <Button
-                        Grid.Row="2"
-                        Grid.Column="10"
-                        Content="ReadStop"
-                        Command="{Binding ReadStartCommand}">
-                    </Button>
-                    <Button
-                        Grid.Row="2"
-                        Grid.Column="10"
-                        Content="ReadStop"
-                        Command="{Binding ReadStopCommand}">
-                    </Button>
-                    <Button
-                        Grid.Row="4"
-                        Grid.Column="8"
-                        Content="HeatStart"
-                        Command="{Binding HeatStartCommand}">
-                    </Button>
-                    <Button
-                        Grid.Row="4"
-                        Grid.Column="10"
-                        Content="HeatStop"
-                        Command="{Binding HeatStopCommand}">
-                    </Button>
                     <TextBlock
                         Grid.Row="0"
                         Grid.Column="0"
@@ -256,142 +227,135 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
                     </Grid.ColumnDefinitions>
-                    <themes:ValveControlGroupBox
+                    <themes:HardwareControlGroupBox
                         x:Name="ElectricalValveOne"
                         Grid.Row="0"
                         Grid.Column="1"
-                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        Style="{StaticResource InertGas.HardwareControlGroupBox}"
                         ImageSource="{StaticResource InertGas.ElectricalValveIcon}"
-                        ValveName="{StaticResource InertGas.Application.ElectricalValve}"
-                        ValveNumber="{StaticResource InertGas.Application.One}" />
+                        ValveName="{Binding AppModel.HardwareControls[4].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
+                        ValveNumber="{Binding AppModel.HardwareControls[4].PlcValve.Number}" 
+                        HardwareControl="{Binding AppModel.HardwareControls[4]}"/>
 
-                    <themes:ValveControlGroupBox
+                    <themes:HardwareControlGroupBox
                         x:Name="ElectricalValveTwo"
                         Grid.Row="0"
                         Grid.Column="3"
-                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        Style="{StaticResource InertGas.HardwareControlGroupBox}"
                         ImageSource="{StaticResource InertGas.ElectricalValveIcon}"
-                        ValveName="{StaticResource InertGas.Application.ElectricalValve}"
-                        ValveNumber="{StaticResource InertGas.Application.Two}" />
+                        ValveName="{Binding AppModel.HardwareControls[5].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
+                        ValveNumber="{Binding AppModel.HardwareControls[5].PlcValve.Number}" 
+                        HardwareControl="{Binding AppModel.HardwareControls[5]}"/>
 
-                    <themes:ValveControlGroupBox
+                    <themes:HardwareControlGroupBox
                         x:Name="ElectricalValveThree"
                         Grid.Row="0"
                         Grid.Column="5"
-                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        Style="{StaticResource InertGas.HardwareControlGroupBox}"
                         ImageSource="{StaticResource InertGas.ElectricalValveIcon}"
-                        ValveName="{StaticResource InertGas.Application.ElectricalValve}"
-                        ValveNumber="{StaticResource InertGas.Application.Three}" />
+                        ValveName="{Binding AppModel.HardwareControls[6].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
+                        ValveNumber="{Binding AppModel.HardwareControls[6].PlcValve.Number}" 
+                        HardwareControl="{Binding AppModel.HardwareControls[6]}"/>
 
-                    <themes:ValveControlGroupBox
-                        x:Name="ElectricalValveFour"
-                        Grid.Row="0"
-                        Grid.Column="7"
-                        Style="{StaticResource InertGas.ValveControlGroupBox}"
-                        ImageSource="{StaticResource InertGas.ElectricalValveIcon}"
-                        ValveName="{StaticResource InertGas.Application.ElectricalValve}"
-                        ValveNumber="{StaticResource InertGas.Application.Four}" />
-
-                    <themes:ValveControlGroupBox
-                        x:Name="ElectricalValveFive"
-                        Grid.Row="0"
-                        Grid.Column="9"
-                        Style="{StaticResource InertGas.ValveControlGroupBox}"
-                        ImageSource="{StaticResource InertGas.ElectricalValveIcon}"
-                        ValveName="{StaticResource InertGas.Application.ElectricalValve}"
-                        ValveNumber="{StaticResource InertGas.Application.Five}" />
-
-                    <themes:ValveControlGroupBox
+                    <themes:HardwareControlGroupBox
                         x:Name="FiveWayValveOne"
                         Grid.Row="2"
                         Grid.Column="1"
-                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        Style="{StaticResource InertGas.HardwareControlGroupBox}"
                         ImageSource="{StaticResource InertGas.FiveWayValveIcon}"
-                        ValveName="{StaticResource InertGas.Application.FiveWayValve}"
-                        ValveNumber="{StaticResource InertGas.Application.One}" />
+                        ValveName="{Binding AppModel.HardwareControls[7].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
+                        ValveNumber="{Binding AppModel.HardwareControls[7].PlcValve.Number}" 
+                        HardwareControl="{Binding AppModel.HardwareControls[7]}"/>
                     
-                    <themes:ValveControlGroupBox
+                    <themes:HardwareControlGroupBox
                         x:Name="FiveWayValveTwo"
                         Grid.Row="2"
                         Grid.Column="3"
-                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        Style="{StaticResource InertGas.HardwareControlGroupBox}"
                         ImageSource="{StaticResource InertGas.FiveWayValveIcon}"
-                        ValveName="{StaticResource InertGas.Application.FiveWayValve}"
-                        ValveNumber="{StaticResource InertGas.Application.Two}" />
+                        ValveName="{Binding AppModel.HardwareControls[8].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
+                        ValveNumber="{Binding AppModel.HardwareControls[8].PlcValve.Number}" 
+                        HardwareControl="{Binding AppModel.HardwareControls[8]}"/>
                     
-                    <themes:ValveControlGroupBox
+                    <themes:HardwareControlGroupBox
                         x:Name="FiveWayValveThree"
                         Grid.Row="2"
                         Grid.Column="5"
-                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        Style="{StaticResource InertGas.HardwareControlGroupBox}"
                         ImageSource="{StaticResource InertGas.FiveWayValveIcon}"
-                        ValveName="{StaticResource InertGas.Application.FiveWayValve}"
-                        ValveNumber="{StaticResource InertGas.Application.Three}" />
+                        ValveName="{Binding AppModel.HardwareControls[9].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
+                        ValveNumber="{Binding AppModel.HardwareControls[9].PlcValve.Number}" 
+                        HardwareControl="{Binding AppModel.HardwareControls[9]}"/>
                     
-                    <themes:ValveControlGroupBox
+                    <themes:HardwareControlGroupBox
                         x:Name="FiveWayValveFour"
                         Grid.Row="2"
                         Grid.Column="7"
-                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        Style="{StaticResource InertGas.HardwareControlGroupBox}"
                         ImageSource="{StaticResource InertGas.FiveWayValveIcon}"
-                        ValveName="{StaticResource InertGas.Application.FiveWayValve}"
-                        ValveNumber="{StaticResource InertGas.Application.Four}" />
+                        ValveName="{Binding AppModel.HardwareControls[10].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
+                        ValveNumber="{Binding AppModel.HardwareControls[10].PlcValve.Number}" 
+                        HardwareControl="{Binding AppModel.HardwareControls[10]}"/>
 
-                    <themes:ValveControlGroupBox
+                    <themes:HardwareControlGroupBox
                         x:Name="PneumaticPumpOne"
                         Grid.Row="4"
                         Grid.Column="1"
-                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        Style="{StaticResource InertGas.HardwareControlGroupBox}"
                         ImageSource="{StaticResource InertGas.PneumaticPumpIcon}"
-                        ValveName="{StaticResource InertGas.Application.PneumaticPump}"
-                        ValveNumber="{StaticResource InertGas.Application.One}" />
+                        ValveName="{Binding AppModel.HardwareControls[11].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
+                        ValveNumber="{Binding AppModel.HardwareControls[11].PlcValve.Number}" 
+                        HardwareControl="{Binding AppModel.HardwareControls[11]}" />
 
-                    <themes:ValveControlGroupBox
+                    <themes:HardwareControlGroupBox
                         x:Name="PneumaticPumpTwo"
                         Grid.Row="4"
                         Grid.Column="3"
-                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        Style="{StaticResource InertGas.HardwareControlGroupBox}"
                         ImageSource="{StaticResource InertGas.PneumaticPumpIcon}"
-                        ValveName="{StaticResource InertGas.Application.PneumaticPump}"
-                        ValveNumber="{StaticResource InertGas.Application.Two}" />
+                        ValveName="{Binding AppModel.HardwareControls[12].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
+                        ValveNumber="{Binding AppModel.HardwareControls[12].PlcValve.Number}" 
+                        HardwareControl="{Binding AppModel.HardwareControls[12]}"/>
 
-                    <themes:ValveControlGroupBox
+                    <themes:HardwareControlGroupBox
                         x:Name="DoubleSolenoidValveOne"
                         Grid.Row="4"
                         Grid.Column="5"
-                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        Style="{StaticResource InertGas.HardwareControlGroupBox}"
                         ImageSource="{StaticResource InertGas.DoubleSolenoidValveIcon}"
-                        ValveName="{StaticResource InertGas.Application.DoubleSolenoidValve}"
-                        ValveNumber="{StaticResource InertGas.Application.One}" />
+                        ValveName="{Binding AppModel.HardwareControls[13].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
+                        ValveNumber="{Binding AppModel.HardwareControls[13].PlcValve.Number}" 
+                        HardwareControl="{Binding AppModel.HardwareControls[13]}" />
 
-                    <themes:ValveControlGroupBox
+                    <themes:HardwareControlGroupBox
                         x:Name="DoubleSolenoidValveTwo"
                         Grid.Row="4"
                         Grid.Column="7"
-                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        Style="{StaticResource InertGas.HardwareControlGroupBox}"
                         ImageSource="{StaticResource InertGas.DoubleSolenoidValveIcon}"
-                        ValveName="{StaticResource InertGas.Application.DoubleSolenoidValve}"
-                        ValveNumber="{StaticResource InertGas.Application.Two}" />
+                        ValveName="{Binding AppModel.HardwareControls[14].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
+                        ValveNumber="{Binding AppModel.HardwareControls[14].PlcValve.Number}" 
+                        HardwareControl="{Binding AppModel.HardwareControls[14]}" />
 
-                    <themes:ValveControlGroupBox
+                    <themes:HardwareControlGroupBox
                         x:Name="HeatingBoxOne"
                         Grid.Row="4"
                         Grid.Column="9"
-                        ValveControl="{Binding AppModel.ValveControls[2]}"
-                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        HardwareControl="{Binding AppModel.HardwareControls[2]}"
+                        Style="{StaticResource InertGas.HardwareControlGroupBox}"
                         ImageSource="{StaticResource InertGas.HeatingBoxIcon}"
-                        ValveName="{StaticResource InertGas.Application.HeatingBox}"
-                        ValveNumber="{StaticResource InertGas.Application.One}" />
+                        ValveName="{Binding AppModel.HardwareControls[2].HardwareType, Converter={converters:HardwareTypesToStringConverter}}"
+                        ValveNumber="{Binding AppModel.HardwareControls[2].Number}"/>
 
-                    <themes:ValveControlGroupBox
+                    <themes:HardwareControlGroupBox
                         x:Name="HeatingBoxTwo"
                         Grid.Row="4"
                         Grid.Column="11"
-                        ValveControl="{Binding AppModel.ValveControls[3]}"
-                        Style="{StaticResource InertGas.ValveControlGroupBox}"
+                        HardwareControl="{Binding AppModel.HardwareControls[3]}"
+                        Style="{StaticResource InertGas.HardwareControlGroupBox}"
                         ImageSource="{StaticResource InertGas.HeatingBoxIcon}"
-                        ValveName="{StaticResource InertGas.Application.HeatingBox}"
-                        ValveNumber="{StaticResource InertGas.Application.Two}" />
+                        ValveName="{Binding AppModel.HardwareControls[3].HardwareType, Converter={converters:HardwareTypesToStringConverter}}"
+                        ValveNumber="{Binding AppModel.HardwareControls[3].Number}" />
                 </Grid>
             </GroupBox>
         </Grid>

@@ -39,7 +39,64 @@
     ],
     "PLCConfig": {
       "IpAddress": "192.168.1.100",
-      "Port": 502
+      "Port": 502,
+      "PlcValves": [
+        {
+          "ControlType": "ElectricalValve",
+          "Number": 1,
+          "Address": 15
+        },
+        {
+          "ControlType": "ElectricalValve",
+          "Number": 2,
+          "Address": 16
+        },
+        {
+          "ControlType": "ElectricalValve",
+          "Number": 3,
+          "Address": 17
+        },
+        {
+          "ControlType": "FiveWayValve",
+          "Number": 1,
+          "Address": 18
+        },
+        {
+          "ControlType": "FiveWayValve",
+          "Number": 2,
+          "Address": 19
+        },
+        {
+          "ControlType": "FiveWayValve",
+          "Number": 3,
+          "Address": 20
+        },
+        {
+          "ControlType": "FiveWayValve",
+          "Number": 4,
+          "Address": 21
+        },
+        {
+          "ControlType": "PneumaticPump",
+          "Number": 1,
+          "Address": 10
+        },
+        {
+          "ControlType": "PneumaticPump",
+          "Number": 2,
+          "Address": 11
+        },
+        {
+          "ControlType": "DoubleSolenoidValve",
+          "Number": 1,
+          "Address": 22
+        },
+        {
+          "ControlType": "DoubleSolenoidValve",
+          "Number": 2,
+          "Address": 12
+        }
+      ]
     }
   }
 }

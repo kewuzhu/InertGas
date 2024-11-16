@@ -40,7 +40,7 @@
     <system:String x:Key="InertGas.Application.DataManagement">数据管理</system:String>
     <system:String x:Key="InertGas.Application.Delete">删除</system:String>
     <system:String x:Key="InertGas.Application.DoubleCheckUserPasswordMessage">请再次检查您所输入的密码是否正确，且与用户名保持一致，然后再次输入。</system:String>
-    <system:String x:Key="InertGas.Application.DoubleSolenoidValve">双控阀5</system:String>
+    <system:String x:Key="InertGas.Application.DoubleSolenoidValve">双控阀</system:String>
     <system:String x:Key="InertGas.Application.ElectricalValve">电磁阀</system:String>
     <system:String x:Key="InertGas.Application.EndDate">结束日期</system:String>
     <system:String x:Key="InertGas.Application.Error">错误</system:String>
@@ -48,6 +48,7 @@
     <system:String x:Key="InertGas.Application.Export">导出</system:String>
     <system:String x:Key="InertGas.Application.Five">五</system:String>
     <system:String x:Key="InertGas.Application.FiveWayValve">五通阀</system:String>
+    <system:String x:Key="InertGas.Application.FlowMeter">流量计</system:String>
     <system:String x:Key="InertGas.Application.Four">四</system:String>
     <system:String x:Key="InertGas.Application.HeatingBox">加热箱</system:String>
     <system:String x:Key="InertGas.Application.IncorrectPassword">密码错误</system:String>

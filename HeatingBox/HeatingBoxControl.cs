@@ -128,14 +128,6 @@ namespace InertGas.HeatingBox
                         isCommandSuccessful = false;
                         break;
                 }
-                if (isCommandSuccessful)
-                {
-                    logger_.Info($"{cmd} successfully.");
-                }
-                else
-                {
-                    logger_.Warn($"{cmd} failed.");
-                }
                 return isCommandSuccessful;
             }
             finally
@@ -148,7 +140,6 @@ namespace InertGas.HeatingBox
         {
             var command = ConcatCommandWithCRC(ReadTemperatureCommand);
             serialPort_.Write(command, 0, command.Length);
-            logger_.Info($"{cmd} is sent.");
             return await GetResponse(cmd);
         }
 
@@ -156,7 +147,6 @@ namespace InertGas.HeatingBox
         {
             var command = BuildCommand(parameter);
             serialPort_.Write(command, 0, command.Length);
-            logger_.Info($"{cmd} is sent.");
             return await GetResponse(cmd);
         }
 
@@ -167,7 +157,6 @@ namespace InertGas.HeatingBox
 
             var command = ConcatCommandWithCRC(StopHeatingCommand);
             serialPort_.Write(command, 0, command.Length);
-            logger_.Info($"{cmd} is sent.");
             return await GetResponse(cmd);
         }
 
@@ -178,7 +167,6 @@ namespace InertGas.HeatingBox
 
             var command = ConcatCommandWithCRC(StartHeatingCommand);
             serialPort_.Write(command, 0, command.Length);
-            logger_.Info($"{cmd} is sent.");
             return await GetResponse(cmd);
         }
 

@@ -17,6 +17,7 @@ using System.IO;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Windows;
 
 namespace InertGas.Application
@@ -39,7 +40,13 @@ namespace InertGas.Application
             {
                 InitializeLogging();
 
-                appConfig_ = JsonSerializer.Deserialize<ApplicationConfiguration>(File.ReadAllText(APP_CONFIG_FILE_PATH));
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                    Converters = { new JsonStringEnumConverter() }
+                };
+
+                appConfig_ = JsonSerializer.Deserialize<ApplicationConfiguration>(File.ReadAllText(APP_CONFIG_FILE_PATH), options);
                 appConfig_.WorkingDirectory = Path.Combine(ROOT_DIRECTORY, appConfig_.WorkingDirectory);
 
                 LogUtils.InitializeExtendedLogging(appConfig_.FileLoggerLogLevel, appLogTargetName_, appConfig_.ConsoleLoggerLogLevel);
@@ -147,7 +154,7 @@ namespace InertGas.Application
         {
             try
             {
-                var valveControl = new ValveControl();
+                var HardwareControl = new HardwareControl();
 
                 for (int i = 0; i < appConfig_.SystemHardwareConfigs.FlowMeterConfigs.Count; i++)
                 {
@@ -156,8 +163,8 @@ namespace InertGas.Application
                     var flowMeter = new FlowMeterControl();
                     await flowMeter.Initialize(flowMeterConfig);
                     flowMeter.VolumeFlowReceived += OnFlowMeterDataReceived;
-                    valveControl = new ValveControl() { ValveType = HardwareTypes.FlowMeter, Number = i, Hardware = flowMeter, IsEnabled = true, IsOn = false };
-                    appModel_.ValveControls.Add(valveControl);
+                    HardwareControl = new HardwareControl() { HardwareType = HardwareTypes.FlowMeter, Number = i, Hardware = flowMeter, IsEnabled = true, IsOn = false };
+                    appModel_.HardwareControls.Add(HardwareControl);
                     flowMeter.StartGetFlowDataTimer();
                 }
 
@@ -168,9 +175,9 @@ namespace InertGas.Application
                     var heatingBox = new HeatingBoxControl();
                     await heatingBox.Initialize(heatingBoxConfig);
                     heatingBox.TemperatureDataReceived += OnTemperatureDataReceived;
-                    valveControl = new ValveControl() { ValveType = HardwareTypes.HeatingBox, Number = i, Hardware = heatingBox, IsEnabled = true, IsOn = false };
-                    appModel_.ValveControls.Add(valveControl);
-                    //heatingBox.StartGetTemperatureTimer();
+                    HardwareControl = new HardwareControl() { HardwareType = HardwareTypes.HeatingBox, Number = i, Hardware = heatingBox, IsEnabled = true, IsOn = false };
+                    appModel_.HardwareControls.Add(HardwareControl);
+                    heatingBox.StartGetTemperatureTimer();
                 }
 
                 var plcConfig = appConfig_.SystemHardwareConfigs.PLCConfig;
@@ -178,8 +185,12 @@ namespace InertGas.Application
                 var plcControl = new PlcControl();
                 plcControl.Initialize(plcConfig);
                 plcControl.PressureDataReceived += OnPressureDataReceived;
-                valveControl = new ValveControl() { ValveType = HardwareTypes.Plc, Number = 0, Hardware = plcControl, IsEnabled = true, IsOn = false };
-                appModel_.ValveControls.Add(valveControl);
+                foreach(var plcValve in appConfig_.SystemHardwareConfigs.PLCConfig.PlcValves)
+                {
+                    HardwareControl = new HardwareControl() { HardwareType = HardwareTypes.Plc, Number = 0, Hardware = plcControl, IsEnabled = true, IsOn = false, PlcValve = plcValve };
+                    appModel_.HardwareControls.Add(HardwareControl);
+                    logger_.Info($"Plc valve added: ControlType:{plcValve.ControlType}, Number:{plcValve.Number}, Address:{plcValve.Address}");
+                }
                 plcControl.StartGetPressureTimer();
             }
             catch (Exception ex)
@@ -192,8 +203,8 @@ namespace InertGas.Application
         {
             try
             {
-                var heatingBoxes = appModel_.ValveControls
-                    .Where(x => x.ValveType == HardwareTypes.HeatingBox)
+                var heatingBoxes = appModel_.HardwareControls
+                    .Where(x => x.HardwareType == HardwareTypes.HeatingBox)
                     .Select(x => x.Hardware as HeatingBoxControl)
                     .ToList();
 

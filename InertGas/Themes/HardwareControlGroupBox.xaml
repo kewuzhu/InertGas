@@ -9,8 +9,8 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style
-        x:Key="InertGas.ValveControlGroupBox"
-        TargetType="themes:ValveControlGroupBox">
+        x:Key="InertGas.HardwareControlGroupBox"
+        TargetType="themes:HardwareControlGroupBox">
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Background"
             Value="Transparent"/>
@@ -28,7 +28,7 @@
             Value="{StaticResource InertGas.DefaultFontSize}"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="themes:ValveControlGroupBox">
+                <ControlTemplate TargetType="themes:HardwareControlGroupBox">
                     <Border 
                         Name="Chrome"
                         Background="{TemplateBinding Background}"
@@ -65,7 +65,7 @@
                                 Background="{TemplateBinding Background}">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
-                                        <Setter Property="Foreground" Value="{Binding Path=TextColor, RelativeSource={RelativeSource AncestorType=themes:ValveControlGroupBox}}" />
+                                        <Setter Property="Foreground" Value="{Binding Path=TextColor, RelativeSource={RelativeSource AncestorType=themes:HardwareControlGroupBox}}" />
                                     </Style>
                                 </TextBlock.Style>
                             </TextBlock>
@@ -78,7 +78,7 @@
                                 Background="{TemplateBinding Background}">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
-                                        <Setter Property="Foreground" Value="{Binding Path=TextColor, RelativeSource={RelativeSource AncestorType=themes:ValveControlGroupBox}}" />
+                                        <Setter Property="Foreground" Value="{Binding Path=TextColor, RelativeSource={RelativeSource AncestorType=themes:HardwareControlGroupBox}}" />
                                     </Style>
                                 </TextBlock.Style>
                             </TextBlock>
@@ -86,7 +86,7 @@
                                 Grid.Column="5"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 HorizontalAlignment="Center"
-                                IsChecked="{Binding Path=ValveControl.IsOn, RelativeSource={RelativeSource AncestorType=themes:ValveControlGroupBox}}"
+                                IsChecked="{Binding Path=HardwareControl.IsOn, RelativeSource={RelativeSource AncestorType=themes:HardwareControlGroupBox}}"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                 Style="{DynamicResource InertGas.CustomToggleButton}">
                             </ToggleButton>

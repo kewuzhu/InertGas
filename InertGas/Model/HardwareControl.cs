@@ -3,10 +3,10 @@ using InertGas.Common.Model;
 
 namespace InertGas.Application.Model
 {
-    public partial class ValveControl : ObservableObject
+    public partial class HardwareControl : ObservableObject
     {
         [ObservableProperty]
-        private HardwareTypes valveType;
+        private HardwareTypes hardwareType;
 
         [ObservableProperty]
         private int number;
@@ -19,5 +19,8 @@ namespace InertGas.Application.Model
 
         [ObservableProperty]
         private ISystemHardware hardware;
+
+        [ObservableProperty]
+        private PlcValve plcValve;
     }
 }

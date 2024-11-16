@@ -23,7 +23,7 @@
                 <ResourceDictionary Source="Themes/TextBlock.xaml" />
                 <ResourceDictionary Source="Themes/TextBox.xaml" />
                 <ResourceDictionary Source="Themes/ToggleButton.xaml" />
-                <ResourceDictionary Source="Themes/ValveControlGroupBox.xaml" />
+                <ResourceDictionary Source="Themes/HardwareControlGroupBox.xaml" />
                 <!--  To show texts while developing  -->
                 <ResourceDictionary Source="Themes/Strings.English.xaml" />
             </ResourceDictionary.MergedDictionaries>

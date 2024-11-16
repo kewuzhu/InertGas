@@ -3,22 +3,22 @@ using System.Windows;
 
 namespace InertGas.Application.Themes
 {
-    internal class ValveControlGroupBox : System.Windows.Controls.GroupBox
+    internal class HardwareControlGroupBox : System.Windows.Controls.GroupBox
     {
         public static readonly DependencyProperty ImageSourceProperty =
-            DependencyProperty.Register(nameof(ImageSource), typeof(object), typeof(ValveControlGroupBox));
+            DependencyProperty.Register(nameof(ImageSource), typeof(object), typeof(HardwareControlGroupBox));
 
         public static readonly DependencyProperty ValveNameProperty =
-            DependencyProperty.Register(nameof(ValveName), typeof(string), typeof(ValveControlGroupBox));
+            DependencyProperty.Register(nameof(ValveName), typeof(string), typeof(HardwareControlGroupBox));
 
         public static readonly DependencyProperty ValveNumberProperty =
-            DependencyProperty.Register(nameof(ValveNumber), typeof(string), typeof(ValveControlGroupBox));
+            DependencyProperty.Register(nameof(ValveNumber), typeof(string), typeof(HardwareControlGroupBox));
 
         public static readonly DependencyProperty TextColorProperty =
-            DependencyProperty.Register(nameof(TextColor), typeof(System.Windows.Media.Brush), typeof(ValveControlGroupBox));
+            DependencyProperty.Register(nameof(TextColor), typeof(System.Windows.Media.Brush), typeof(HardwareControlGroupBox));
 
-        public static readonly DependencyProperty ValveControlProperty =
-                DependencyProperty.Register(nameof(ValveControl), typeof(ValveControl), typeof(ValveControlGroupBox));
+        public static readonly DependencyProperty HardwareControlProperty =
+                DependencyProperty.Register(nameof(HardwareControl), typeof(HardwareControl), typeof(HardwareControlGroupBox));
 
         public object ImageSource
         {
@@ -44,10 +44,10 @@ namespace InertGas.Application.Themes
             set => SetValue(TextColorProperty, value);
         }
 
-        public ValveControl ValveControl
+        public HardwareControl HardwareControl
         {
-            get => (ValveControl)GetValue(ValveControlProperty);
-            set => SetValue(ValveControlProperty, value);
+            get => (HardwareControl)GetValue(HardwareControlProperty);
+            set => SetValue(HardwareControlProperty, value);
         }
     }
 }

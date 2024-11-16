@@ -6,8 +6,10 @@ using InertGas.Common.DataAccess;
 using InertGas.Common.Model;
 using InertGas.Common.Utility;
 using InertGas.HeatingBox;
+using InertGas.Plc;
 using NLog;
 using System.ComponentModel;
+using static InertGas.Application.ApplicationConstants;
 
 namespace InertGas.Application.UI.ApplicationStages
 {
@@ -38,43 +40,15 @@ namespace InertGas.Application.UI.ApplicationStages
                 StopDataSavingTimer();
         }
 
-        [RelayCommand]
-        private void ReadStart()
-        {
-            var heater = AppModel.ValveControls[3].Hardware as HeatingBoxControl;
-            heater.StartGetTemperatureTimer();
-        }
-
-        [RelayCommand]
-        private void ReadStop()
-        {
-            var heater = AppModel.ValveControls[3].Hardware as HeatingBoxControl;
-            heater.StopGetTemperatureTimer();
-        }
-
-        [RelayCommand]
-        private async Task HeatStart() 
-        {
-            var heater = AppModel.ValveControls[3].Hardware as HeatingBoxControl;
-            await heater.WriteCommand(CommandTypes.StartHeating);
-        }
-
-        [RelayCommand]
-        private async Task HeatStop() 
-        {
-            var heater = AppModel.ValveControls[3].Hardware as HeatingBoxControl;
-            await heater.WriteCommand(CommandTypes.StartHeating);
-        }
-
         public MainPageViewModel(IDataRepository dataRepository) : base(ApplicationStage.MainPage)
         {
             Title = Theme.GetString(Strings.MainPage);
 
             dataRepository_ = dataRepository ?? throw new ArgumentNullException(nameof(dataRepository));
 
-            AppModel.ValveControls.ForEach(valveControl =>
+            AppModel.HardwareControls.ForEach(HardwareControl =>
             {
-                valveControl.PropertyChanged += OnValveControlPropertyChangedAsync;
+                HardwareControl.PropertyChanged += OnHardwareControlPropertyChangedAsync;
             });
 
             AppModel.CurrentData.PropertyChanged += OnAppModelCurrentDataPropertyChanged;
@@ -94,32 +68,55 @@ namespace InertGas.Application.UI.ApplicationStages
             }
         }
 
-        private async void OnValveControlPropertyChangedAsync(object sender, PropertyChangedEventArgs e)
+        private async void OnHardwareControlPropertyChangedAsync(object sender, PropertyChangedEventArgs e)
         {
-            var valveControl = sender as ValveControl;
+            var HardwareControl = sender as HardwareControl;
 
             switch (e.PropertyName)
             {
-                case (nameof(ValveControl.IsOn)):
-                    switch (valveControl.ValveType)
+                case (nameof(HardwareControl.IsOn)):
+                    switch (HardwareControl.HardwareType)
                     {
                         case HardwareTypes.HeatingBox:
-                            var heatingBox = valveControl.Hardware as HeatingBoxControl;
-                            if (valveControl.IsOn)
+                            var heatingBox = HardwareControl.Hardware as HeatingBoxControl;
+                            if (HardwareControl.IsOn)
                             {
+                                heatingBox.StopGetTemperatureTimer();
                                 while (!await heatingBox.WriteCommand(HeatingBox.CommandTypes.StartHeating))
                                 {
-                                    await Task.Delay(500);
+                                    await Task.Delay(RESEND_COMMAND_INTERVAL);
                                     logger_.Warn("Start heating failed. Trying again.");
                                 };
+                                heatingBox.StartGetTemperatureTimer();
+                                logger_.Info("Start heating succeeded.");
                             }
-                            else if (!valveControl.IsOn)
+                            else if (!HardwareControl.IsOn)
                             {
+                                heatingBox.StopGetTemperatureTimer();
                                 while (!await heatingBox.WriteCommand(HeatingBox.CommandTypes.StopHeating))
                                 {
-                                    await Task.Delay(500);
+                                    await Task.Delay(RESEND_COMMAND_INTERVAL);
                                     logger_.Warn("Stop heating failed. Trying again.");
                                 }
+                                heatingBox.StartGetTemperatureTimer();
+                                logger_.Info("Stop heating succeeded.");
+                            }
+                            break;
+                        case HardwareTypes.Plc:
+                            var plcValveAddress = HardwareControl.PlcValve.Address;
+                            var plcValveType = HardwareControl.PlcValve.ControlType;
+                            var plcValveNumber = HardwareControl.PlcValve.Number;
+
+                            var plc = HardwareControl.Hardware as PlcControl;
+                            if (HardwareControl.IsOn)
+                            {
+                                plc.WriteCoil(plcValveAddress, true);
+                                logger_.Info($"PlcValveType: {plcValveType}, Number:{plcValveNumber}, Address{plcValveAddress} is on.");
+                            }
+                            else if (!HardwareControl.IsOn)
+                            {
+                                plc.WriteCoil(plcValveAddress, false);
+                                logger_.Info($"PlcValveType: {plcValveType}, Number:{plcValveNumber}, Address{plcValveAddress} is off.");
                             }
                             break;
                     }

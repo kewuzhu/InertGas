@@ -30,6 +30,7 @@
     <system:String x:Key="InertGas.Application.Export">Export</system:String>
     <system:String x:Key="InertGas.Application.Five">5</system:String>
     <system:String x:Key="InertGas.Application.FiveWayValve">Five-Way Valve</system:String>
+    <system:String x:Key="InertGas.Application.FlowMeter">Flow Meter</system:String>
     <system:String x:Key="InertGas.Application.Four">4</system:String>
     <system:String x:Key="InertGas.Application.HeatingBox">Heating Box</system:String>
     <system:String x:Key="InertGas.Application.IncorrectPassword">Incorrect Password</system:String>

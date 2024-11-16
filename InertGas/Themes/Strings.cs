@@ -29,6 +29,7 @@
         public const string Export = "InertGas.Application.Export";
         public const string Five = "InertGas.Application.Five";
         public const string FiveWayValve = "InertGas.Application.FiveWayValve";
+        public const string FlowMeter = "InertGas.Application.FlowMeter";
         public const string Four = "InertGas.Application.Four";
         public const string HeatingBox = "InertGas.Application.HeatingBox";
         public const string IncorrectPassword = "InertGas.Application.IncorrectPassword";

@@ -116,7 +116,7 @@ namespace InertGas.FlowMeter
             string data = Encoding.UTF8.GetString(response.ToArray());
             List<string> dataList = new List<string>(data.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
 
-            if (dataList.Count >= 5)
+            if (dataList.Count >= 7)
             {
                 string pressure = dataList[1];
                 string volumeFlow = dataList[3];

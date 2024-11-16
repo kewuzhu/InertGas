@@ -33,17 +33,17 @@ namespace InertGas.Plc
             }
         }
 
-        public void WritePump(int pumpAddress, bool turnOn)
+        public void WriteCoil(int coilAddress, bool turnOn)
         {
             int count = 1;
 
-            if (modbusManager_.WritePLCCoils((ushort)pumpAddress, (ushort)count, turnOn))
+            if (modbusManager_.WritePLCCoils((ushort)coilAddress, (ushort)count, turnOn))
             {
-                logger_.Info($"Succeeded in controling the pump£¬address£º{pumpAddress} {(turnOn ? "open" : "close")}");
+                logger_.Info($"Succeeded in controling the pump£¬address£º{coilAddress} {(turnOn ? "open" : "close")}");
             }
             else
             {
-                logger_.Warn($"Failed in controling the pump£¬address£º{pumpAddress}");
+                logger_.Warn($"Failed in controling the pump£¬address£º{coilAddress}");
             }
         }
 
