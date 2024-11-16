@@ -27,7 +27,7 @@ namespace InertGas.Application.UI
         private bool isUserLoggedIn;
 
         [ObservableProperty]
-        private string userName = "Default";
+        private string userName = "Admin";
 
         [ObservableProperty]
         private SecureString securePassword;

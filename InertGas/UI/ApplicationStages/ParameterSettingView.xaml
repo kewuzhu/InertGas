@@ -5,6 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:themes="clr-namespace:InertGas.Application.Themes"
+    xmlns:commonModel="clr-namespace:InertGas.Common.Model;assembly=InertGas.Common"
     xmlns:appStages="clr-namespace:InertGas.Application.UI.ApplicationStages"
     d:DataContext="{d:DesignInstance Type=appStages:ParameterSettingViewModel}"
     mc:Ignorable="d" 
@@ -15,6 +16,15 @@
         Width="450"
         HorizontalAlignment="Center"
         VerticalAlignment="Center">
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding AppModel.CurrentUser.Role}" Value="{x:Static commonModel:UserRole.Normal}">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>

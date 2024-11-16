@@ -7,6 +7,7 @@
     xmlns:themes="clr-namespace:InertGas.Application.Themes"
     xmlns:appStages="clr-namespace:InertGas.Application.UI.ApplicationStages"
     xmlns:converters="clr-namespace:InertGas.Application.Themes.Converters"
+    xmlns:commonModel="clr-namespace:InertGas.Common.Model;assembly=InertGas.Common"
     d:DataContext="{d:DesignInstance Type=appStages:UserManagementViewModel}"
     mc:Ignorable="d" 
     d:DesignHeight="450"
@@ -55,15 +56,31 @@
                 Grid.Column="6"
                 Content="{StaticResource InertGas.Application.Delete}"
                 ImageSource="{StaticResource InertGas.DeleteUserIcon}"
-                Style="{StaticResource InertGas.ImageButton}"
                 Command="{Binding DeleteUserCommand}">
+                <themes:ImageButton.Style>
+                    <Style BasedOn="{StaticResource InertGas.ImageButton}" TargetType="themes:ImageButton">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding AppModel.CurrentUser.Role}" Value="{x:Static commonModel:UserRole.Normal}">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </themes:ImageButton.Style>
             </themes:ImageButton>
             <themes:ImageButton
                 Grid.Column="8"
                 Content="{StaticResource InertGas.Application.Add}"
                 ImageSource="{StaticResource InertGas.AddIcon}"
-                Style="{StaticResource InertGas.ImageButton}"
                 Command="{Binding AddUserCommand}">
+                <themes:ImageButton.Style>
+                    <Style BasedOn="{StaticResource InertGas.ImageButton}" TargetType="themes:ImageButton">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding AppModel.CurrentUser.Role}" Value="{x:Static commonModel:UserRole.Normal}">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </themes:ImageButton.Style>
             </themes:ImageButton>
         </Grid>
         <ListView
@@ -87,9 +104,6 @@
                     <GridViewColumn
                         DisplayMemberBinding="{Binding CreatedDate}"
                         Header="{StaticResource InertGas.Application.CreatedDate}" />
-                    <GridViewColumn
-                        DisplayMemberBinding="{Binding Salt}"
-                        Header="{StaticResource InertGas.Application.Salt}" />
                 </GridView>
             </ListView.View>
         </ListView>

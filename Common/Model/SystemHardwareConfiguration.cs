@@ -6,6 +6,6 @@
 
         public List<FlowMeterConfiguration> FlowMeterConfigs { get; set; }
 
-        public PLCConfiguration PLCConfig { get; set; }
+        public PLCConfiguration PlcConfig { get; set; }
     }
 }

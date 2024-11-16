@@ -1,6 +1,4 @@
-﻿using InertGas.Common.Model;
-using InertGas.Common.Utility;
-using NLog;
+﻿using NLog;
 using NModbus;
 using System.Net.Sockets;
 using System.Timers;
