@@ -36,7 +36,7 @@ namespace InertGas.Application.UI
         private bool isPageSwitchPlaying;
 
         [RelayCommand]
-        private async Task LogIn()
+        private void LogIn()
         {
             try
             {
@@ -68,7 +68,7 @@ namespace InertGas.Application.UI
         [RelayCommand]
         private void Close(object obj)
         {
-            CleanUpAsync();
+            CleanUp();
             var window = obj as System.Windows.Window;
             window?.Close();
         }
@@ -146,7 +146,7 @@ namespace InertGas.Application.UI
             }
         }
 
-        public async Task CleanUpAsync()
+        public void CleanUp()
         {
             if (isCleaningUp) return;
 

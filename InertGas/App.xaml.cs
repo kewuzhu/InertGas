@@ -153,7 +153,7 @@ namespace InertGas.Application
                 shuttingDown_ = true;
                 logger_.Info("Shutting down...");
                 await UnInitializeHardwares();
-                mainWindowViewModel_.CleanUpAsync();
+                mainWindowViewModel_.CleanUp();
                 Current.Shutdown(exitCode);
             }
             catch (Exception e)
@@ -312,6 +312,5 @@ namespace InertGas.Application
         private string appLogTargetName_;
         private MainWindowViewModel mainWindowViewModel_;
         private bool shuttingDown_;
-        private HeatingBoxControl heatingBox_;
     }
 }

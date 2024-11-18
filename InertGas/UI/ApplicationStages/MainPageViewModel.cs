@@ -145,7 +145,7 @@ namespace InertGas.Application.UI.ApplicationStages
             }
         }
 
-        private async void OnDataSavingTimerElapsed(object state, System.Timers.ElapsedEventArgs e)
+        private void OnDataSavingTimerElapsed(object state, System.Timers.ElapsedEventArgs e)
         {
             var collectedData = new CollectedData()
             {
