@@ -18,6 +18,7 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows;
+using static InertGas.Application.ApplicationConstants;
 
 namespace InertGas.Application
 {
@@ -26,7 +27,6 @@ namespace InertGas.Application
     /// </summary>
     public partial class App : System.Windows.Application
     {
-        private static readonly string APP_CONFIG_FILE_PATH = ".//res//appconfig.json";
         private static readonly string LOG_DIRECTORY = "C://InertGas//SessionLogs";
         private static readonly string APP_LOG_FILE_NAME = "application.log";
         private static readonly string ROOT_DIRECTORY = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -45,7 +45,7 @@ namespace InertGas.Application
                     Converters = { new JsonStringEnumConverter() }
                 };
 
-                appConfig_ = JsonSerializer.Deserialize<ApplicationConfiguration>(File.ReadAllText(APP_CONFIG_FILE_PATH), options);
+                appConfig_ = JsonSerializer.Deserialize<ApplicationConfiguration>(File.ReadAllText(Path.Combine(CONFIG_DIRECTORY, APP_CONFIG_FILE_NAME)), options);
                 appConfig_.WorkingDirectory = Path.Combine(ROOT_DIRECTORY, appConfig_.WorkingDirectory);
 
                 LogUtils.InitializeExtendedLogging(appConfig_.FileLoggerLogLevel, appLogTargetName_, appConfig_.ConsoleLoggerLogLevel);
@@ -60,10 +60,10 @@ namespace InertGas.Application
 
                 appModel_.CollectedDataSet.AddRange(dataRepository_.GetData());
 
-                await InitializeHardwares();
-
                 var splashScreen = new UI.SplashScreen();
                 splashScreen.Show();
+
+                await InitializeHardwares();
 
                 await Task.Delay(1800);
                 splashScreen.Hide();

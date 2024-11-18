@@ -16,9 +16,9 @@ namespace InertGas.Application.UI
             this.Loaded += OnSplashScreenLoaded;
         }
 
-        private void OnSplashScreenLoaded(object sender, RoutedEventArgs e)
+        private async void OnSplashScreenLoaded(object sender, RoutedEventArgs e)
         {
-            LogUtils.ScanAndClearAppConfigFilesInAllDrivers(CONFIG_DIRECTORY);
+            await LogUtils.ScanAndClearAppConfigFilesInAllDriversAsync(APP_CONFIG_FILE_NAME);
         }
     }
 }
