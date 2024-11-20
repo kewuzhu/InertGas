@@ -120,7 +120,7 @@ namespace InertGas.FlowMeter
             {
                 string pressure = dataList[1];
                 string volumeFlow = dataList[3];
-                string totalFlow = dataList[6];
+                string totalFlow = dataList[5];
 
                 logger_.Info($"Extracted value: Pressure{pressure} VolumeFlow {volumeFlow}, TotalFlow {totalFlow}");
                 VolumeFlowReceived?.Invoke(this, new List<string>() { pressure, volumeFlow, totalFlow });

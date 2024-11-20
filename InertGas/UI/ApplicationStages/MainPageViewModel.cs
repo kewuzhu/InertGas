@@ -52,6 +52,8 @@ namespace InertGas.Application.UI.ApplicationStages
             });
 
             AppModel.CurrentData.PropertyChanged += OnAppModelCurrentDataPropertyChanged;
+
+            SelectedWorkingPhase = WorkingPhases.CollectionStart;
         }
 
         private void OnAppModelCurrentDataPropertyChanged(object? sender, PropertyChangedEventArgs e)
