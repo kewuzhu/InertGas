@@ -53,6 +53,8 @@ namespace InertGas.Application.UI.ApplicationStages
 
             AppModel.CurrentData.PropertyChanged += OnAppModelCurrentDataPropertyChanged;
 
+            AppModel.HardwareControls.ForEach(x => x.IsEnabled = false);
+
             SelectedWorkingPhase = WorkingPhases.CollectionStart;
         }
 
