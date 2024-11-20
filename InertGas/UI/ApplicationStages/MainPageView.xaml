@@ -69,68 +69,68 @@
                         Text="{Binding AppModel.CurrentData.VolumeFlowA}">
                     </TextBlock>
                     <TextBlock
-                        Grid.Row="0"
-                        Grid.Column="4"
+                        Grid.Row="2"
+                        Grid.Column="0"
                         HorizontalAlignment="Right"
                         Text="{StaticResource InertGas.Application.VolumeFlowB}">
                     </TextBlock>
                     <TextBlock
-                        Grid.Row="0"
-                        Grid.Column="6"
+                        Grid.Row="2"
+                        Grid.Column="2"
                         Text="{Binding AppModel.CurrentData.VolumeFlowB}">
                     </TextBlock>
                     <TextBlock
-                        Grid.Row="0"
+                        Grid.Row="2"
                         Grid.Column="8"
                         HorizontalAlignment="Right"
                         Text="{StaticResource InertGas.Application.TotalFlowB}">
                     </TextBlock>
                     <TextBlock
-                        Grid.Row="0"
+                        Grid.Row="2"
                         Grid.Column="10"
                         Text="{Binding AppModel.CurrentData.TotalFlowB}">
                     </TextBlock>
                     <TextBlock
-                        Grid.Row="2"
+                        Grid.Row="4"
                         Grid.Column="0"
                         HorizontalAlignment="Right"
                         Text="{StaticResource InertGas.Application.CharcoalColumnTemperature}">
                     </TextBlock>
                     <TextBlock
-                        Grid.Row="2"
+                        Grid.Row="4"
                         Grid.Column="2"
                         Text="{Binding AppModel.CurrentData.CharcoalColumnTemperature}">
                     </TextBlock>
                     <TextBlock
-                        Grid.Row="2"
+                        Grid.Row="4"
                         Grid.Column="4"
                         HorizontalAlignment="Right"
                         Text="{StaticResource InertGas.Application.Column4A5ATemperature}">
                     </TextBlock>
                     <TextBlock
-                        Grid.Row="2"
+                        Grid.Row="4"
                         Grid.Column="6"
                         Text="{Binding AppModel.CurrentData.Column4A5ATemperature}">
                     </TextBlock>
                     <TextBlock
-                        Grid.Row="4"
-                        Grid.Column="0"
+                        Grid.Row="0"
+                        Grid.Column="4"
                         HorizontalAlignment="Right"
-                        Text="{StaticResource InertGas.Application.PressureA}">
+                        Text="{StaticResource InertGas.Application.AbsolutePressureA}">
                     </TextBlock>
                     <TextBlock
-                        Grid.Row="4"
-                        Grid.Column="2"
+                        Grid.Row="0"
+                        Grid.Column="6"
                         Text="{Binding AppModel.CurrentData.PressureA}">
                     </TextBlock>
                     <TextBlock
-                        Grid.Row="4"
+                        Grid.Row="2"
                         Grid.Column="4"
                         HorizontalAlignment="Right"
-                        Text="{StaticResource InertGas.Application.PressureB}">
+                        Text="{StaticResource InertGas.Application.AbsolutePressureB}">
                     </TextBlock>
                     <TextBlock
-                        Grid.Row="4"
+                        Grid.Row="2"
                         Grid.Column="6"
                         Text="{Binding AppModel.CurrentData.PressureB}">
                     </TextBlock>
@@ -235,7 +235,8 @@
                         ImageSource="{StaticResource InertGas.ElectricalValveIcon}"
                         ValveName="{Binding AppModel.HardwareControls[4].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
                         ValveNumber="{Binding AppModel.HardwareControls[4].PlcValve.Number}" 
-                        HardwareControl="{Binding AppModel.HardwareControls[4]}"/>
+                        HardwareControl="{Binding AppModel.HardwareControls[4]}"
+                        IsEnabled="{Binding AppModel.HardwareControls[4].IsEnabled}"/>
 
                     <themes:HardwareControlGroupBox
                         x:Name="ElectricalValveTwo"
@@ -245,7 +246,8 @@
                         ImageSource="{StaticResource InertGas.ElectricalValveIcon}"
                         ValveName="{Binding AppModel.HardwareControls[5].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
                         ValveNumber="{Binding AppModel.HardwareControls[5].PlcValve.Number}" 
-                        HardwareControl="{Binding AppModel.HardwareControls[5]}"/>
+                        HardwareControl="{Binding AppModel.HardwareControls[5]}"
+                        IsEnabled="{Binding AppModel.HardwareControls[5].IsEnabled}"/>
 
                     <themes:HardwareControlGroupBox
                         x:Name="ElectricalValveThree"
@@ -255,7 +257,8 @@
                         ImageSource="{StaticResource InertGas.ElectricalValveIcon}"
                         ValveName="{Binding AppModel.HardwareControls[6].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
                         ValveNumber="{Binding AppModel.HardwareControls[6].PlcValve.Number}" 
-                        HardwareControl="{Binding AppModel.HardwareControls[6]}"/>
+                        HardwareControl="{Binding AppModel.HardwareControls[6]}"
+                        IsEnabled="{Binding AppModel.HardwareControls[6].IsEnabled}"/>
 
                     <themes:HardwareControlGroupBox
                         x:Name="FiveWayValveOne"
@@ -265,7 +268,8 @@
                         ImageSource="{StaticResource InertGas.FiveWayValveIcon}"
                         ValveName="{Binding AppModel.HardwareControls[7].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
                         ValveNumber="{Binding AppModel.HardwareControls[7].PlcValve.Number}" 
-                        HardwareControl="{Binding AppModel.HardwareControls[7]}"/>
+                        HardwareControl="{Binding AppModel.HardwareControls[7]}"
+                        IsEnabled="{Binding AppModel.HardwareControls[7].IsEnabled}"/>
                     
                     <themes:HardwareControlGroupBox
                         x:Name="FiveWayValveTwo"
@@ -275,7 +279,8 @@
                         ImageSource="{StaticResource InertGas.FiveWayValveIcon}"
                         ValveName="{Binding AppModel.HardwareControls[8].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
                         ValveNumber="{Binding AppModel.HardwareControls[8].PlcValve.Number}" 
-                        HardwareControl="{Binding AppModel.HardwareControls[8]}"/>
+                        HardwareControl="{Binding AppModel.HardwareControls[8]}"
+                        IsEnabled="{Binding AppModel.HardwareControls[8].IsEnabled}"/>
                     
                     <themes:HardwareControlGroupBox
                         x:Name="FiveWayValveThree"
@@ -285,7 +290,8 @@
                         ImageSource="{StaticResource InertGas.FiveWayValveIcon}"
                         ValveName="{Binding AppModel.HardwareControls[9].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
                         ValveNumber="{Binding AppModel.HardwareControls[9].PlcValve.Number}" 
-                        HardwareControl="{Binding AppModel.HardwareControls[9]}"/>
+                        HardwareControl="{Binding AppModel.HardwareControls[9]}"
+                        IsEnabled="{Binding AppModel.HardwareControls[9].IsEnabled}"/>
                     
                     <themes:HardwareControlGroupBox
                         x:Name="FiveWayValveFour"
@@ -295,7 +301,8 @@
                         ImageSource="{StaticResource InertGas.FiveWayValveIcon}"
                         ValveName="{Binding AppModel.HardwareControls[10].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
                         ValveNumber="{Binding AppModel.HardwareControls[10].PlcValve.Number}" 
-                        HardwareControl="{Binding AppModel.HardwareControls[10]}"/>
+                        HardwareControl="{Binding AppModel.HardwareControls[10]}"
+                        IsEnabled="{Binding AppModel.HardwareControls[10].IsEnabled}"/>
 
                     <themes:HardwareControlGroupBox
                         x:Name="PneumaticPumpOne"
@@ -305,7 +312,8 @@
                         ImageSource="{StaticResource InertGas.PneumaticPumpIcon}"
                         ValveName="{Binding AppModel.HardwareControls[11].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
                         ValveNumber="{Binding AppModel.HardwareControls[11].PlcValve.Number}" 
-                        HardwareControl="{Binding AppModel.HardwareControls[11]}" />
+                        HardwareControl="{Binding AppModel.HardwareControls[11]}"
+                        IsEnabled="{Binding AppModel.HardwareControls[11].IsEnabled}"/>
 
                     <themes:HardwareControlGroupBox
                         x:Name="PneumaticPumpTwo"
@@ -315,7 +323,8 @@
                         ImageSource="{StaticResource InertGas.PneumaticPumpIcon}"
                         ValveName="{Binding AppModel.HardwareControls[12].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
                         ValveNumber="{Binding AppModel.HardwareControls[12].PlcValve.Number}" 
-                        HardwareControl="{Binding AppModel.HardwareControls[12]}"/>
+                        HardwareControl="{Binding AppModel.HardwareControls[12]}"
+                        IsEnabled="{Binding AppModel.HardwareControls[12].IsEnabled}"/>
 
                     <themes:HardwareControlGroupBox
                         x:Name="DoubleSolenoidValveOne"
@@ -325,7 +334,8 @@
                         ImageSource="{StaticResource InertGas.DoubleSolenoidValveIcon}"
                         ValveName="{Binding AppModel.HardwareControls[13].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
                         ValveNumber="{Binding AppModel.HardwareControls[13].PlcValve.Number}" 
-                        HardwareControl="{Binding AppModel.HardwareControls[13]}" />
+                        HardwareControl="{Binding AppModel.HardwareControls[13]}"
+                        IsEnabled="{Binding AppModel.HardwareControls[13].IsEnabled}"/>
 
                     <themes:HardwareControlGroupBox
                         x:Name="DoubleSolenoidValveTwo"
@@ -335,7 +345,8 @@
                         ImageSource="{StaticResource InertGas.DoubleSolenoidValveIcon}"
                         ValveName="{Binding AppModel.HardwareControls[14].PlcValve.ControlType, Converter={converters:PlcControlTypesToStringConverter}}"
                         ValveNumber="{Binding AppModel.HardwareControls[14].PlcValve.Number}" 
-                        HardwareControl="{Binding AppModel.HardwareControls[14]}" />
+                        HardwareControl="{Binding AppModel.HardwareControls[14]}"
+                        IsEnabled="{Binding AppModel.HardwareControls[14].IsEnabled}"/>
 
                     <themes:HardwareControlGroupBox
                         x:Name="HeatingBoxOne"
@@ -345,7 +356,8 @@
                         Style="{StaticResource InertGas.HardwareControlGroupBox}"
                         ImageSource="{StaticResource InertGas.HeatingBoxIcon}"
                         ValveName="{Binding AppModel.HardwareControls[2].HardwareType, Converter={converters:HardwareTypesToStringConverter}}"
-                        ValveNumber="{Binding AppModel.HardwareControls[2].Number}"/>
+                        ValveNumber="{Binding AppModel.HardwareControls[2].Number}"
+                        IsEnabled="{Binding AppModel.HardwareControls[2].IsEnabled}"/>
 
                     <themes:HardwareControlGroupBox
                         x:Name="HeatingBoxTwo"
@@ -355,7 +367,8 @@
                         Style="{StaticResource InertGas.HardwareControlGroupBox}"
                         ImageSource="{StaticResource InertGas.HeatingBoxIcon}"
                         ValveName="{Binding AppModel.HardwareControls[3].HardwareType, Converter={converters:HardwareTypesToStringConverter}}"
-                        ValveNumber="{Binding AppModel.HardwareControls[3].Number}" />
+                        ValveNumber="{Binding AppModel.HardwareControls[3].Number}"
+                        IsEnabled="{Binding AppModel.HardwareControls[3].IsEnabled}"/>
                 </Grid>
             </GroupBox>
         </Grid>

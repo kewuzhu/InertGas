@@ -104,10 +104,10 @@
                         Header="{StaticResource InertGas.Application.Column4A5ATemperature}" />
                     <GridViewColumn
                         DisplayMemberBinding="{Binding PressureA}"
-                        Header="{StaticResource InertGas.Application.PressureA}" />
+                        Header="{StaticResource InertGas.Application.AbsolutePressureA}" />
                     <GridViewColumn
                         DisplayMemberBinding="{Binding PressureB}"
-                        Header="{StaticResource InertGas.Application.PressureB}" />
+                        Header="{StaticResource InertGas.Application.AbsolutePressureB}" />
                 </GridView>
             </ListView.View>
         </ListView>

@@ -29,6 +29,8 @@
     <system:String x:Key="InertGas.Common.Title">惰性气体分离与净化系统</system:String>
     <system:String x:Key="InertGas.Common.Yes">确定</system:String>
 
+    <system:String x:Key="InertGas.Application.AbsolutePressureA">绝对压力A(bar)</system:String>
+    <system:String x:Key="InertGas.Application.AbsolutePressureB">绝对压力B(bar)</system:String>
     <system:String x:Key="InertGas.Application.Add">添加</system:String>
     <system:String x:Key="InertGas.Application.Administrator">管理员</system:String>
     <system:String x:Key="InertGas.Application.Buzzer">蜂鸣器</system:String>
@@ -61,8 +63,6 @@
     <system:String x:Key="InertGas.Application.ParameterSetting">参数设置</system:String>
     <system:String x:Key="InertGas.Application.Password">密码</system:String>
     <system:String x:Key="InertGas.Application.PneumaticPump">压缩泵</system:String>
-    <system:String x:Key="InertGas.Application.PressureA">压力A(barA)</system:String>
-    <system:String x:Key="InertGas.Application.PressureB">压力B(barA)</system:String>
     <system:String x:Key="InertGas.Application.PurificationPhase">纯化阶段</system:String>
     <system:String x:Key="InertGas.Application.Refresh">刷新</system:String>
     <system:String x:Key="InertGas.Application.Role">角色</system:String>
@@ -73,7 +73,7 @@
     <system:String x:Key="InertGas.Application.SetTemperatureThreshold">设置温度阈值</system:String>
     <system:String x:Key="InertGas.Application.StartDate">开始日期</system:String>
     <system:String x:Key="InertGas.Application.Three">三</system:String>
-    <system:String x:Key="InertGas.Application.TotalFlowB">总流量B(m³/s)</system:String>
+    <system:String x:Key="InertGas.Application.TotalFlowB">总流量B(SL)</system:String>
     <system:String x:Key="InertGas.Application.Two">二</system:String>
     <system:String x:Key="InertGas.Application.User">用户</system:String>
     <system:String x:Key="InertGas.Application.UserManagement">用户管理</system:String>

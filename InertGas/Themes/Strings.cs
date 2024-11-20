@@ -10,6 +10,8 @@
         public const string Title = "InertGas.Common.Title";
         public const string Yes = "InertGas.Common.Yes";
 
+        public const string AbsolutePressureA = "InertGas.Application.AbsolutePressureA";
+        public const string AbsolutePressureB = "InertGas.Application.AbsolutePressureB";
         public const string Add = "InertGas.Application.Add";
         public const string Administrator = "InertGas.Application.Administrator";
         public const string Buzzer = "InertGas.Application.Buzzer";
@@ -42,8 +44,6 @@
         public const string ParameterSetting = "InertGas.Application.ParameterSetting";
         public const string Password = "InertGas.Application.Password";
         public const string PneumaticPump = "InertGas.Application.PneumaticPump";
-        public const string PressureA = "InertGas.Application.PressureA";
-        public const string PressureB = "InertGas.Application.PressureB";
         public const string PurificationPhase = "InertGas.Application.PurificationPhase";
         public const string Refresh = "InertGas.Application.Refresh";
         public const string Role = "InertGas.Application.Role";

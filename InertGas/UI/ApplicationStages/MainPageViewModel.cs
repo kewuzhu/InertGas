@@ -124,6 +124,41 @@ namespace InertGas.Application.UI.ApplicationStages
             }
         }
 
+        protected override void OnPropertyChanged(PropertyChangedEventArgs e) 
+        {
+            base.OnPropertyChanged(e);
+
+            switch (e.PropertyName)
+            {
+                case nameof(SelectedWorkingPhase):
+                    AppModel.HardwareControls.ForEach(x => x.IsEnabled = false);
+                    var plcControls = AppModel.HardwareControls.Where(x => x.HardwareType == HardwareTypes.Plc).ToList();
+                    var heatingBoxes = AppModel.HardwareControls.Where(x => x.HardwareType == HardwareTypes.HeatingBox).ToList();
+                    switch (SelectedWorkingPhase) 
+                    {
+                        case WorkingPhases.CollectionStart:
+                            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.FiveWayValve && x.PlcValve.Number == 1).FirstOrDefault().IsEnabled = true;
+                            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 1).FirstOrDefault().IsEnabled = true;
+                            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 3).FirstOrDefault().IsEnabled = true;
+                            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.PneumaticPump).ToList().ForEach(x => x.IsEnabled = true);
+                            break;
+                        case WorkingPhases.CollectionEnd:
+                            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 1).FirstOrDefault().IsEnabled = true;
+                            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 3).FirstOrDefault().IsEnabled = true;
+                            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.PneumaticPump).ToList().ForEach(x => x.IsEnabled = true);
+                            break;
+                        case WorkingPhases.Purification:
+                            heatingBoxes.Where(x => x.Number == 1).FirstOrDefault().IsEnabled = true;
+                            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.FiveWayValve).ToList().ForEach(x => x.IsEnabled = true);
+                            break;
+                        case WorkingPhases.Excitation:
+                            heatingBoxes.ForEach(x => x.IsEnabled = true);
+                            break;
+                    }
+                    break;
+            }
+        }
+
         public void StartDataSavingTimer()
         {
             dataSavingTimer_ = new(DATA_SAVING_INTERVAL * 1000) { Enabled = true };

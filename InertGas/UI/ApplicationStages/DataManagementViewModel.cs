@@ -77,7 +77,7 @@ namespace InertGas.Application.UI.ApplicationStages
         [RelayCommand]
         private static void ExportData()
         {
-            var csv = "Id,CreatedDate,VolumeFlowA(ml/Min),VolumeFlowB(ml/Min),TotalFlowB(m³/s),CharcoalColumnTemperature℃,Column4A5ATemperature℃,PressureA(barA),PressureB(barA)\n";
+            var csv = "Id,CreatedDate,VolumeFlowA(ml/Min),VolumeFlowB(ml/Min),TotalFlowB(SL),CharcoalColumnTemperature℃,Column4A5ATemperature℃,PressureA(barA),PressureB(barA)\n";
 
             AppModel.CollectedDataSet.ToList().ForEach(x =>
             {
