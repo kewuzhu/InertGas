@@ -26,6 +26,8 @@
             Value="5,5,5,5"/>
         <Setter Property="FontSize"
             Value="{StaticResource InertGas.DefaultFontSize}"/>
+        <Setter Property="IsEnabled"
+            Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="themes:HardwareControlGroupBox">

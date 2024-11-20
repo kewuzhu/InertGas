@@ -194,7 +194,7 @@ namespace InertGas.Application
                     var heatingBox = new HeatingBoxControl();
                     await heatingBox.Initialize(heatingBoxConfig);
                     heatingBox.TemperatureDataReceived += OnTemperatureDataReceived;
-                    HardwareControl = new HardwareControl() { HardwareType = HardwareTypes.HeatingBox, Number = i + 1, Hardware = heatingBox, IsEnabled = true, IsOn = false };
+                    HardwareControl = new HardwareControl() { HardwareType = HardwareTypes.HeatingBox, Number = i + 1, Hardware = heatingBox, IsEnabled = false, IsOn = false };
                     appModel_.HardwareControls.Add(HardwareControl);
                     heatingBox.StartGetTemperatureTimer();
                 }
@@ -206,7 +206,7 @@ namespace InertGas.Application
                 plcControl.PressureDataReceived += OnPressureDataReceived;
                 foreach (var plcValve in appConfig_.SystemHardwareConfigs.PlcConfig.PlcValves)
                 {
-                    HardwareControl = new HardwareControl() { HardwareType = HardwareTypes.Plc, Number = 1, Hardware = plcControl, IsEnabled = true, IsOn = false, PlcValve = plcValve };
+                    HardwareControl = new HardwareControl() { HardwareType = HardwareTypes.Plc, Number = 1, Hardware = plcControl, IsEnabled = false, IsOn = false, PlcValve = plcValve };
                     appModel_.HardwareControls.Add(HardwareControl);
                     logger_.Info($"Plc valve added: ControlType:{plcValve.ControlType}, Number:{plcValve.Number}, Address:{plcValve.Address}");
                 }

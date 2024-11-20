@@ -53,9 +53,11 @@ namespace InertGas.Application.UI.ApplicationStages
 
             AppModel.CurrentData.PropertyChanged += OnAppModelCurrentDataPropertyChanged;
 
-            AppModel.HardwareControls.ForEach(x => x.IsEnabled = false);
-
-            SelectedWorkingPhase = WorkingPhases.CollectionStart;
+            var plcControls = AppModel.HardwareControls.Where(x => x.HardwareType == HardwareTypes.Plc).ToList();
+            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.FiveWayValve && x.PlcValve.Number == 1).FirstOrDefault().IsEnabled = true;
+            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 1).FirstOrDefault().IsEnabled = true;
+            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 3).FirstOrDefault().IsEnabled = true;
+            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.PneumaticPump).ToList().ForEach(x => x.IsEnabled = true);
         }
 
         private void OnAppModelCurrentDataPropertyChanged(object? sender, PropertyChangedEventArgs e)
