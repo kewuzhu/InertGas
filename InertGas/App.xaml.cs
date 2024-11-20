@@ -63,7 +63,7 @@ namespace InertGas.Application
                 var splashScreen = new UI.SplashScreen();
                 splashScreen.Show();
 
-                //await InitializeHardwares();
+                await InitializeHardwares();
 
                 await Task.Delay(1800);
                 splashScreen.Hide();
@@ -180,7 +180,7 @@ namespace InertGas.Application
                     var flowMeterConfig = appConfig_.SystemHardwareConfigs.FlowMeterConfigs[i];
                     logger_.Info($"Initialize Flow Meter {i + 1}, Name:{flowMeterConfig.Id}, ComPort:{flowMeterConfig.SerialConfiguration.SerialPort}");
                     var flowMeter = new FlowMeterControl();
-                    await flowMeter.Initialize(flowMeterConfig);
+                    //await flowMeter.Initialize(flowMeterConfig);
                     flowMeter.VolumeFlowReceived += OnFlowMeterDataReceived;
                     HardwareControl = new HardwareControl() { HardwareType = HardwareTypes.FlowMeter, Number = i + 1, Hardware = flowMeter, IsEnabled = true, IsOn = false };
                     appModel_.HardwareControls.Add(HardwareControl);
@@ -192,7 +192,7 @@ namespace InertGas.Application
                     var heatingBoxConfig = appConfig_.SystemHardwareConfigs.HeatingBoxConfigs[i];
                     logger_.Info($"Initialize heating box {i + 1}, Name:{heatingBoxConfig.Id}, ComPort:{heatingBoxConfig.SerialConfiguration.SerialPort}");
                     var heatingBox = new HeatingBoxControl();
-                    await heatingBox.Initialize(heatingBoxConfig);
+                    //await heatingBox.Initialize(heatingBoxConfig);
                     heatingBox.TemperatureDataReceived += OnTemperatureDataReceived;
                     HardwareControl = new HardwareControl() { HardwareType = HardwareTypes.HeatingBox, Number = i + 1, Hardware = heatingBox, IsEnabled = false, IsOn = false };
                     appModel_.HardwareControls.Add(HardwareControl);
@@ -202,7 +202,7 @@ namespace InertGas.Application
                 var plcConfig = appConfig_.SystemHardwareConfigs.PlcConfig;
                 logger_.Info($"Initialize PLC, IpAddress:{plcConfig.IpAddress}, Port:{plcConfig.Port}");
                 var plcControl = new PlcControl();
-                plcControl.Initialize(plcConfig);
+                //plcControl.Initialize(plcConfig);
                 plcControl.PressureDataReceived += OnPressureDataReceived;
                 foreach (var plcValve in appConfig_.SystemHardwareConfigs.PlcConfig.PlcValves)
                 {

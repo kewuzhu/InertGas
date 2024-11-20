@@ -31,6 +31,22 @@ namespace InertGas.Application.UI.ApplicationStages
         [ObservableProperty]
         private bool isSavingData;
 
+        [ObservableProperty]
+        private ApplicationMode selectedMode;
+
+        [ObservableProperty]
+        private bool isAutomating;
+
+        [ObservableProperty]
+        private int autoModeCommandInterval; //s
+
+        [ObservableProperty]
+        private int autoModePurificationHeatingDuration; //min
+
+        [ObservableProperty]
+        private int autoModeExcitationHeatingDuration; //hour
+
+
         [RelayCommand]
         private void ToggleSaveData()
         {
@@ -38,6 +54,15 @@ namespace InertGas.Application.UI.ApplicationStages
                 StartDataSavingTimer();
             else
                 StopDataSavingTimer();
+        }
+
+        [RelayCommand]
+        private async Task ToggleAutomationStart()
+        {
+            if (!IsAutomating)
+                await StartAutomation();
+            else
+                StopAutomation();
         }
 
         public MainPageViewModel(IDataRepository dataRepository) : base(ApplicationStage.MainPage)
@@ -53,11 +78,7 @@ namespace InertGas.Application.UI.ApplicationStages
 
             AppModel.CurrentData.PropertyChanged += OnAppModelCurrentDataPropertyChanged;
 
-            var plcControls = AppModel.HardwareControls.Where(x => x.HardwareType == HardwareTypes.Plc).ToList();
-            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.FiveWayValve && x.PlcValve.Number == 1).FirstOrDefault().IsEnabled = true;
-            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 1).FirstOrDefault().IsEnabled = true;
-            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 3).FirstOrDefault().IsEnabled = true;
-            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.PneumaticPump).ToList().ForEach(x => x.IsEnabled = true);
+            InitializeValveEnabling();
         }
 
         private void OnAppModelCurrentDataPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -133,20 +154,16 @@ namespace InertGas.Application.UI.ApplicationStages
         protected override void OnPropertyChanged(PropertyChangedEventArgs e)
         {
             base.OnPropertyChanged(e);
-
+            var plcControls = AppModel.HardwareControls.Where(x => x.HardwareType == HardwareTypes.Plc).ToList();
+            var heatingBoxes = AppModel.HardwareControls.Where(x => x.HardwareType == HardwareTypes.HeatingBox).ToList();
+            AppModel.HardwareControls.Where(x => x.HardwareType != HardwareTypes.FlowMeter).ToList().ForEach(x => x.IsEnabled = false);
             switch (e.PropertyName)
             {
                 case nameof(SelectedWorkingPhase):
-                    AppModel.HardwareControls.ForEach(x => x.IsEnabled = false);
-                    var plcControls = AppModel.HardwareControls.Where(x => x.HardwareType == HardwareTypes.Plc).ToList();
-                    var heatingBoxes = AppModel.HardwareControls.Where(x => x.HardwareType == HardwareTypes.HeatingBox).ToList();
                     switch (SelectedWorkingPhase)
                     {
                         case WorkingPhases.CollectionStart:
-                            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.FiveWayValve && x.PlcValve.Number == 1).FirstOrDefault().IsEnabled = true;
-                            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 1).FirstOrDefault().IsEnabled = true;
-                            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 3).FirstOrDefault().IsEnabled = true;
-                            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.PneumaticPump).ToList().ForEach(x => x.IsEnabled = true);
+                            InitializeValveEnabling();
                             break;
                         case WorkingPhases.CollectionEnd:
                             plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 1).FirstOrDefault().IsEnabled = true;
@@ -162,7 +179,23 @@ namespace InertGas.Application.UI.ApplicationStages
                             break;
                     }
                     break;
+                case nameof(SelectedMode):
+                    AppModel.HardwareControls.Where(x => x.HardwareType != HardwareTypes.FlowMeter).ToList().ForEach(x => x.IsOn = false);
+                    if (SelectedMode == ApplicationMode.Manual)
+                    {
+                        InitializeValveEnabling();
+                    }
+                    break;
             }
+        }
+
+        private void InitializeValveEnabling() 
+        {
+            var plcControls = AppModel.HardwareControls.Where(x => x.HardwareType == HardwareTypes.Plc).ToList();
+            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.FiveWayValve && x.PlcValve.Number == 1).FirstOrDefault().IsEnabled = true;
+            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 1).FirstOrDefault().IsEnabled = true;
+            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 3).FirstOrDefault().IsEnabled = true;
+            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.PneumaticPump).ToList().ForEach(x => x.IsEnabled = true);
         }
 
         public void StartDataSavingTimer()
@@ -207,6 +240,16 @@ namespace InertGas.Application.UI.ApplicationStages
             {
                 syncContextProxy_.ExecuteInSyncContext(() => AppModel.CollectedDataSet.Add(collectedData));
             }
+        }
+
+        private async Task StartAutomation() 
+        {
+            IsAutomating = true;
+        }
+
+        private void StopAutomation() 
+        {
+            IsAutomating = false;
         }
 
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();

@@ -193,6 +193,66 @@
         </Viewbox>
     </ControlTemplate>
 
+    <ControlTemplate x:Key="InertGas.AutoIcon">
+        <Viewbox>
+            <Canvas UseLayoutRounding="False" Width="1024.0" Height="1024.0">
+                <Canvas.Clip>
+                    <RectangleGeometry Rect="0.0,0.0,1024.0,1024.0"/>
+                </Canvas.Clip>
+                <Path Fill="#ff3f51b5">
+                    <Path.Data>
+                        <PathGeometry Figures="M 832 917.333 H 192 c -46.9333 0 -85.3333 -38.4 -85.3333 -85.3333 V 192 c 0 -46.9333 38.4 -85.3333 85.3333 -85.3333 h 640 c 46.9333 0 85.3333 38.4 85.3333 85.3333 v 640 c 0 46.9333 -38.4 85.3333 -85.3333 85.3333 z" FillRule="Nonzero"/>
+                    </Path.Data>
+                </Path>
+                <Path Fill="#ffb3e5fc">
+                    <Path.Data>
+                        <PathGeometry Figures="M 716.8 541.867 c 2.13333 -8.53333 2.13333 -19.2 2.13333 -29.8667 s 0 -19.2 -2.13333 -29.8667 l 59.7333 -42.6667 c 6.4 -4.26667 8.53333 -12.8 4.26667 -19.2 l -57.6 -98.1333 c -4.26667 -6.4 -10.6667 -8.53333 -17.0667 -6.4 L 640 347.733 c -14.9333 -12.8 -32 -21.3333 -51.2 -29.8667 l -6.4 -72.5333 c 0 -6.4 -6.4 -12.8 -12.8 -12.8 h -113.067 c -6.4 0 -12.8 6.4 -12.8 12.8 l -8.53333 74.6667 c -19.2 6.4 -34.1333 17.0667 -51.2 29.8667 L 317.867 320 c -6.4 -2.13333 -14.9333 0 -17.0667 6.4 l -57.6 98.1333 c -4.26667 6.4 -2.13333 14.9333 4.26667 19.2 l 59.7333 42.6667 c -2.13333 8.53333 -2.13333 19.2 -2.13333 29.8667 s 0 19.2 2.13333 29.8667 l -59.7333 42.6667 c -6.4 4.26667 -8.53333 12.8 -4.26667 19.2 l 57.6 98.1333 c 4.26667 6.4 10.6667 8.53333 17.0667 6.4 L 384 682.667 c 14.9333 12.8 32 21.3333 51.2 29.8667 l 6.4 72.5333 c 0 6.4 6.4 12.8 12.8 12.8 h 113.067 c 6.4 0 12.8 -6.4 12.8 -12.8 l 6.4 -72.5333 c 19.2 -6.4 34.1333 -17.0667 51.2 -29.8667 l 66.1333 29.8667 c 6.4 2.13333 14.9333 0 17.0667 -6.4 l 57.6 -98.1333 c 4.26667 -6.4 2.13333 -14.9333 -4.26667 -19.2 l -57.6 -46.9333 z M 512 618.667 c -59.7333 0 -106.667 -46.9333 -106.667 -106.667 s 46.9333 -106.667 106.667 -106.667 s 106.667 46.9333 106.667 106.667 s -46.9333 106.667 -106.667 106.667 z" FillRule="Nonzero"/>
+                    </Path.Data>
+                </Path>
+            </Canvas>
+        </Viewbox>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="InertGas.StartIcon">
+        <Viewbox>
+            <Canvas UseLayoutRounding="False" Width="1024.0" Height="1024.0">
+                <Canvas.Clip>
+                    <RectangleGeometry Rect="0.0,0.0,1024.0,1024.0"/>
+                </Canvas.Clip>
+                <Path Fill="{StaticResource InertGas.DarkGreen}">
+                    <Path.Data>
+                        <PathGeometry Figures="M 810.667 896 H 213.333 c -46.9333 0 -85.3333 -38.4 -85.3333 -85.3333 V 213.333 c 0 -46.9333 38.4 -85.3333 85.3333 -85.3333 h 597.333 c 46.9333 0 85.3333 38.4 85.3333 85.3333 v 597.333 c 0 46.9333 -38.4 85.3333 -85.3333 85.3333 z" FillRule="Nonzero"/>
+                    </Path.Data>
+                </Path>
+                <Path Fill="#ffffffff">
+                    <Path.Data>
+                        <PathGeometry Figures="M 661.333 512 l -234.667 -170.667 v 341.333 z" FillRule="Nonzero"/>
+                    </Path.Data>
+                </Path>
+            </Canvas>
+        </Viewbox>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="InertGas.StopIcon">
+        <Viewbox>
+            <Canvas UseLayoutRounding="False" Width="24.0" Height="24.0">
+                <Canvas.Clip>
+                    <RectangleGeometry Rect="0.0,0.0,24.0,24.0"/>
+                </Canvas.Clip>
+                <Path Opacity="0.5" Fill="{StaticResource InertGas.Red}">
+                    <Path.Data>
+                        <PathGeometry Figures="M 22 12 C 22 17.5228 17.5228 22 12 22 C 6.47715 22 2 17.5228 2 12 C 2 6.47715 6.47715 2 12 2 C 17.5228 2 22 6.47715 22 12 Z" FillRule="Nonzero"/>
+                    </Path.Data>
+                </Path>
+                <Path Fill="{StaticResource InertGas.Red}">
+                    <Path.Data>
+                        <PathGeometry Figures="M 8.58579 8.58579 C 8 9.17157 8 10.1144 8 12 C 8 13.8856 8 14.8284 8.58579 15.4142 C 9.17157 16 10.1144 16 12 16 C 13.8856 16 14.8284 16 15.4142 15.4142 C 16 14.8284 16 13.8856 16 12 C 16 10.1144 16 9.17157 15.4142 8.58579 C 14.8284 8 13.8856 8 12 8 C 10.1144 8 9.17157 8 8.58579 8.58579 Z" FillRule="Nonzero"/>
+                    </Path.Data>
+                </Path>
+            </Canvas>
+        </Viewbox>
+    </ControlTemplate>
+
     <ControlTemplate x:Key="InertGas.HeatingBoxIcon">
         <Viewbox>
             <Canvas UseLayoutRounding="False" Width="48.0" Height="40.0">

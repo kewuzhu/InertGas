@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:appStages="clr-namespace:InertGas.Application.UI.ApplicationStages"
     xmlns:themes="clr-namespace:InertGas.Application.Themes"
+    xmlns:model="clr-namespace:InertGas.Application.Model"
     xmlns:converters="clr-namespace:InertGas.Application.Themes.Converters"
     d:DataContext="{d:DesignInstance Type=appStages:MainPageViewModel}"
     mc:Ignorable="d" 
@@ -181,26 +182,170 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <ComboBox
-                Grid.Column="1"
+            <Grid
                 Grid.Row="0"
-                ItemsSource="{Binding WorkingPhaseList}"
-                SelectedItem="{Binding SelectedWorkingPhase}"
-                Style="{StaticResource InertGas.DataGridEditingComboBoxStyle}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock
-                            Text="{Binding Converter={converters:WorkingPhasesToStringConverter}}"
-                            FontSize="{StaticResource InertGas.LargeFontSize}"
-                            Foreground="{StaticResource InertGas.Yellow}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+                Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <RadioButton
+                    Grid.Column="0"
+                    Content="{StaticResource InertGas.Application.Manual}"
+                    HorizontalAlignment="Center"
+                    GroupName="ModeSwitch"
+                    IsChecked="{Binding Path=SelectedMode, Mode=TwoWay, Converter={converters:ApplicationModeToBooleanConverter}, ConverterParameter={x:Static model:ApplicationMode.Manual}}">
+                </RadioButton>
+                <RadioButton
+                    Grid.Column="2"
+                    Content="{StaticResource InertGas.Application.Auto}"
+                    HorizontalAlignment="Center"
+                    GroupName="ModeSwitch"
+                    IsChecked="{Binding Path=SelectedMode, Mode=TwoWay, Converter={converters:ApplicationModeToBooleanConverter}, ConverterParameter={x:Static model:ApplicationMode.Auto}}">
+                </RadioButton>
+            </Grid>
+            <Grid
+                Grid.Row="0"
+                Grid.Column="3">
+                <themes:ImageToggleButton
+                    x:Name="AutoSettingToggleButton"
+                    ImageSource="{StaticResource InertGas.AutoIcon}"
+                    ImageHeight="30"
+                    ImageWidth="30">
+                    <themes:ImageToggleButton.Style>
+                        <Style BasedOn="{StaticResource InertGas.ImageToggleButton}" TargetType="themes:ImageToggleButton">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedMode}" Value="{x:Static model:ApplicationMode.Auto}">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </themes:ImageToggleButton.Style>
+                    <StackPanel>
+                        <Popup
+                            IsOpen="{Binding IsChecked, ElementName=AutoSettingToggleButton}"
+                            AllowsTransparency="True"
+                            PopupAnimation="Slide"
+                            Placement="Bottom">
+                            <Border 
+                                BorderBrush="{StaticResource InertGas.Yellow}"
+                                BorderThickness="1" 
+                                CornerRadius="{StaticResource InertGas.DefaultCornerRadius}"
+                                Background="{StaticResource InertGas.GradientBackgroundDarkBrush}">
+                                <GroupBox
+                                    BorderThickness="0"
+                                    BorderBrush="Transparent">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="{StaticResource InertGas.MediumMarginGridLength}"/>
+                                            <RowDefinition />
+                                            <RowDefinition Height="{StaticResource InertGas.MediumMarginGridLength}"/>
+                                            <RowDefinition />
+                                            <RowDefinition Height="{StaticResource InertGas.MediumMarginGridLength}"/>
+                                            <RowDefinition />
+                                            <RowDefinition Height="{StaticResource InertGas.MediumMarginGridLength}"/>
+                                            <RowDefinition />
+                                            <RowDefinition Height="{StaticResource InertGas.MediumMarginGridLength}"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="{StaticResource InertGas.MediumMarginGridLength}"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="{StaticResource InertGas.MediumMarginGridLength}"/>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="{StaticResource InertGas.MediumMarginGridLength}"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Text="{StaticResource InertGas.Application.IntervalBetweenCommands}">
+                                        </TextBlock>
+                                        <TextBox
+                                            Grid.Row="1"
+                                            Grid.Column="3"
+                                            Width="30"
+                                            Text="{Binding AutoModeCommandInterval}">
+                                        </TextBox>
+                                        <TextBlock
+                                            Grid.Row="3"
+                                            Grid.Column="1"
+                                            Text="{StaticResource InertGas.Application.PurificationHeatingDuration}">
+                                        </TextBlock>
+                                        <TextBox
+                                            Grid.Row="3"
+                                            Grid.Column="3"
+                                            Width="30"
+                                            Text="{Binding AutoModePurificationHeatingDuration}">
+                                        </TextBox>
+                                        <TextBlock
+                                            Grid.Row="5"
+                                            Grid.Column="1"
+                                            Text="{StaticResource InertGas.Application.ExcitationHeatingDuration}">
+                                        </TextBlock>
+                                        <TextBox
+                                            Grid.Row="5"
+                                            Grid.Column="3"
+                                            Width="30"
+                                            Text="{Binding AutoModeExcitationHeatingDuration}">
+                                        </TextBox>
+                                        <themes:ImageButton
+                                            Grid.Row="7"
+                                            Grid.Column="1"
+                                            Grid.ColumnSpan="3"
+                                            Command="{Binding ToggleAutomationStartCommand}">
+                                            <themes:ImageButton.Style>
+                                                <Style BasedOn="{StaticResource InertGas.ImageButton}" TargetType="themes:ImageButton">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsAutomating}" Value="False">
+                                                            <Setter Property="ImageSource" Value="{StaticResource InertGas.StartIcon}"/>
+                                                            <Setter Property="Content" Value="{StaticResource InertGas.Application.Start}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding IsAutomating}" Value="True">
+                                                            <Setter Property="ImageSource" Value="{StaticResource InertGas.StopIcon}"/>
+                                                            <Setter Property="Content" Value="{StaticResource InertGas.Application.Stop}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </themes:ImageButton.Style>
+                                        </themes:ImageButton>
+                                    </Grid>
+                                </GroupBox>
+                            </Border>
+                        </Popup>
+                    </StackPanel>
+                </themes:ImageToggleButton>
+                <ComboBox
+                    ItemsSource="{Binding WorkingPhaseList}"
+                    SelectedItem="{Binding SelectedWorkingPhase}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                                Text="{Binding Converter={converters:WorkingPhasesToStringConverter}}"
+                                FontSize="{StaticResource InertGas.LargeFontSize}"
+                                Foreground="{StaticResource InertGas.Yellow}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    <ComboBox.Style>
+                        <Style BasedOn="{StaticResource InertGas.DataGridEditingComboBoxStyle}" TargetType="ComboBox">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedMode}" Value="{x:Static model:ApplicationMode.Manual}">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ComboBox.Style>
+                </ComboBox>
+            </Grid>
+            
             <GroupBox
                 Grid.Row="0"
                 Grid.RowSpan="2"
-                Grid.Column="3"
+                Grid.Column="5"
                 Background="{StaticResource InertGas.WindowBackground}"
                 BorderBrush="Transparent"
                 BorderThickness="0">
@@ -227,6 +372,14 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
                     </Grid.ColumnDefinitions>
+                    <themes:ProgressRing
+                        Grid.Column="9"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="3"
+                        Grid.RowSpan="3"
+                        Style="{StaticResource InertGas.CircleProgressRingStyle}"
+                        IsActive="{Binding IsAutomating}">
+                    </themes:ProgressRing>
                     <themes:HardwareControlGroupBox
                         x:Name="ElectricalValveOne"
                         Grid.Row="0"
