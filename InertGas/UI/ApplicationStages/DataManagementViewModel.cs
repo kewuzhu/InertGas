@@ -6,6 +6,7 @@ using InertGas.Application.UI.Dialog;
 using InertGas.Application.Utility;
 using InertGas.Common.DataAccess;
 using InertGas.Common.Model;
+using InertGas.Common.Utility;
 using NLog;
 using System.IO;
 
@@ -22,13 +23,25 @@ namespace InertGas.Application.UI.ApplicationStages
         [ObservableProperty]
         private CollectedData selectedData;
 
+        [ObservableProperty]
+        private bool isSearchingSuccess;
+
+        public ObservableCollectionWithRangeSupport<CollectedData> SearchedDataSet { get; } = new();
+
         [RelayCommand]
         private void RefreshData()
         {
             try
             {
-                AppModel.CollectedDataSet.Clear();
-                AppModel.CollectedDataSet.AddRange(dataRepository_.GetData());
+                lock (AppModel.CollectedDataSet)
+                {
+                    IsSearchingSuccess = false;
+                    AppModel.CollectedDataSet.Clear();
+                    AppModel.CollectedDataSet.AddRange(dataRepository_.GetData());
+                    SelectedStartDate = DateTime.Now;
+                    SelectedEndDate = DateTime.Now;
+                    SelectedData = null;
+                }
             }
             catch (Exception ex)
             {
@@ -47,8 +60,11 @@ namespace InertGas.Application.UI.ApplicationStages
                 dataRepository_.DeleteData(SelectedData);
                 logger_.Info($"Data ID:{SelectedData.Id} deleted");
                 AppModel.CollectedDataSet.Remove(SelectedData);
-            
-                SelectedData = AppModel.CollectedDataSet.FirstOrDefault();
+
+                if (IsSearchingSuccess)
+                    SearchedDataSet.Remove(SelectedData);
+
+                SelectedData = IsSearchingSuccess ? SearchedDataSet.FirstOrDefault() : AppModel.CollectedDataSet.FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -66,6 +82,9 @@ namespace InertGas.Application.UI.ApplicationStages
                 if (dataSet.Count == 0)
                     throw new InvalidOperationException($"No such data");
 
+                SearchedDataSet.Clear();
+                SearchedDataSet.AddRange(dataSet);
+                IsSearchingSuccess = true;
                 SelectedData = dataSet.First();
             }
             catch (Exception ex)
@@ -75,14 +94,24 @@ namespace InertGas.Application.UI.ApplicationStages
         }
 
         [RelayCommand]
-        private static void ExportData()
+        private void ExportData()
         {
             var csv = "Id,CreatedDate,VolumeFlowA(ml/Min),VolumeFlowB(ml/Min),TotalFlowB(SL),CharcoalColumnTemperature℃,Column4A5ATemperature℃,PressureA(barA),PressureB(barA)\n";
 
-            AppModel.CollectedDataSet.ToList().ForEach(x =>
+            if (IsSearchingSuccess)
             {
-                csv += $"{x.Id},{x.CreatedDate},{x.VolumeFlowA},{x.VolumeFlowB},{x.TotalFlowB},{x.CharcoalColumnTemperature},{x.Column4A5ATemperature},{x.PressureA},{x.PressureB}\n";
-            });
+                SearchedDataSet.ToList().ForEach(x =>
+                {
+                    csv += $"{x.Id},{x.CreatedDate},{x.VolumeFlowA},{x.VolumeFlowB},{x.TotalFlowB},{x.CharcoalColumnTemperature},{x.Column4A5ATemperature},{x.PressureA},{x.PressureB}\n";
+                });
+            }
+            else
+            {
+                AppModel.CollectedDataSet.ToList().ForEach(x =>
+                {
+                    csv += $"{x.Id},{x.CreatedDate},{x.VolumeFlowA},{x.VolumeFlowB},{x.TotalFlowB},{x.CharcoalColumnTemperature},{x.Column4A5ATemperature},{x.PressureA},{x.PressureB}\n";
+                });
+            }
 
             CreateWorkingDirectoryIfNotExists();
             var filename = GetRecordFilename();
@@ -105,6 +134,18 @@ namespace InertGas.Application.UI.ApplicationStages
         private static string GetRecordFilename() =>
             Path.Combine(workingDirectory_,
             $"InertGas_data_{DateTime.Now:yyyy-MM-dd-HHmmss}.csv");
+
+        protected override void OnEnteringStage()
+        {
+            base.OnEnteringStage();
+            RefreshData();
+        }
+
+        protected override void OnExitingStage()
+        {
+            base.OnExitingStage();
+            RefreshData();
+        }
 
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();
         private static readonly string workingDirectory_ = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), ApplicationConstants.DEFAULT_WORKING_DIR_NAME);

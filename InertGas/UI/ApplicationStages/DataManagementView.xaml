@@ -79,6 +79,18 @@
             Grid.Row="4"
             ItemsSource="{Binding AppModel.CollectedDataSet}"
             SelectedItem="{Binding SelectedData, Mode=TwoWay}">
+            <ListView.Style>
+                <Style TargetType="ListView" >
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="Background" Value="Transparent" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsSearchingSuccess}" Value="true">
+                            <Setter Property="ItemsSource" Value="{Binding SearchedDataSet}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.Style>
             <ListView.View>
                 <GridView>
                     <GridViewColumn

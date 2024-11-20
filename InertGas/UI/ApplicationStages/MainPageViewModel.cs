@@ -130,7 +130,7 @@ namespace InertGas.Application.UI.ApplicationStages
             }
         }
 
-        protected override void OnPropertyChanged(PropertyChangedEventArgs e) 
+        protected override void OnPropertyChanged(PropertyChangedEventArgs e)
         {
             base.OnPropertyChanged(e);
 
@@ -140,7 +140,7 @@ namespace InertGas.Application.UI.ApplicationStages
                     AppModel.HardwareControls.ForEach(x => x.IsEnabled = false);
                     var plcControls = AppModel.HardwareControls.Where(x => x.HardwareType == HardwareTypes.Plc).ToList();
                     var heatingBoxes = AppModel.HardwareControls.Where(x => x.HardwareType == HardwareTypes.HeatingBox).ToList();
-                    switch (SelectedWorkingPhase) 
+                    switch (SelectedWorkingPhase)
                     {
                         case WorkingPhases.CollectionStart:
                             plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.FiveWayValve && x.PlcValve.Number == 1).FirstOrDefault().IsEnabled = true;
@@ -188,6 +188,7 @@ namespace InertGas.Application.UI.ApplicationStages
 
         private void OnDataSavingTimerElapsed(object state, System.Timers.ElapsedEventArgs e)
         {
+
             var collectedData = new CollectedData()
             {
                 CreatedDate = DateTime.Now,
@@ -201,7 +202,11 @@ namespace InertGas.Application.UI.ApplicationStages
             };
 
             dataRepository_.UpsertData(collectedData);
-            syncContextProxy_.ExecuteInSyncContext(() => AppModel.CollectedDataSet.Add(collectedData));
+
+            lock (AppModel.CollectedDataSet)
+            {
+                syncContextProxy_.ExecuteInSyncContext(() => AppModel.CollectedDataSet.Add(collectedData));
+            }
         }
 
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();

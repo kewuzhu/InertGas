@@ -63,7 +63,7 @@ namespace InertGas.Application
                 var splashScreen = new UI.SplashScreen();
                 splashScreen.Show();
 
-                await InitializeHardwares();
+                //await InitializeHardwares();
 
                 await Task.Delay(1800);
                 splashScreen.Hide();
