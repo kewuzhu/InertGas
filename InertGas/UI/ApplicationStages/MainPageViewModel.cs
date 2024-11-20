@@ -193,6 +193,7 @@ namespace InertGas.Application.UI.ApplicationStages
                 CreatedDate = DateTime.Now,
                 VolumeFlowA = AppModel.CurrentData.VolumeFlowA,
                 VolumeFlowB = AppModel.CurrentData.VolumeFlowB,
+                TotalFlowB = AppModel.CurrentData.TotalFlowB,
                 CharcoalColumnTemperature = AppModel.CurrentData.CharcoalColumnTemperature,
                 Column4A5ATemperature = AppModel.CurrentData.Column4A5ATemperature,
                 PressureA = AppModel.CurrentData.PressureA,
