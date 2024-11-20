@@ -77,7 +77,6 @@
         </Grid>
         <ListView
             Grid.Row="4"
-            ItemsSource="{Binding AppModel.CollectedDataSet}"
             SelectedItem="{Binding SelectedData, Mode=TwoWay}">
             <ListView.Style>
                 <Style TargetType="ListView" >
@@ -87,6 +86,9 @@
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding IsSearchingSuccess}" Value="true">
                             <Setter Property="ItemsSource" Value="{Binding SearchedDataSet}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsSearchingSuccess}" Value="false">
+                            <Setter Property="ItemsSource" Value="{Binding AppModel.CollectedDataSet}"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
