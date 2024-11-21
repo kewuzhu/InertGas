@@ -51,7 +51,7 @@ namespace InertGas.Application.UI.ApplicationStages
         private async Task ToggleAutomationStart()
         {
             if (!IsAutomating)
-                await StartAutomation();
+                StartAutomation();
             else
                 await StopAutomation();
         }
@@ -238,9 +238,8 @@ namespace InertGas.Application.UI.ApplicationStages
             }
         }
 
-        private async Task StartAutomation()
+        private async void StartAutomation()
         {
-            await Task.Run(() => { });
             IsAutomating = true;
             SelectedWorkingPhase = WorkingPhases.CollectionStart;
             cts = new();
