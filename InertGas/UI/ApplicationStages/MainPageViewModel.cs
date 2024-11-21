@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using InertGas.Application.Model;
 using InertGas.Application.Themes;
+using InertGas.Application.Utility;
 using InertGas.Common.DataAccess;
 using InertGas.Common.Model;
 using InertGas.Common.Utility;
@@ -37,16 +38,6 @@ namespace InertGas.Application.UI.ApplicationStages
         [ObservableProperty]
         private bool isAutomating;
 
-        [ObservableProperty]
-        private int autoModeCommandInterval; //s
-
-        [ObservableProperty]
-        private int autoModePurificationHeatingDuration; //min
-
-        [ObservableProperty]
-        private int autoModeExcitationHeatingDuration; //hour
-
-
         [RelayCommand]
         private void ToggleSaveData()
         {
@@ -62,7 +53,7 @@ namespace InertGas.Application.UI.ApplicationStages
             if (!IsAutomating)
                 await StartAutomation();
             else
-                StopAutomation();
+                await StopAutomation();
         }
 
         public MainPageViewModel(IDataRepository dataRepository) : base(ApplicationStage.MainPage)
@@ -78,6 +69,7 @@ namespace InertGas.Application.UI.ApplicationStages
 
             AppModel.CurrentData.PropertyChanged += OnAppModelCurrentDataPropertyChanged;
 
+            SelectedMode = ApplicationMode.Manual;
             InitializeValveEnabling();
         }
 
@@ -156,31 +148,35 @@ namespace InertGas.Application.UI.ApplicationStages
             base.OnPropertyChanged(e);
             var plcControls = AppModel.HardwareControls.Where(x => x.HardwareType == HardwareTypes.Plc).ToList();
             var heatingBoxes = AppModel.HardwareControls.Where(x => x.HardwareType == HardwareTypes.HeatingBox).ToList();
-            AppModel.HardwareControls.Where(x => x.HardwareType != HardwareTypes.FlowMeter).ToList().ForEach(x => x.IsEnabled = false);
             switch (e.PropertyName)
             {
                 case nameof(SelectedWorkingPhase):
-                    switch (SelectedWorkingPhase)
+                    AppModel.HardwareControls.Where(x => x.HardwareType != HardwareTypes.FlowMeter).ToList().ForEach(x => x.IsEnabled = false);
+                    if (SelectedMode == ApplicationMode.Manual)
                     {
-                        case WorkingPhases.CollectionStart:
-                            InitializeValveEnabling();
-                            break;
-                        case WorkingPhases.CollectionEnd:
-                            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 1).FirstOrDefault().IsEnabled = true;
-                            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 3).FirstOrDefault().IsEnabled = true;
-                            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.PneumaticPump).ToList().ForEach(x => x.IsEnabled = true);
-                            break;
-                        case WorkingPhases.Purification:
-                            heatingBoxes.Where(x => x.Number == 1).FirstOrDefault().IsEnabled = true;
-                            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.FiveWayValve).ToList().ForEach(x => x.IsEnabled = true);
-                            break;
-                        case WorkingPhases.Excitation:
-                            heatingBoxes.ForEach(x => x.IsEnabled = true);
-                            break;
+                        switch (SelectedWorkingPhase)
+                        {
+                            case WorkingPhases.CollectionStart:
+                                InitializeValveEnabling();
+                                break;
+                            case WorkingPhases.CollectionEnd:
+                                plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 1).FirstOrDefault().IsEnabled = true;
+                                plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 3).FirstOrDefault().IsEnabled = true;
+                                plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.PneumaticPump).ToList().ForEach(x => x.IsEnabled = true);
+                                break;
+                            case WorkingPhases.Purification:
+                                heatingBoxes.Where(x => x.Number == 1).FirstOrDefault().IsEnabled = true;
+                                plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.FiveWayValve).ToList().ForEach(x => x.IsEnabled = true);
+                                break;
+                            case WorkingPhases.Excitation:
+                                heatingBoxes.ForEach(x => x.IsEnabled = true);
+                                break;
+                        }
                     }
                     break;
                 case nameof(SelectedMode):
-                    AppModel.HardwareControls.Where(x => x.HardwareType != HardwareTypes.FlowMeter).ToList().ForEach(x => x.IsOn = false);
+                    AppModel.HardwareControls.Where(x => x.HardwareType != HardwareTypes.FlowMeter).ToList().ForEach(x => { x.IsOn = false; x.IsEnabled = false; });
+                    SelectedWorkingPhase = WorkingPhases.CollectionStart;
                     if (SelectedMode == ApplicationMode.Manual)
                     {
                         InitializeValveEnabling();
@@ -189,7 +185,7 @@ namespace InertGas.Application.UI.ApplicationStages
             }
         }
 
-        private void InitializeValveEnabling() 
+        private void InitializeValveEnabling()
         {
             var plcControls = AppModel.HardwareControls.Where(x => x.HardwareType == HardwareTypes.Plc).ToList();
             plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.FiveWayValve && x.PlcValve.Number == 1).FirstOrDefault().IsEnabled = true;
@@ -242,20 +238,142 @@ namespace InertGas.Application.UI.ApplicationStages
             }
         }
 
-        private async Task StartAutomation() 
+        private async Task StartAutomation()
         {
+            await Task.Run(() => { });
             IsAutomating = true;
+            SelectedWorkingPhase = WorkingPhases.CollectionStart;
+            cts = new();
+            try
+            {
+                while (!cts.Token.IsCancellationRequested)
+                {
+                    isCurrentActionsFinished_ = false;
+                    await ProcessInstructionsAsync(workingPhaseActions_[SelectedWorkingPhase], cts.Token);
+                    if (isCurrentActionsFinished_)
+                    {
+                        await Task.Delay(1000, cts.Token);
+                        if (SelectedWorkingPhase < WorkingPhases.Excitation)
+                        {
+                            SelectedWorkingPhase = SelectedWorkingPhase + 1;
+                        }
+                        else
+                        {
+                            await StopAutomation();
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex is OperationCanceledException)
+                    UserCommunication.ShowMessage("Info", "Task Cancelled", Dialog.MessageType.Info);
+            }
         }
 
-        private void StopAutomation() 
+        private async Task ProcessInstructionsAsync(List<Action> instructions, CancellationToken cancellationToken)
+        {
+            for (int i = 0; i < instructions.Count; i++)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                logger_.Info($"Excuting WorkingPhase{SelectedWorkingPhase}, instruction{i + 1}");
+                await Task.Run(() =>
+                {
+                    instructions[i]();
+                }, cancellationToken);
+                await Task.Delay(50, cancellationToken);
+            }
+            isCurrentActionsFinished_ = true;
+        }
+
+        private async Task StopAutomation()
         {
             IsAutomating = false;
+            cts.Cancel();
+            cts.Dispose();
+            cts = null;
+            var hardwaresWithoutFlowMeters = AppModel.HardwareControls.Skip(2).ToList();
+            foreach (var hardware in hardwaresWithoutFlowMeters)
+            {
+                hardware.IsOn = false;
+                await Task.Delay(100);
+            }
+        }
+
+        private void InitializeCollectionStartActions()
+        {
+            var plcControls = AppModel.HardwareControls.Where(x => x.HardwareType == HardwareTypes.Plc).ToList();
+
+            workingPhaseActions_[WorkingPhases.CollectionStart].Add(() => plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.FiveWayValve && x.PlcValve.Number == 1).FirstOrDefault().IsOn = true);
+            workingPhaseActions_[WorkingPhases.CollectionStart].Add(() => plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 1).FirstOrDefault().IsOn = true);
+            if (AppModel.IsPneumaticPumpOneInUse)
+                workingPhaseActions_[WorkingPhases.CollectionStart].Add(() => plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.PneumaticPump && x.PlcValve.Number == 1).FirstOrDefault().IsOn = true);
+            workingPhaseActions_[WorkingPhases.CollectionStart].Add(() => plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 3).FirstOrDefault().IsOn = true);
+            if (AppModel.IsPneumaticPumpTwoInUse)
+                workingPhaseActions_[WorkingPhases.CollectionStart].Add(() => plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.PneumaticPump && x.PlcValve.Number == 1).FirstOrDefault().IsOn = true);
+        }
+
+        private void InitializeCollectionEndActions()
+        {
+            var plcControls = AppModel.HardwareControls.Where(x => x.HardwareType == HardwareTypes.Plc).ToList();
+            workingPhaseActions_[WorkingPhases.CollectionEnd].Add(() => Task.Delay(AppModel.CollectionDuration * 60 * 1000));
+            if (AppModel.IsPneumaticPumpTwoInUse)
+                workingPhaseActions_[WorkingPhases.CollectionEnd].Add(() => plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.PneumaticPump && x.PlcValve.Number == 1).FirstOrDefault().IsOn = false);
+            if (AppModel.IsPneumaticPumpOneInUse)
+                workingPhaseActions_[WorkingPhases.CollectionEnd].Add(() => plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.PneumaticPump && x.PlcValve.Number == 1).FirstOrDefault().IsOn = false);
+
+            workingPhaseActions_[WorkingPhases.CollectionEnd].Add(() => plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 1).FirstOrDefault().IsOn = false);
+            workingPhaseActions_[WorkingPhases.CollectionEnd].Add(() => plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 3).FirstOrDefault().IsOn = false);
+
+        }
+
+        private void InitializePurificationActions()
+        {
+            var plcControls = AppModel.HardwareControls.Where(x => x.HardwareType == HardwareTypes.Plc).ToList();
+            var heatingBoxes = AppModel.HardwareControls.Where(x => x.HardwareType == HardwareTypes.HeatingBox).ToList();
+
+            workingPhaseActions_[WorkingPhases.Purification].Add(() => plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.PneumaticPump && x.PlcValve.Number == 1).FirstOrDefault().IsOn = false);
+            workingPhaseActions_[WorkingPhases.Purification].Add(() => plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.PneumaticPump && x.PlcValve.Number == 1).FirstOrDefault().IsOn = false);
+        }
+
+        private void InitializeExcitationActions()
+        {
+            var heatingBoxes = AppModel.HardwareControls.Where(x => x.HardwareType == HardwareTypes.HeatingBox).ToList();
+        }
+
+        private async Task<bool> WaitUntilCharcoalColumnTemperatureReach300(int delayMilliseconds = 100, CancellationToken cancellationToken = default)
+        {
+            while (!(AppModel.CurrentData.CharcoalColumnTemperature == 300))
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                await Task.Delay(delayMilliseconds, cancellationToken);
+            }
+            return true;
+        }
+
+        private async Task WaitUntilColumn4A5ATemperatureReach300(int delayMilliseconds = 100, CancellationToken cancellationToken = default)
+        {
+            while (!(AppModel.CurrentData.Column4A5ATemperature == 300))
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                await Task.Delay(delayMilliseconds, cancellationToken);
+            }
         }
 
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();
         private readonly IDataRepository dataRepository_;
         private readonly SyncContextProxy syncContextProxy_ = new();
+        private readonly Dictionary<WorkingPhases, List<Action>> workingPhaseActions_ = new()
+        {
+            { WorkingPhases.CollectionStart, new List<Action>(){ } },
+            { WorkingPhases.CollectionEnd, new List<Action>(){ } },
+            { WorkingPhases.Purification, new List<Action>(){ } },
+            { WorkingPhases.Excitation, new List<Action>(){ } }
+        };
 
         private System.Timers.Timer dataSavingTimer_;
+        private CancellationTokenSource cts;
+        private bool isCurrentActionsFinished_;
     }
 }

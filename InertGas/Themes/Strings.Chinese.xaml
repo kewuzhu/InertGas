@@ -37,6 +37,7 @@
     <system:String x:Key="InertGas.Application.AutoModeSetting">自动模式设置</system:String>
     <system:String x:Key="InertGas.Application.Buzzer">蜂鸣器</system:String>
     <system:String x:Key="InertGas.Application.CharcoalColumnTemperature">活性碳柱温度(℃)</system:String>
+    <system:String x:Key="InertGas.Application.CollectionDuration">采样时长(min)</system:String>
     <system:String x:Key="InertGas.Application.CollectionEnd">采样结束</system:String>
     <system:String x:Key="InertGas.Application.CollectionStart">采样开始</system:String>
     <system:String x:Key="InertGas.Application.Column4A5ATemperature">4A 5A柱温度(℃)</system:String>
@@ -58,6 +59,8 @@
     <system:String x:Key="InertGas.Application.HeatingBox">加热箱</system:String>
     <system:String x:Key="InertGas.Application.IncorrectPassword">密码错误</system:String>
     <system:String x:Key="InertGas.Application.IntervalBetweenCommands">命令间间隔(s)</system:String>
+    <system:String x:Key="InertGas.Application.IsPneumaticPumpOneInUse">是否使用压缩泵1</system:String>
+    <system:String x:Key="InertGas.Application.IsPneumaticPumpTwoInUse">是否使用压缩泵2</system:String>
     <system:String x:Key="InertGas.Application.LogIn">登录</system:String>
     <system:String x:Key="InertGas.Application.MainPage">首页</system:String>
     <system:String x:Key="InertGas.Application.Manual">手动</system:String>
@@ -68,6 +71,7 @@
     <system:String x:Key="InertGas.Application.ParameterSetting">参数设置</system:String>
     <system:String x:Key="InertGas.Application.Password">密码</system:String>
     <system:String x:Key="InertGas.Application.PneumaticPump">压缩泵</system:String>
+    <system:String x:Key="InertGas.Application.PurificationDuration">纯化时长(min)</system:String>
     <system:String x:Key="InertGas.Application.PurificationHeatingDuration">纯化阶段加热间隔(min)</system:String>
     <system:String x:Key="InertGas.Application.PurificationPhase">纯化阶段</system:String>
     <system:String x:Key="InertGas.Application.Refresh">刷新</system:String>
@@ -77,6 +81,7 @@
     <system:String x:Key="InertGas.Application.Saving">保存中...</system:String>
     <system:String x:Key="InertGas.Application.Search">搜索</system:String>
     <system:String x:Key="InertGas.Application.SetTemperatureThreshold">设置温度阈值</system:String>
+    <system:String x:Key="InertGas.Application.SetVolumeFlowThreshold">设置流量阈值</system:String>
     <system:String x:Key="InertGas.Application.Start">开启</system:String>
     <system:String x:Key="InertGas.Application.StartDate">开始日期</system:String>
     <system:String x:Key="InertGas.Application.Stop">停止</system:String>
@@ -88,5 +93,6 @@
     <system:String x:Key="InertGas.Application.VolumeFlowA">体积流量A(ml/Min)</system:String>
     <system:String x:Key="InertGas.Application.VolumeFlowB">体积流量B(ml/Min)</system:String>
     <system:String x:Key="InertGas.Application.WorkingDirectory">工作路径:</system:String>
+    <system:String x:Key="InertGas.Application.WorkingPhases">工作阶段</system:String>
 
 </ResourceDictionary>

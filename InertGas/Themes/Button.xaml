@@ -392,22 +392,22 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <ContentControl
-                            Name="Icon"
-                            Grid.Column="0"
-                            Height="{TemplateBinding ImageHeight}"
-                            Width="{TemplateBinding ImageWidth}"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Background="{TemplateBinding Background}"
-                            Foreground="{TemplateBinding Foreground}"
-                            Template="{TemplateBinding ImageSource}" />
+                                Name="Icon"
+                                Grid.Column="0"
+                                Height="{TemplateBinding ImageHeight}"
+                                Width="{TemplateBinding ImageWidth}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Background="{TemplateBinding Background}"
+                                Foreground="{TemplateBinding Foreground}"
+                                Template="{TemplateBinding ImageSource}" />
                             <TextBlock
-                            Grid.Column="2"
-                            Text="{TemplateBinding Content}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            HorizontalAlignment="Left"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                            Background="{TemplateBinding Background}">
+                                Grid.Column="2"
+                                Text="{TemplateBinding Text}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                HorizontalAlignment="Left"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                Background="{TemplateBinding Background}">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="Foreground" Value="{Binding Path=TextColor, RelativeSource={RelativeSource AncestorType=themes:ImageToggleButton}}" />

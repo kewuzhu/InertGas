@@ -13,6 +13,7 @@ namespace InertGas.FlowMeter
         private const int EVENT_WAIT_TIME = 200; //ms
         private const int READ_FLOW_DATA_TIMER_INTERVAL = 500; //ms
         private const string READ_FLOW_METER_COMMAND = "A";
+        private const string SET_FLOW_METER_COMMAND_HEADER = "AS";
 
         private readonly string CommandTail = ((char)0x0D).ToString();
 
@@ -77,9 +78,23 @@ namespace InertGas.FlowMeter
             }
         }
 
-        public async Task<bool> WriteCommand()
+        public async Task<bool> SetVolumeFlowCommand(int parameter)
         {
-            logger_.Info($"Flow meter command writing.");
+            try
+            {
+                await commandLock_.WaitAsync();
+
+                serialPort_.Write(SET_FLOW_METER_COMMAND_HEADER + parameter.ToString() + CommandTail);
+                return await GetResponse();
+            }
+            finally
+            {
+                commandLock_.Release();
+            }
+        }
+
+        public async Task<bool> ReadVolumeFlowCommand()
+        {
             try
             {
                 await commandLock_.WaitAsync();
@@ -120,9 +135,10 @@ namespace InertGas.FlowMeter
             {
                 string pressure = dataList[1];
                 string volumeFlow = dataList[3];
+                string threshold = dataList[4];
                 string totalFlow = dataList[5];
 
-                logger_.Info($"Extracted value: Pressure{pressure} VolumeFlow {volumeFlow}, TotalFlow {totalFlow}");
+                logger_.Info($"Extracted value: Pressure{pressure} VolumeFlow {volumeFlow},Threshold {threshold} TotalFlow {totalFlow}");
                 VolumeFlowReceived?.Invoke(this, new List<string>() { pressure, volumeFlow, totalFlow });
                 return true;
             }
@@ -157,7 +173,7 @@ namespace InertGas.FlowMeter
 
         private async void OnFlowDataReadingTimerElapsed(object state, System.Timers.ElapsedEventArgs e)
         {
-            await WriteCommand();
+            await ReadVolumeFlowCommand();
         }
 
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();

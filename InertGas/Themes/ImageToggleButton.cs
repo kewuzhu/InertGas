@@ -17,6 +17,9 @@ namespace InertGas.Application.Themes
         public static readonly DependencyProperty IsActiveProperty =
             DependencyProperty.Register(nameof(IsActive), typeof(bool), typeof(ImageToggleButton));
 
+        public static readonly DependencyProperty TextProperty =
+            DependencyProperty.Register(nameof(Text), typeof(string), typeof(ImageToggleButton));
+
         public static readonly DependencyProperty TextColorProperty =
             DependencyProperty.Register(nameof(TextColor), typeof(System.Windows.Media.Brush), typeof(ImageToggleButton));
 
@@ -42,6 +45,12 @@ namespace InertGas.Application.Themes
         {
             get => (bool)GetValue(IsActiveProperty);
             set => SetValue(IsActiveProperty, value);
+        }
+
+        public string Text
+        {
+            get => (string)GetValue(TextProperty);
+            set => SetValue(TextProperty, value);
         }
 
         public System.Windows.Media.Brush TextColor

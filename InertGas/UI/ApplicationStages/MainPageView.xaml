@@ -199,6 +199,15 @@
                     HorizontalAlignment="Center"
                     GroupName="ModeSwitch"
                     IsChecked="{Binding Path=SelectedMode, Mode=TwoWay, Converter={converters:ApplicationModeToBooleanConverter}, ConverterParameter={x:Static model:ApplicationMode.Manual}}">
+                    <RadioButton.Style>
+                        <Style BasedOn="{StaticResource InertGas.BaseRadioButtonStyle}" TargetType="RadioButton">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsAutomating}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </RadioButton.Style>
                 </RadioButton>
                 <RadioButton
                     Grid.Column="2"
@@ -206,6 +215,15 @@
                     HorizontalAlignment="Center"
                     GroupName="ModeSwitch"
                     IsChecked="{Binding Path=SelectedMode, Mode=TwoWay, Converter={converters:ApplicationModeToBooleanConverter}, ConverterParameter={x:Static model:ApplicationMode.Auto}}">
+                    <RadioButton.Style>
+                        <Style BasedOn="{StaticResource InertGas.BaseRadioButtonStyle}" TargetType="RadioButton">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsAutomating}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </RadioButton.Style>
                 </RadioButton>
             </Grid>
             <Grid
@@ -214,8 +232,9 @@
                 <themes:ImageToggleButton
                     x:Name="AutoSettingToggleButton"
                     ImageSource="{StaticResource InertGas.AutoIcon}"
-                    ImageHeight="30"
-                    ImageWidth="30">
+                    Text="{StaticResource InertGas.Application.AutoModeSetting}"
+                    ImageHeight="20"
+                    ImageWidth="20">
                     <themes:ImageToggleButton.Style>
                         <Style BasedOn="{StaticResource InertGas.ImageToggleButton}" TargetType="themes:ImageToggleButton">
                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -251,6 +270,12 @@
                                             <RowDefinition Height="{StaticResource InertGas.MediumMarginGridLength}"/>
                                             <RowDefinition />
                                             <RowDefinition Height="{StaticResource InertGas.MediumMarginGridLength}"/>
+                                            <RowDefinition />
+                                            <RowDefinition Height="{StaticResource InertGas.MediumMarginGridLength}"/>
+                                            <RowDefinition />
+                                            <RowDefinition Height="{StaticResource InertGas.MediumMarginGridLength}"/>
+                                            <RowDefinition />
+                                            <RowDefinition Height="{StaticResource InertGas.MediumMarginGridLength}"/>
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="{StaticResource InertGas.MediumMarginGridLength}"/>
@@ -262,38 +287,77 @@
                                         <TextBlock
                                             Grid.Row="1"
                                             Grid.Column="1"
-                                            Text="{StaticResource InertGas.Application.IntervalBetweenCommands}">
+                                            Text="{StaticResource InertGas.Application.IsPneumaticPumpOneInUse}">
                                         </TextBlock>
                                         <TextBox
                                             Grid.Row="1"
                                             Grid.Column="3"
-                                            Width="30"
-                                            Text="{Binding AutoModeCommandInterval}">
+                                            Width="{StaticResource InertGas.DefaultTextBoxWidth}"
+                                            IsReadOnly="True"
+                                            Text="{Binding AppModel.IsPneumaticPumpOneInUse}">
                                         </TextBox>
                                         <TextBlock
                                             Grid.Row="3"
+                                            Grid.Column="1"
+                                            Text="{StaticResource InertGas.Application.IsPneumaticPumpTwoInUse}">
+                                        </TextBlock>
+                                        <TextBox
+                                            Grid.Row="3"
+                                            Grid.Column="3"
+                                            Width="{StaticResource InertGas.DefaultTextBoxWidth}"
+                                            IsReadOnly="True"
+                                            Text="{Binding AppModel.IsPneumaticPumpTwoInUse}">
+                                        </TextBox>
+                                        <TextBlock
+                                            Grid.Row="5"
+                                            Grid.Column="1"
+                                            Text="{StaticResource InertGas.Application.CollectionDuration}">
+                                        </TextBlock>
+                                        <TextBox
+                                            Grid.Row="5"
+                                            Grid.Column="3"
+                                            Width="{StaticResource InertGas.DefaultTextBoxWidth}"
+                                            IsReadOnly="True"
+                                            Text="{Binding AppModel.CollectionDuration}">
+                                        </TextBox>
+                                        <TextBlock
+                                            Grid.Row="7"
+                                            Grid.Column="1"
+                                            Text="{StaticResource InertGas.Application.PurificationDuration}">
+                                        </TextBlock>
+                                        <TextBox
+                                            Grid.Row="7"
+                                            Grid.Column="3"
+                                            Width="{StaticResource InertGas.DefaultTextBoxWidth}"
+                                            IsReadOnly="True"
+                                            Text="{Binding AppModel.PurificationDuration}">
+                                        </TextBox>
+                                        <TextBlock
+                                            Grid.Row="9"
                                             Grid.Column="1"
                                             Text="{StaticResource InertGas.Application.PurificationHeatingDuration}">
                                         </TextBlock>
                                         <TextBox
-                                            Grid.Row="3"
+                                            Grid.Row="9"
                                             Grid.Column="3"
-                                            Width="30"
-                                            Text="{Binding AutoModePurificationHeatingDuration}">
+                                            Width="{StaticResource InertGas.DefaultTextBoxWidth}"
+                                            IsReadOnly="True"
+                                            Text="{Binding AppModel.PurificationHeatingDuration}">
                                         </TextBox>
                                         <TextBlock
-                                            Grid.Row="5"
+                                            Grid.Row="11"
                                             Grid.Column="1"
                                             Text="{StaticResource InertGas.Application.ExcitationHeatingDuration}">
                                         </TextBlock>
                                         <TextBox
-                                            Grid.Row="5"
+                                            Grid.Row="11"
                                             Grid.Column="3"
-                                            Width="30"
-                                            Text="{Binding AutoModeExcitationHeatingDuration}">
+                                            Width="{StaticResource InertGas.DefaultTextBoxWidth}"
+                                            IsReadOnly="True"
+                                            Text="{Binding AppModel.ExcitationHeatingDuration}">
                                         </TextBox>
                                         <themes:ImageButton
-                                            Grid.Row="7"
+                                            Grid.Row="13"
                                             Grid.Column="1"
                                             Grid.ColumnSpan="3"
                                             Command="{Binding ToggleAutomationStartCommand}">
@@ -341,7 +405,36 @@
                     </ComboBox.Style>
                 </ComboBox>
             </Grid>
-            
+            <Grid
+                Grid.Row="1"
+                Grid.Column="3">
+                <ListView
+                    ItemsSource="{Binding WorkingPhaseList}"
+                    SelectedItem="{Binding SelectedWorkingPhase, Mode=TwoWay}">
+                    <ListView.Style>
+                        <Style TargetType="ListView" >
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Setter Property="IsHitTestVisible" Value="False"/>
+                            <Setter Property="Focusable" Value="False"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedMode}" Value="{x:Static model:ApplicationMode.Auto}">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.Style>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn
+                                DisplayMemberBinding="{Binding Converter={converters:WorkingPhasesToStringConverter}}"
+                                Header="{StaticResource InertGas.Application.WorkingPhases}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
             <GroupBox
                 Grid.Row="0"
                 Grid.RowSpan="2"

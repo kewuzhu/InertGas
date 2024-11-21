@@ -15,7 +15,7 @@
         Title="{StaticResource InertGas.Common.Title}"
         Foreground="{StaticResource InertGas.DefaultForegroundColor}"
         Background="{StaticResource InertGas.WindowBackground}"
-        Height="740" 
+        Height="720" 
         Width="1250">
 
     <Window.Resources>

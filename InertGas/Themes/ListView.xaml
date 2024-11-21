@@ -10,6 +10,7 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Background" Value="Transparent" />
     </Style>
+    
     <Style x:Key="GridViewColumnHeaderGripper" TargetType="{x:Type Thumb}">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Canvas.Right" Value="-9"/>
@@ -119,15 +120,11 @@
                         </ScrollViewer>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsGrouping"
-                     Value="true">
-                            <Setter Property="ScrollViewer.CanContentScroll"
-                      Value="false"/>
+                        <Trigger Property="IsGrouping" Value="true">
+                            <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
                         </Trigger>
-                        <Trigger Property="IsEnabled"
-                     Value="false">
-                            <Setter Property="Foreground"
-                      Value="{DynamicResource InertGas.InputTextDisabled}"/>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource InertGas.InputTextDisabled}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

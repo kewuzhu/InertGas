@@ -23,6 +23,8 @@
     <GridLength x:Key="InertGas.MediumMarginGridLength">12.5</GridLength>
     <GridLength x:Key="InertGas.LargeMarginGridLength">20</GridLength>
 
+    <system:Double x:Key="InertGas.DefaultTextBoxWidth">40</system:Double>
+
     <system:Double x:Key="InertGas.DefaultButtonHeight">35</system:Double>
 
     <system:Double x:Key="InertGas.SplashScreenLogoHeight">125</system:Double>

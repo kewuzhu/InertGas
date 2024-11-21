@@ -1,5 +1,4 @@
-﻿using InertGas.Application.Themes.Converters;
-using InertGas.Common.Model;
+﻿using InertGas.Common.Model;
 using System.Windows.Data;
 
 namespace InertGas.Application.Themes.Converters

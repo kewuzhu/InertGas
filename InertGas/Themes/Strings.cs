@@ -18,6 +18,7 @@
         public const string AutoModeSetting = "InertGas.Application.AutoModeSetting";
         public const string Buzzer = "InertGas.Application.Buzzer";
         public const string CharcoalColumnTemperature = "InertGas.Application.CharcoalColumnTemperature";
+        public const string CollectionDuration = "InertGas.Application.CollectionDuration";
         public const string CollectionEnd = "InertGas.Application.CollectionEnd";
         public const string CollectionStart = "InertGas.Application.CollectionStart";
         public const string Column4A5ATemperature = "InertGas.Application.Column4A5ATemperature";
@@ -36,9 +37,11 @@
         public const string FiveWayValve = "InertGas.Application.FiveWayValve";
         public const string FlowMeter = "InertGas.Application.FlowMeter";
         public const string Four = "InertGas.Application.Four";
-        public const string HeatingBox = "InertGas.Application.HeatingBox";
+        public const string HeatingBox = "InertGas.Application.HeatingBox"; 
         public const string IncorrectPassword = "InertGas.Application.IncorrectPassword";
         public const string IntervalBetweenCommands = "InertGas.Application.IntervalBetweenCommands";
+        public const string IsPneumaticPumpOneInUse = "InertGas.Application.IsPneumaticPumpOneInUse";
+        public const string IsPneumaticPumpTwoInUse = "InertGas.Application.IsPneumaticPumpTwoInUse";
         public const string LogIn = "InertGas.Application.LogIn";
         public const string Name = "InertGas.Application.Name";
         public const string Manual = "InertGas.Application.Manual";
@@ -49,6 +52,7 @@
         public const string ParameterSetting = "InertGas.Application.ParameterSetting";
         public const string Password = "InertGas.Application.Password";
         public const string PneumaticPump = "InertGas.Application.PneumaticPump";
+        public const string PurificationDuration = "InertGas.Application.PurificationDuration";
         public const string PurificationHeatingDuration = "InertGas.Application.PurificationHeatingDuration";
         public const string PurificationPhase = "InertGas.Application.PurificationPhase";
         public const string Refresh = "InertGas.Application.Refresh";
@@ -58,6 +62,7 @@
         public const string Saving = "InertGas.Application.Saving";
         public const string Search = "InertGas.Application.Search";
         public const string SetTemperatureThreshold = "InertGas.Application.SetTemperatureThreshold";
+        public const string SetVolumeFlowThreshold = "InertGas.Application.SetVolumeFlowThreshold";
         public const string Start = "InertGas.Application.Start";
         public const string StartDate = "InertGas.Application.StartDate";
         public const string Stop = "InertGas.Application.Stop";
@@ -69,5 +74,6 @@
         public const string VolumeFlowA = "InertGas.Application.VolumeFlowA";
         public const string VolumeFlowB = "InertGas.Application.VolumeFlowB";
         public const string WorkingDirectory = "InertGas.Application.WorkingDirectory";
+        public const string WorkingPhases = "InertGas.Application.WorkingPhases";
     }
 }

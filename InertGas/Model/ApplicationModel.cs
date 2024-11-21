@@ -48,6 +48,36 @@ namespace InertGas.Application.Model
 
         public List<HardwareControl> HardwareControls { get; } = new();
 
+        [ObservableProperty]
+        private int charcoalColumnTemperatureThreshold = 300;
+
+        [ObservableProperty]
+        private int column4A5ATemperatureThreshold = 300;
+
+        [ObservableProperty]
+        private int volumeFlowAThreshold = 900;
+
+        [ObservableProperty]
+        private int volumeFlowBThreshold = 40;
+
+        [ObservableProperty]
+        private bool isPneumaticPumpOneInUse;
+
+        [ObservableProperty]
+        private bool isPneumaticPumpTwoInUse;
+
+        [ObservableProperty]
+        private int collectionDuration = 5; //min
+
+        [ObservableProperty]
+        private int purificationDuration = 5; //min
+
+        [ObservableProperty]
+        private int purificationHeatingDuration = 5; //min
+
+        [ObservableProperty]
+        private int excitationHeatingDuration = 3; //hour
+
         private static readonly Logger logger_ = LogManager.GetCurrentClassLogger();
     }
 }

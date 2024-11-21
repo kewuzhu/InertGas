@@ -19,6 +19,7 @@
     <system:String x:Key="InertGas.Application.AutoModeSetting">Auto Mode Setting</system:String>
     <system:String x:Key="InertGas.Application.Buzzer">Buzzer</system:String>
     <system:String x:Key="InertGas.Application.CharcoalColumnTemperature">Charcoal Column Temperature(℃)</system:String>
+    <system:String x:Key="InertGas.Application.CollectionDuration">Collection Duration(min)</system:String>
     <system:String x:Key="InertGas.Application.CollectionEnd">Collection End</system:String>
     <system:String x:Key="InertGas.Application.CollectionStart">Collection Start</system:String>
     <system:String x:Key="InertGas.Application.Column4A5ATemperature">Column 4A 5A Temperature(℃)</system:String>
@@ -40,6 +41,8 @@
     <system:String x:Key="InertGas.Application.HeatingBox">Heating Box</system:String>
     <system:String x:Key="InertGas.Application.IncorrectPassword">Incorrect Password</system:String>
     <system:String x:Key="InertGas.Application.IntervalBetweenCommands">IntervalBetweenCommands(s)</system:String>
+    <system:String x:Key="InertGas.Application.IsPneumaticPumpOneInUse">Is Pneumatic Pump One In Use</system:String>
+    <system:String x:Key="InertGas.Application.IsPneumaticPumpTwoInUse">Is Pneumatic Pump Two In Use</system:String>
     <system:String x:Key="InertGas.Application.LogIn">Log In</system:String>
     <system:String x:Key="InertGas.Application.Name">Name</system:String>
     <system:String x:Key="InertGas.Application.MainPage">Main Page</system:String>
@@ -50,6 +53,7 @@
     <system:String x:Key="InertGas.Application.ParameterSetting">Parameter Setting</system:String>
     <system:String x:Key="InertGas.Application.Password">Password</system:String>
     <system:String x:Key="InertGas.Application.PneumaticPump">PneumaticPump</system:String>
+    <system:String x:Key="InertGas.Application.PurificationDuration">Purification Duration(min)</system:String>
     <system:String x:Key="InertGas.Application.PurificationHeatingDuration">Purification Heating Duration(min)</system:String>
     <system:String x:Key="InertGas.Application.PurificationPhase">Purification Phase</system:String>
     <system:String x:Key="InertGas.Application.Refresh">Refresh</system:String>
@@ -59,6 +63,7 @@
     <system:String x:Key="InertGas.Application.Saving">Saving</system:String>
     <system:String x:Key="InertGas.Application.Search">Search</system:String>
     <system:String x:Key="InertGas.Application.SetTemperatureThreshold">Set Temperature Threshold</system:String>
+    <system:String x:Key="InertGas.Application.SetVolumeFlowThreshold">Set Volume Flow Threshold</system:String>
     <system:String x:Key="InertGas.Application.Start">Start</system:String>
     <system:String x:Key="InertGas.Application.StartDate">Start Date</system:String>
     <system:String x:Key="InertGas.Application.Stop">Stop</system:String>
@@ -70,5 +75,6 @@
     <system:String x:Key="InertGas.Application.VolumeFlowA">Volume Flow A(ml/Min)</system:String>
     <system:String x:Key="InertGas.Application.VolumeFlowB">Volume Flow B(ml/Min)</system:String>
     <system:String x:Key="InertGas.Application.WorkingDirectory">Working Directory:</system:String>
+    <system:String x:Key="InertGas.Application.WorkingPhases">Working Phases</system:String>
     
 </ResourceDictionary>

@@ -7,6 +7,7 @@
     xmlns:themes="clr-namespace:InertGas.Application.Themes"
     xmlns:commonModel="clr-namespace:InertGas.Common.Model;assembly=InertGas.Common"
     xmlns:appStages="clr-namespace:InertGas.Application.UI.ApplicationStages"
+    xmlns:converters="clr-namespace:InertGas.Application.Themes.Converters"
     d:DataContext="{d:DesignInstance Type=appStages:ParameterSettingViewModel}"
     mc:Ignorable="d" 
     d:DesignHeight="450"
@@ -28,7 +29,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
-            <ColumnDefinition />
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
@@ -37,22 +38,77 @@
             <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
-            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="{StaticResource InertGas.DefaultMarginGridLength}"/>
         </Grid.RowDefinitions>
         <TextBlock
             Grid.Row="0"
+            Grid.Column="0"
+            HorizontalAlignment="Center">
+            <Run Text="{StaticResource InertGas.Application.VolumeFlowA}" />
+            <Run Text="{StaticResource InertGas.Application.SetVolumeFlowThreshold}" />
+        </TextBlock>
+        <TextBox
+            Grid.Row="0"
+            Grid.Column="2"
+            Text="{Binding AppModel.VolumeFlowAThreshold}">
+        </TextBox>
+        <themes:ImageButton
+            Grid.Row="0"
+            Grid.Column="4"
+            Style="{StaticResource InertGas.ImageButton}"
+            Content="{StaticResource InertGas.Common.OK}"
+            Command="{Binding SetVolumeFlowAThresholdCommand}"
+            ImageSource="{StaticResource InertGas.OkayIcon}">
+        </themes:ImageButton>
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="0"
+            HorizontalAlignment="Center">
+            <Run Text="{StaticResource InertGas.Application.VolumeFlowB}" />
+            <Run Text="{StaticResource InertGas.Application.SetVolumeFlowThreshold}" />
+        </TextBlock>
+        <TextBox
+            Grid.Row="2"
+            Grid.Column="2"
+            Text="{Binding AppModel.VolumeFlowBThreshold}">
+        </TextBox>
+        <themes:ImageButton
+            Grid.Row="2"
+            Grid.Column="4"
+            Style="{StaticResource InertGas.ImageButton}"
+            Content="{StaticResource InertGas.Common.OK}"
+            Command="{Binding SetVolumeFlowBThresholdCommand}"
+            ImageSource="{StaticResource InertGas.OkayIcon}">
+        </themes:ImageButton>
+        <TextBlock
+            Grid.Row="4"
             Grid.Column="0"
             HorizontalAlignment="Center">
             <Run Text="{StaticResource InertGas.Application.CharcoalColumnTemperature}" />
             <Run Text="{StaticResource InertGas.Application.SetTemperatureThreshold}" />
         </TextBlock>
         <TextBox
-            Grid.Row="0"
+            Grid.Row="4"
             Grid.Column="2"
-            Text="{Binding CharcoalColumnTemperatureThreshold}">
+            Text="{Binding AppModel.CharcoalColumnTemperatureThreshold}">
         </TextBox>
         <themes:ImageButton
-            Grid.Row="0"
+            Grid.Row="4"
             Grid.Column="4"
             Style="{StaticResource InertGas.ImageButton}"
             Content="{StaticResource InertGas.Common.OK}"
@@ -60,24 +116,108 @@
             ImageSource="{StaticResource InertGas.OkayIcon}">
         </themes:ImageButton>
         <TextBlock
-            Grid.Row="2"
+            Grid.Row="6"
             Grid.Column="0"
             HorizontalAlignment="Center">
             <Run Text="{StaticResource InertGas.Application.Column4A5ATemperature}" />
             <Run Text="{StaticResource InertGas.Application.SetTemperatureThreshold}" />
         </TextBlock>
         <TextBox
-            Grid.Row="2"
+            Grid.Row="6"
             Grid.Column="2"
-            Text="{Binding Column4A5ATemperatureThreshold}">
+            Text="{Binding AppModel.Column4A5ATemperatureThreshold}">
         </TextBox>
         <themes:ImageButton
-            Grid.Row="2"
+            Grid.Row="6"
             Grid.Column="4"
             Style="{StaticResource InertGas.ImageButton}"
             Content="{StaticResource InertGas.Common.OK}"
             Command="{Binding SetColumn4A5ATemperatureThresholdCommand}"
             ImageSource="{StaticResource InertGas.OkayIcon}">
         </themes:ImageButton>
+        <TextBlock
+            Grid.Row="8"
+            Grid.Column="0"
+            HorizontalAlignment="Center"
+            Text="{StaticResource InertGas.Application.IsPneumaticPumpOneInUse}">
+        </TextBlock>
+        <RadioButton
+            Grid.Row="8"
+            Grid.Column="2"
+            GroupName="IsPneumaticPumpOneInUseSwitch"
+            Content="True"
+            IsChecked="{Binding AppModel.IsPneumaticPumpOneInUse}" >
+        </RadioButton>
+        <RadioButton
+            Grid.Row="8"
+            Grid.Column="4"
+            GroupName="IsPneumaticPumpOneInUseSwitch"
+            Content="False"
+            IsChecked="{Binding AppModel.IsPneumaticPumpOneInUse, Converter={converters:BooleanInverterConverter}}">
+        </RadioButton>
+        <TextBlock
+            Grid.Row="10"
+            Grid.Column="0"
+            HorizontalAlignment="Center"
+            Text="{StaticResource InertGas.Application.IsPneumaticPumpTwoInUse}">
+        </TextBlock>
+        <RadioButton
+            Grid.Row="10"
+            Grid.Column="2"
+            GroupName="IsPneumaticPumpTwoInUseSwitch"
+            Content="True"
+            IsChecked="{Binding AppModel.IsPneumaticPumpTwoInUse}" >
+        </RadioButton>
+        <RadioButton
+            Grid.Row="10"
+            Grid.Column="4"
+            GroupName="IsPneumaticPumpTwoInUseSwitch"
+            Content="False"
+            IsChecked="{Binding AppModel.IsPneumaticPumpTwoInUse, Converter={converters:BooleanInverterConverter}}">
+        </RadioButton>
+        <TextBlock
+            Grid.Row="12"
+            Grid.Column="0"
+            HorizontalAlignment="Center"
+            Text="{StaticResource InertGas.Application.CollectionDuration}">
+        </TextBlock>
+        <TextBox
+            Grid.Row="12"
+            Grid.Column="2"
+            Text="{Binding AppModel.CollectionDuration}">
+        </TextBox>
+        <TextBlock
+            Grid.Row="14"
+            Grid.Column="0"
+            HorizontalAlignment="Center"
+            Text="{StaticResource InertGas.Application.PurificationDuration}">
+        </TextBlock>
+        <TextBox
+            Grid.Row="14"
+            Grid.Column="2"
+            Text="{Binding AppModel.PurificationDuration}">
+        </TextBox>
+        <TextBlock
+            Grid.Row="16"
+            Grid.Column="0"
+            HorizontalAlignment="Center"
+            Text="{StaticResource InertGas.Application.PurificationHeatingDuration}">
+        </TextBlock>
+        <TextBox
+            Grid.Row="16"
+            Grid.Column="2"
+            Text="{Binding AppModel.PurificationHeatingDuration}">
+        </TextBox>
+        <TextBlock
+            Grid.Row="18"
+            Grid.Column="0"
+            HorizontalAlignment="Center"
+            Text="{StaticResource InertGas.Application.ExcitationHeatingDuration}">
+        </TextBlock>
+        <TextBox
+            Grid.Row="18"
+            Grid.Column="2"
+            Text="{Binding AppModel.ExcitationHeatingDuration}">
+        </TextBox>
     </Grid>
 </UserControl>
