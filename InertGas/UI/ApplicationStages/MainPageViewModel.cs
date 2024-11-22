@@ -190,7 +190,7 @@ namespace InertGas.Application.UI.ApplicationStages
             var plcControls = AppModel.HardwareControls.Where(x => x.HardwareType == HardwareTypes.Plc).ToList();
             plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.FiveWayValve && x.PlcValve.Number == 1).FirstOrDefault().IsEnabled = true;
             plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 1).FirstOrDefault().IsEnabled = true;
-            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 3).FirstOrDefault().IsEnabled = true;
+            plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 2).FirstOrDefault().IsEnabled = true;
             plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.PneumaticPump).ToList().ForEach(x => x.IsEnabled = true);
         }
 
@@ -308,7 +308,7 @@ namespace InertGas.Application.UI.ApplicationStages
             workingPhaseActions_[WorkingPhases.CollectionStart].Add(() => plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 1).FirstOrDefault().IsOn = true);
             if (AppModel.IsPneumaticPumpOneInUse)
                 workingPhaseActions_[WorkingPhases.CollectionStart].Add(() => plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.PneumaticPump && x.PlcValve.Number == 1).FirstOrDefault().IsOn = true);
-            workingPhaseActions_[WorkingPhases.CollectionStart].Add(() => plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 3).FirstOrDefault().IsOn = true);
+            workingPhaseActions_[WorkingPhases.CollectionStart].Add(() => plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 2).FirstOrDefault().IsOn = true);
             if (AppModel.IsPneumaticPumpTwoInUse)
                 workingPhaseActions_[WorkingPhases.CollectionStart].Add(() => plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.PneumaticPump && x.PlcValve.Number == 1).FirstOrDefault().IsOn = true);
         }
@@ -323,7 +323,7 @@ namespace InertGas.Application.UI.ApplicationStages
                 workingPhaseActions_[WorkingPhases.CollectionEnd].Add(() => plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.PneumaticPump && x.PlcValve.Number == 1).FirstOrDefault().IsOn = false);
 
             workingPhaseActions_[WorkingPhases.CollectionEnd].Add(() => plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 1).FirstOrDefault().IsOn = false);
-            workingPhaseActions_[WorkingPhases.CollectionEnd].Add(() => plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 3).FirstOrDefault().IsOn = false);
+            workingPhaseActions_[WorkingPhases.CollectionEnd].Add(() => plcControls.Where(x => x.PlcValve.ControlType == PlcControlTypes.ElectricalValve && x.PlcValve.Number == 2).FirstOrDefault().IsOn = false);
 
         }
 

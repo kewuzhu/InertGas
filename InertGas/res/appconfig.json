@@ -48,11 +48,6 @@
         {
           "ControlType": "ElectricalValve",
           "Number": 2,
-          "Address": 16
-        },
-        {
-          "ControlType": "ElectricalValve",
-          "Number": 3,
           "Address": 17
         },
         {

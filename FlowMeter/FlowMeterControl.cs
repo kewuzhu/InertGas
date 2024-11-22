@@ -131,12 +131,12 @@ namespace InertGas.FlowMeter
             string data = Encoding.UTF8.GetString(response.ToArray());
             List<string> dataList = new List<string>(data.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
 
-            if (dataList.Count >= 7)
+            if (dataList.Count > 7)
             {
                 string pressure = dataList[1];
                 string volumeFlow = dataList[3];
-                string threshold = dataList[4];
-                string totalFlow = dataList[5];
+                string threshold = dataList[5];
+                string totalFlow = dataList[6];
 
                 logger_.Info($"Extracted value: Pressure{pressure} VolumeFlow {volumeFlow},Threshold {threshold} TotalFlow {totalFlow}");
                 VolumeFlowReceived?.Invoke(this, new List<string>() { pressure, volumeFlow, totalFlow });
