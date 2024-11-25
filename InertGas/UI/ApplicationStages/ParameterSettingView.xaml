@@ -29,9 +29,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition />
             <ColumnDefinition Width="{StaticResource InertGas.DefaultMarginGridLength}"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
