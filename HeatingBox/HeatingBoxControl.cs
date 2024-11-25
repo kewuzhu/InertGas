@@ -118,11 +118,9 @@ namespace InertGas.HeatingBox
                         break;
                     case CommandTypes.StopHeating:
                         isCommandSuccessful = await WriteStopHeatingCommand(cmd);
-                        isHeating_ = !isCommandSuccessful;
                         break;
                     case CommandTypes.StartHeating:
                         isCommandSuccessful = await WriteStartHeatingCommand(cmd);
-                        isHeating_ = isCommandSuccessful;
                         break;
                     default:
                         isCommandSuccessful = false;
@@ -152,9 +150,6 @@ namespace InertGas.HeatingBox
 
         private async Task<bool> WriteStopHeatingCommand(CommandTypes cmd)
         {
-            if (!isHeating_)
-                return true;
-
             var command = ConcatCommandWithCRC(StopHeatingCommand);
             serialPort_.Write(command, 0, command.Length);
             return await GetResponse(cmd);
@@ -162,9 +157,6 @@ namespace InertGas.HeatingBox
 
         private async Task<bool> WriteStartHeatingCommand(CommandTypes cmd)
         {
-            if (isHeating_)
-                return false;
-
             var command = ConcatCommandWithCRC(StartHeatingCommand);
             serialPort_.Write(command, 0, command.Length);
             return await GetResponse(cmd);
@@ -368,6 +360,5 @@ namespace InertGas.HeatingBox
         private System.Timers.Timer temperatureReadingTimer_;
         private SerialPortStream serialPort_;
         private string comPort_;
-        private bool isHeating_;
     }
 }
